@@ -2,7 +2,7 @@
   <div class="relative -top-20 carousel w-full h-screen bg-neutral/5">
   <div id="slide1" class="carousel-item relative w-full">
     <div class="hero min-h-screen px-48">
-    <div class="hero-content flex-col lg:flex-row">
+      <div class="hero-content flex-col lg:flex-row">
       <img src="https://picsum.photos/700/400" class="max-w-lg mr-8 rounded-lg shadow-2xl" />
       <div>
         <h1 class="text-5xl text-base-100 font-bold">Encuentra cursos, genera dinero con ellos</h1>
@@ -53,6 +53,6 @@ export default {
   components: {
     Icon,
     Tape
-}
+  }
 }
 </script>

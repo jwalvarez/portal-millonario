@@ -1,18 +1,11 @@
-<script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from "./components/HelloWorld.vue";
-import Nav from "./components/Nav.vue";
-import Drawer from "./components/Drawer.vue";
-</script>
-
 <template>
+<img class="absolute w-full -top-72" src="./assets/bg_hero.png">
 <div class="drawer drawer-end">
-  <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
+  <input id="my-drawer-4" type="checkbox" class="drawer-toggle" :checked="checked"/>
   <div class="drawer-content">
     <!-- Page content here -->
     <!-- TODO: Convert this as a separated component  -->
-    <div class="sticky top-0 z-50 navbar bg-accent/70 backdrop-blur-xl px-48 py-4">
+    <div class="sticky top-0 z-50 navbar bg-accent/10 backdrop-blur-xl px-48 py-1">
     <div class="flex-1">
       <div class="avatar placeholder">
         <div class="bg-base-100/10 text-neutral-content rounded-full w-12">
@@ -41,27 +34,74 @@ import Drawer from "./components/Drawer.vue";
       </ul>
     </div>
     <div class="flex-none">
-    <label for="my-drawer-4" class="btn btn-square btn-ghost text-base-100">
+    <!-- for="my-drawer-4" -->
+    <label @click="togleMenu" class="btn btn-square btn-ghost text-base-100">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 26 26" class="inline-block w-8 h-8 stroke-current my-auto"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
     </label>
   </div>
   </div>
-    <img class="absolute w-full -top-72" src="./assets/bg_hero.png">
     <router-view />
   </div> 
   <div class="drawer-side">
-    <label for="my-drawer-4" class="drawer-overlay"></label>
-    <ul class="menu p-4 overflow-y-auto w-4/12 bg-accent text-base-100">
+    <!-- for="my-drawer-4" -->
+    <label @click="togleMenu" class="drawer-overlay"></label>
+    <div class="menu overflow-y-auto w-4/12 bg-accent pt-8">
       <!-- Sidebar content here -->
-      <nav>
-        <router-link class="text-lg text-base-100 font-bold" to="/">Cursos</router-link>&nbsp;
-        <router-link class="text-lg text-base-100 font-bold" to="/goarbit">Goarbit</router-link>&nbsp;
+      <nav class="p-10 grid grid-cols-2">
+          <router-link 
+            v-for="(item, index) in menu" 
+            :to="{path:item.url}" 
+            :key="index" 
+            @click="togleMenu"
+s            class="p-8 mr-4 mb-4 bg-base-100/10 rounded-xl text-lg text-base-100 font-bold hover:bg-success hover:underline cursor-pointer transition-all duration-300"
+            
+          >
+            <div>
+              {{item.title}}
+            </div>
+          </router-link>
       </nav>
-      <li><a>Sidebar Item 1</a></li>&nbsp;
-      <li><a>Sidebar Item 2</a></li>
-    </ul>
+    </div>
   </div>
 </div>
 </template>
+
+<script>
+  import HelloWorld from "./components/HelloWorld.vue";
+  import Nav from "./components/Nav.vue";
+  import Drawer from "./components/Drawer.vue";
+  export default {
+  components: {
+    Nav,
+    Drawer
+  },
+  data() {
+    return {
+      checked: false,
+      menu: [
+        {
+          title: "Cursos",
+          url: "/"
+        },
+        {
+          title: "Goarbit",
+          url: "/goarbit"
+        },
+        {
+          title: "Publicidad",
+          url: "/goarbit"
+        },
+      ]
+    }
+  },
+  methods: {
+    togleMenu: function() {
+      this.checked = !this.checked;
+    },
+  }
+}
+
+</script>
+
 
 <style></style>
