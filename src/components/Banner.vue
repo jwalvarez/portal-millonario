@@ -1,9 +1,20 @@
 <template>
-  <div class="relative -top-20 carousel w-full h-screen bg-neutral">
+  <div class="relative -top-20 carousel w-full h-screen bg-neutral/5">
   <div id="slide1" class="carousel-item relative w-full">
-    <h2 class="text-6xl text-info font-black mx-auto my-auto">
-      Banner principal
-    </h2>
+    <div class="hero min-h-screen px-48">
+    <div class="hero-content flex-col lg:flex-row">
+      <img src="https://picsum.photos/700/400" class="max-w-lg mr-8 rounded-lg shadow-2xl" />
+      <div>
+        <h1 class="text-5xl text-base-100 font-bold">Encuentra cursos, genera dinero con ellos</h1>
+        <div class="flex mt-6">
+          <Icon/>
+          <Icon/>
+          <Icon/>
+          <Icon/>
+        </div>
+      </div>
+    </div>
+    </div>
     <!-- <img src="https://api.lorem.space/image/car?w=800&h=200&hash=8B7BCDC2" class="w-full"> /  -->
     <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
       <a href="#slide3" class="btn btn-circle">❮</a> 
@@ -31,4 +42,17 @@
     </div>
   </div> 
 </div>
+  <Tape/>
 </template>
+
+<script>
+import Icon from './Icon.vue';
+import Tape from './Tape.vue'
+
+export default {
+  components: {
+    Icon,
+    Tape
+}
+}
+</script>
