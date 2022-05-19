@@ -1,5 +1,5 @@
 <template>
-  <img class="absolute w-full -top-72" src="./assets/bg_hero.png">
+  <!-- <img class="absolute w-full -top-72" src="./assets/bg_hero.png"> -->
   <!-- <div class="absolute">
     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" id="blobSvg"
       style="opacity: 1;">
