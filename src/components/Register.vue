@@ -4,6 +4,8 @@ import PrimaryButton from '../base/PrimaryButton.vue';
 import Icon from './Icon.vue';
 import TextButton from '../base/TextButton.vue'
 
+import axios from 'axios'
+
 const submitted = ref(false)
 const namm = ref("asldjasljdlaksj")
 const formData = ref({})
@@ -11,8 +13,53 @@ const icons = ref("")
 const submitHandler = async () => {
   // Login User request here
   await new Promise((r) => setTimeout(r, 1000))
-  console.log(formData)
+  console.log(formData["full_name"])
   submitted.value = true
+
+  axios.get("https://jsonplaceholder.typicode.com/todos/1").then((result) => {
+    console.log(result.data);
+  })
+
+  var data = JSON.stringify({
+    "full_name": "Titulo video 1",
+    "email": "jwalvarez@gmail.com",
+    "password": "trading",
+    "contacts": [
+      {
+        "first_name": "Marcos",
+        "last_name": "Castillo",
+        "email": "jwalvarez@gmail.com",
+        "phone": {
+          "indicative": "57",
+          "number": "3006003345",
+          "extension": "132"
+        }
+      }
+    ],
+    "referred_users": [
+      "31",
+      "42",
+      "98"
+    ]
+  });
+
+  var config = {
+    method: 'post',
+    url: 'https://portal-millonario.free.beeceptor.com/users',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: data
+  };
+
+  axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
 }
 
 </script>
