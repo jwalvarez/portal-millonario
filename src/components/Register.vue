@@ -7,7 +7,7 @@ const submitted = ref(false)
 const namm = ref("asldjasljdlaksj")
 const icons = ref("")
 const submitHandler = async () => {
-  // Login User request here
+  // Create User request here
   await new Promise((r) => setTimeout(r, 1000))
   console.log(formData)
   submitted.value = true
@@ -60,7 +60,15 @@ const submitHandler = async () => {
       class="my-2 px-16 py-8 content-center bg-accent/80 rounded-xl border border-base-100/20 text-base-100 shadow-xl">
       <FormKit :actions="false" type="form" v-model="formData" :form-class="submitted ? 'hide' : 'show'"
         @submit="submitHandler">
-        <h1 class="mb-6 text-base-100 text-3xl font-black">Iniciar sesión</h1>
+        <h1 class="mb-6 text-base-100 text-3xl font-black">Crear una nueva cuenta</h1>
+        <FormKit type="text" name="name" placeholder="Nombre completo" validation="required" :validation-messages="{
+          required: 'El nombre es requerido.',
+        }" :classes="{
+  outer: 'mb-3',
+  inner: 'bg-[#292E36]/30 rounded-xl mb-1',
+  input: 'w-full h-[34px] px-3 border-none text-base-100 text-white placeholder-text-gray-200',
+  validation: 'text-blue-300'
+}" />
         <FormKit type="text" name="email" placeholder="Correo electrónico" validation="required|email"
           :validation-messages="{
             required: 'El correo eléctronico es requerido.',
@@ -82,16 +90,28 @@ const submitHandler = async () => {
   input: 'w-full h-[34px] px-3 border-none text-base-100 text-white placeholder-text-gray-200',
   validation: 'text-blue-300'
 }" />
+        <FormKit type="password" name="password_confirm" placeholder="Confirme contraseña" validation="required|confirm"
+          :validation-messages="{
+            required: 'La contraseña es requerida',
+            confirm: 'Las contraseñas deben coincidir.'
+          }" :classes="{
+  outer: 'mb-3',
+  inner: 'bg-[#292E36]/30 rounded-xl mb-1',
+  input: 'w-full h-[34px] px-3 border-none text-base-100 text-white placeholder-text-gray-200',
+  validation: 'text-blue-300'
+}" />
         <div class="form-control mb-3">
           <label class="label cursor-pointer">
-            <span class="text-base-100 text-md">¿Olvidaste tu contraseña? <a
-                class="text-success hover:text-success hover:underline" href="#">Recuperar contraseña</a></span>
+            <input type="checkbox" checked="checked" class="checkbox checkbox-primary mr-4" />
+            <span class="text-base-100 text-md">Estoy de acuerdo con los <a
+                class="text-success hover:text-success hover:underline" href="#">terminos y
+                condiciones.</a></span>
           </label>
         </div>
-        <!-- todo: Disable button when sending request (login user) -->
-        <PrimaryButton label="Iniciar sesión" />
-        <span class="flex justify-center text-base-100 text-xs py-2">¿No tienes una cuenta?&nbsp;<a
-            class="text-success hover:text-success hover:underline" href="/register">Crear una nueva cuenta</a></span>
+        <!-- todo: Disable button when sending request (create new user) -->
+        <PrimaryButton label="Crear cuenta" />
+        <span class="flex justify-center text-base-100 text-xs py-2">¿Ya tienes una cuenta?&nbsp;<a
+            class="text-success hover:text-success hover:underline" href="/login">Iniciar sesión</a></span>
       </FormKit>
       <div v-if="submitted">
         <h2>Submission successful!</h2>
