@@ -1,9 +1,11 @@
 <template>
-  <div class="relative -top-20 carousel w-full h-screen bg-neutral/5">
+
+  <div class="relative -top-20 carousel w-full h-screen">
+    <img class="absolute h-full w-auto object-fit -top-22 right-0" src="../assets/bg_hero.png">
     <div id="slide1" class="carousel-item relative w-full">
       <div class="hero min-h-screen px-48">
         <div class="hero-content flex-col lg:flex-row">
-          <img src="https://picsum.photos/700/400" class="max-w-lg mr-8 rounded-lg shadow-2xl" />
+          <img src="https://picsum.photos/700/700" class="max-w-lg mr-8 rounded-lg shadow-2xl" />
           <div>
             <h1 class="text-5xl text-base-100 font-bold">Encuentra cursos, genera dinero con ellos</h1>
             <div class="flex mt-6">
@@ -42,7 +44,7 @@
       </div>
     </div>
   </div>
-  <Tape />
+  <!-- <Tape /> -->
 </template>
 
 <script>

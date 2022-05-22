@@ -21,14 +21,15 @@
     <div class="drawer-content">
       <!-- Page content here -->
       <!-- TODO: Convert this as a separated component  -->
-      <div class="sticky top-0 z-50 navbar bg-accent/10 backdrop-blur-xl px-48 py-1">
+      <div v-if="showNav" class="sticky top-0 z-50 navbar bg-accent/80 backdrop-blur-xl px-48 py-1">
         <div class="flex-1">
           <div class="avatar placeholder">
             <div class="bg-base-100/10 text-neutral-content rounded-full w-12">
-              <span class="text-xl">K</span>
+              <span class="text-xl">PM</span>
             </div>
           </div>
-          <router-link to="/" class="text-base-100 btn btn-ghost normal-case text-xl">Portal Millonario</router-link>
+          <router-link to="/" class="text-base-100 btn btn-ghost normal-case text-xl">Portal
+          </router-link>
         </div>
         <div class="flex-none">
           <ul class="menu menu-horizontal p-0 text-base-100">
@@ -118,6 +119,7 @@
 </template>
 
 <script>
+import { useRouter } from 'vue-router';
 import HelloWorld from "./components/HelloWorld.vue";
 import Nav from "./components/Nav.vue";
 import Drawer from "./components/Drawer.vue";
@@ -126,12 +128,18 @@ export default {
     Nav,
     Drawer
   },
+  computed: {
+    showNav() {
+      var route = this.$router.currentRoute.value.fullPath
+      return (route != '/register') ? true : false;
+    }
+  },
   data() {
     return {
       checked: false,
       menu: [
         {
-          title: "Cursos",
+          title: "Inicio",
           url: "/",
         },
         {
@@ -161,6 +169,26 @@ export default {
           url: "/s",
           img: "https://www.urbeconomica.com.mx/images/2020/criptos.jpg",
           progress: 5
+        },
+      ],
+      trading_courses: [
+        {
+          title: "Introduccion al trading by Andrés",
+          description: "Nunc malesuada euismod lectus. Duis condimentum tellus pellentesque turpis consequat ornare. Integer posuere dignissim quam, in vehicula orci maximus quis. Nunc sed arcu a lorem consequat feugiat in a sapien. ",
+          url: "/",
+          img: "https://www.urbeconomica.com.mx/images/2020/criptos.jpg",
+        },
+        {
+          title: "Opciones binarias",
+          description: "Nunc malesuada euismod lectus. Duis condimentum tellus pellentesque turpis consequat ornare. Integer posuere dignissim quam, in vehicula orci maximus quis. Nunc sed arcu a lorem consequat feugiat in a sapien. ",
+          url: "/goarbit",
+          img: "https://www.urbeconomica.com.mx/images/2020/criptos.jpg",
+        },
+        {
+          title: "¿Qué es GoArbit?",
+          description: "Nunc malesuada euismod lectus. Duis condimentum tellus pellentesque turpis consequat ornare. Integer posuere dignissim quam, in vehicula orci maximus quis. Nunc sed arcu a lorem consequat feugiat in a sapien. ",
+          url: "/s",
+          img: "https://www.urbeconomica.com.mx/images/2020/criptos.jpg",
         },
       ]
     }

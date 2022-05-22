@@ -65,7 +65,7 @@ const submitHandler = async () => {
 </script>
 
 <template>
-  <div class="absolute md:px-[20%] px-4 h-screen top-0">
+  <div class="absolute md:px-[14%] px-4 h-screen top-0">
 
     <img class="absolute h-screen top-0 right-0" src="../assets/bg_hero.png">
 
