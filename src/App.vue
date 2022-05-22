@@ -65,14 +65,51 @@
     <div class="drawer-side">
       <!-- for="my-drawer-4" -->
       <label @click="togleMenu" class="drawer-overlay"></label>
-      <div class="menu overflow-y-auto w-4/12 bg-accent pt-8">
+      <div class="menu overflow-y-auto w-4/12 bg-accent pt-8 px-10">
+
         <!-- Sidebar content here -->
-        <nav class="p-10 grid grid-cols-2">
-          <router-link v-for="(item, index) in menu" :to="{ path: item.url }" :key="index" @click="togleMenu" s
-            class="p-8 mr-4 mb-4 bg-base-100/10 rounded-xl text-lg text-base-100 font-bold hover:bg-success hover:underline cursor-pointer transition-all duration-300">
-            <div>
-              {{ item.title }}
+        <div class="flex mb-4 justify-between">
+          <div class="flex">
+            <img class="w-20 mask mask-squircle object-contain p-0 "
+              src="https://api.lorem.space/image/shoes?w=160&h=160" />
+            <div class="block my-auto ml-4">
+              <span class="text-base-100 text-md w-full">Hola 👋</span><br>
+              <router-link to="/login" class="text-base-100 font-bold text-xl w-full">Jhon Álvarez</router-link>
+              <!-- <span an class="text-base-100/20 normal-case my-0 text-xs w-full">@jwalvez</span> -->
             </div>
+          </div>
+          <span class="w-8 bg-primary rounded-full my-auto p-[6px] cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-gear-fill text-base-100"
+              viewBox="0 0 16 16">
+              <path
+                d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
+            </svg>
+          </span>
+        </div>
+        <div class="flex justify-between mt-4 items-baseline">
+          <h2 class="text-3xl text-base-100 font-bold">Mis cursos</h2>
+          <a class="text-success hover:text-success hover:underline" href="/courses">Ver todos</a>
+        </div>
+        <!-- todo: fix heigh of card -->
+        <nav class="carousel carousel-center my-4 space-x-4 bg-neutral rounded-box">
+          <router-link v-for="(item, index) in courses" :to="{ path: item.url }" :key="index" @click="togleMenu" s
+            class="carousel-item h-full items-center py-2 bg-base-100/5 rounded-3xl">
+            <div class="w-52 p-4">
+              <img class="h-full w-full object-cover rounded-xl mb-2" :src="item.img" alt="">
+              <h2 class="text-sm text-base-100 overflow-hidden whitespace-nowrap text-ellipsis w-auto">{{
+                  item.title
+              }}
+              </h2>
+              <progress class="mt-6 progress progress-primary w-full bg-black" :value="item.progress"
+                max="100"></progress>
+            </div>
+          </router-link>
+        </nav>
+        <h2 class="text-3xl text-base-100 font-bold mt-4">Menú</h2>
+        <nav class="grid grid-cols-3 my-4">
+          <router-link v-for="(item, index) in menu" :to="{ path: item.url }" :key="index" @click="togleMenu" s
+            class="flex justify-center items-center mr-2 hover:-translate-y-2 duration-200 bg-success rounded-lg h-10">
+            <h2 class="text-lg font-bold text-accent">{{ item.title }}</h2>
           </router-link>
         </nav>
       </div>
@@ -95,15 +132,35 @@ export default {
       menu: [
         {
           title: "Cursos",
-          url: "/"
+          url: "/",
         },
         {
           title: "Goarbit",
-          url: "/goarbit"
+          url: "/goarbit",
         },
         {
           title: "Publicidad",
-          url: "/goarbit"
+          url: "/goarbit",
+        },
+      ],
+      courses: [
+        {
+          title: "Introduccion al trading by Andrés",
+          url: "/",
+          img: "https://www.urbeconomica.com.mx/images/2020/criptos.jpg",
+          progress: 10
+        },
+        {
+          title: "Opciones binarias",
+          url: "/goarbit",
+          img: "https://www.urbeconomica.com.mx/images/2020/criptos.jpg",
+          progress: 22
+        },
+        {
+          title: "¿Qué es GoArbit?",
+          url: "/s",
+          img: "https://www.urbeconomica.com.mx/images/2020/criptos.jpg",
+          progress: 5
         },
       ]
     }
