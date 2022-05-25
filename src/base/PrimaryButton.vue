@@ -1,5 +1,5 @@
 <template lang="">
-  <button class="disbled btn w-full text-neutral bg-success hover:bg-success/80">{{label}}</button>
+  <button class="disbled btn w-full text-neutral normal-case bg-success hover:bg-success/80">{{label}}</button>
 </template>
 <script>
 export default {
@@ -7,7 +7,7 @@ export default {
     label: String,
     loading: Boolean
   }
-  
+
 }
 </script>
 <style lang="">

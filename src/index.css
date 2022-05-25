@@ -1,33 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+x
 html {
   scroll-behavior: smooth;
 }
 
 body{
-  @apply bg-accent h-screen;
+  @apply bg-[#090617] h-screen;
 }
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 14px;
   height: 10px;
 }
-
-/* Track */
 ::-webkit-scrollbar-track {
   @apply bg-black/30;
   @apply rounded-lg;
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
   @apply bg-primary;
   @apply rounded-lg;
 }
 
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-primary;
-}
+} */

@@ -5,10 +5,10 @@ import CourseCard from "./CourseCard.vue";
 
 <template>
   <Banner />
-  <h1 class="text-4xl text-base-100 font-black px-[10%]">Cursos de trading</h1>
-  <div class="flex py-4 space-x-6 mx-[10%] rounded-box overflow-x-scroll">
+  <h1 class="md:text-4xl text-2xl text-base-100 font-black px-[4%]">Cursos de trading</h1>
+  <div class="flex py-4 space-x-6 ml-[0%] px-[4%] rounded-box overflow-x-scroll">
     <div v-for="course in trading_courses"
-      class="carousel-item shadow-xl rounded-2xl h-90 w-[300px] m-auto hover:-translate-y-2 duration-300">
+      class="carousel-item shadow-xl rounded-2xl h-90 w-[300px] m-auto hover:md:-translate-y-2 duration-300">
       <CourseCard :img="course.img" :title="course.title" :description="course.description"
         :startDate="course.startDate" :tags="course.tags" />
     </div>

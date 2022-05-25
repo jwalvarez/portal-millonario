@@ -16,16 +16,29 @@
       </path>
     </svg>
   </div> -->
+
+  <!-- Put this part before </body> tag -->
+  <input type="checkbox" id="my-modal-3" class="modal-toggle" />
+  <label for="my-modal-3" class="transition-all duration-300 modal cursor-pointer bg-white/95">
+    <label class="md:modal-box md:shadow-none md:bg-transparent relative" for="">
+      <Register />
+    </label>
+  </label>
+
   <div class="drawer drawer-end">
     <input id="my-drawer-4" type="checkbox" class="drawer-toggle" :checked="checked" />
     <div class="drawer-content">
       <!-- Page content here -->
       <!-- TODO: Convert this as a separated component  -->
-      <div v-if="showNav" class="sticky top-0 z-50 navbar bg-accent/80 backdrop-blur-xl px-48 py-1">
-        <div class="flex-1">
+      <div v-if="showNav" class="sticky -top-1 z-50 navbar bg-[#090617]/90 backdrop-blur-xl md:px-48 px-0 py-1">
+        <div class="flex-1 mx-2">
           <div class="avatar placeholder">
             <div class="bg-base-100/10 text-neutral-content rounded-full w-12">
-              <span class="text-xl">PM</span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-currency-bitcoin w-8 h-8"
+                viewBox="0 0 16 16">
+                <path
+                  d="M5.5 13v1.25c0 .138.112.25.25.25h1a.25.25 0 0 0 .25-.25V13h.5v1.25c0 .138.112.25.25.25h1a.25.25 0 0 0 .25-.25V13h.084c1.992 0 3.416-1.033 3.416-2.82 0-1.502-1.007-2.323-2.186-2.44v-.088c.97-.242 1.683-.974 1.683-2.19C11.997 3.93 10.847 3 9.092 3H9V1.75a.25.25 0 0 0-.25-.25h-1a.25.25 0 0 0-.25.25V3h-.573V1.75a.25.25 0 0 0-.25-.25H5.75a.25.25 0 0 0-.25.25V3l-1.998.011a.25.25 0 0 0-.25.25v.989c0 .137.11.25.248.25l.755-.005a.75.75 0 0 1 .745.75v5.505a.75.75 0 0 1-.75.75l-.748.011a.25.25 0 0 0-.25.25v1c0 .138.112.25.25.25L5.5 13zm1.427-8.513h1.719c.906 0 1.438.498 1.438 1.312 0 .871-.575 1.362-1.877 1.362h-1.28V4.487zm0 4.051h1.84c1.137 0 1.756.58 1.756 1.524 0 .953-.626 1.45-2.158 1.45H6.927V8.539z" />
+              </svg>
             </div>
           </div>
           <router-link to="/" class="text-base-100 btn btn-ghost normal-case text-xl">Portal
@@ -33,18 +46,22 @@
         </div>
         <div class="flex-none">
           <ul class="menu menu-horizontal p-0 text-base-100">
-            <li class="flex-1 justify-end">
+            <li class="md:flex hidden justify-end">
               <input type="text" placeholder="Buscar curso" class="bg-black/20 input w-full mx-4 my-auto h-10" />
             </li>
             <!-- data-tip="@jwalvarez" class="tooltip tooltip-bottom" -->
 
             <li class="flex justify-end">
               <div class="flex btn-ghost">
-                <img class="w-10 mask mask-squircle object-contain p-0"
-                  src="https://api.lorem.space/image/shoes?w=160&h=160" />
+                <!-- <img class="w-10 mask mask-squircle object-contain p-0"
+                  src="https://api.lorem.space/image/shoes?w=160&h=160" /> -->
                 <div class="block">
-                  <router-link to="/login" class="text-success font-bold normal-case text-sm -mb-2 py-0 w-full">Iniciar
-                    sesión</router-link>
+                  <!-- <router-link to="/register" class="text-success font-bold normal-case text-sm -mb-2 py-0 w-full">Crear
+                    cuenta</router-link> -->
+                  <label for="my-modal-3"
+                    class="text-success font-bold normal-case text-sm -mb-2 py-0 w-full cursor-pointer">Crear
+                    cuenta</label>
+
                   <!-- <span an class="text-base-100/20 normal-case my-0 text-xs w-full">@jwalvez</span> -->
                 </div>
               </div>
@@ -66,12 +83,21 @@
     <div class="drawer-side">
       <!-- for="my-drawer-4" -->
       <label @click="togleMenu" class="drawer-overlay"></label>
-      <div class="menu overflow-y-auto w-4/12 bg-accent pt-8 px-10">
+      <div class="menu overflow-y-auto md:w-4/12 w-full bg-[#090617] px-6">
 
         <!-- Sidebar content here -->
+        <div class="flex justify-start py-6 cursor-pointer">
+          <span @click="togleMenu">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+              class="bi bi-x-lg w-6 h-6 text-base-100 hover:text-success" viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
+            </svg>
+          </span>
+        </div>
         <div class="flex mb-4 justify-between">
           <div class="flex">
-            <img class="w-20 mask mask-squircle object-contain p-0 "
+            <img class="md:w-20 w-16 mask mask-squircle object-contain p-0 "
               src="https://api.lorem.space/image/shoes?w=160&h=160" />
             <div class="block my-auto ml-4">
               <span class="text-base-100 text-md w-full">Hola 👋</span><br>
@@ -92,9 +118,9 @@
           <a class="text-success hover:text-success hover:underline" href="/courses">Ver todos</a>
         </div>
         <!-- todo: fix heigh of card -->
-        <nav class="carousel carousel-center my-4 space-x-4 bg-neutral rounded-box">
+        <nav class="carousel carousel-center my-4 space-x-4 rounded-box">
           <router-link v-for="(item, index) in courses" :to="{ path: item.url }" :key="index" @click="togleMenu" s
-            class="carousel-item h-full items-center py-2 bg-base-100/5 rounded-3xl">
+            class="carousel-item h-full items-center py-2 bg-base-100/10 rounded-3xl">
             <div class="w-52 p-4">
               <img class="h-full w-full object-cover rounded-xl mb-2" :src="item.img" alt="">
               <h2 class="text-sm text-base-100 overflow-hidden whitespace-nowrap text-ellipsis w-auto">{{
@@ -123,10 +149,12 @@ import { useRouter } from 'vue-router';
 import HelloWorld from "./components/HelloWorld.vue";
 import Nav from "./components/Nav.vue";
 import Drawer from "./components/Drawer.vue";
+import Register from './components/Register.vue';
 export default {
   components: {
     Nav,
-    Drawer
+    Drawer,
+    Register
   },
   computed: {
     showNav() {

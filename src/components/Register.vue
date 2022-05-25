@@ -65,13 +65,11 @@ const submitHandler = async () => {
 </script>
 
 <template>
-  <div class="absolute md:px-[14%] px-4 h-screen top-0">
 
-    <img class="absolute h-screen top-0 right-0" src="../assets/bg_hero.png">
+  <!-- <img class="absolute h-screen top-0 right-0" src="../assets/bg_hero.png"> -->
 
-    <div class="relative md:flex block h-full">
-      <div class="my-auto pr-20 w-9/12">
-        <h1 class="md:text-5xl text-3xl text-success font-black">Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  <!-- <div class="my-auto pr-20 w-9/12">
+        <h1 class="md:text-5xl text-2xl text-success font-black">Lorem ipsum dolor sit amet, consectetur adipiscing elit
         </h1>
         <div class="flex my-8">
           <div class="avatar-group -space-x-6">
@@ -102,70 +100,76 @@ const submitHandler = async () => {
         </div>
         <TextButton link="/" label="Conocer a los fundadores" />
 
-        <pre class="text-white" wrap>{{ formData }}</pre>
-      </div>
+      </div> -->
+  <!-- <pre class="text-white" wrap>{{ formData }}</pre> -->
 
-      <div
-        class="my-auto px-16 py-8 content-center bg-accent/90 rounded-xl border border-base-100/20 text-base-100 shadow-xl">
-        <FormKit :actions="false" type="form" v-model="formData" :form-class="submitted ? 'hide' : 'show'"
-          @submit="submitHandler">
-          <h1 class="mb-6 text-base-100 text-3xl font-black">Crear una nueva cuenta</h1>
-          <FormKit type="text" name="name" placeholder="Nombre completo" validation="required" :validation-messages="{
-            required: 'El nombre es requerido.',
-          }" :classes="{
+  <div
+    class="h-screen md:h-full md:my-auto md:px-16 px-6 py-8 content-center bg-gradient-to-tr from-black/95 via-accent to-[#090617] md:rounded-xl border border-base-100/20 text-base-100 shadow-xl">
+    <div class="flex justify-start pb-6 cursor-pointer">
+      <label for="my-modal-3">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+          class="bi bi-x-lg w-6 h-6 text-base-100 hover:text-success" viewBox="0 0 16 16">
+          <path fill-rule="evenodd"
+            d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
+        </svg>
+      </label>
+    </div>
+    <FormKit :actions="false" type="form" v-model="formData" :form-class="submitted ? 'hide' : 'show'"
+      @submit="submitHandler">
+      <h1 class="mb-6 text-base-100 text-3xl font-black">Crear una nueva cuenta</h1>
+      <FormKit type="text" name="name" placeholder="Nombre completo" validation="required" :validation-messages="{
+        required: 'El nombre es requerido.',
+      }" :classes="{
   outer: 'mb-3',
   inner: 'bg-[#292E36]/30 rounded-xl mb-1',
   input: 'w-full h-[34px] px-3 border-none text-base-100 text-white placeholder-text-gray-200',
   validation: 'text-blue-300'
 }" />
-          <FormKit type="text" name="email" placeholder="Correo electrónico" validation="required|email"
-            :validation-messages="{
-              required: 'El correo eléctronico es requerido.',
-              email: 'Correo electrónico invalido.',
-            }" :classes="{
+      <FormKit type="text" name="email" placeholder="Correo electrónico" validation="required|email"
+        :validation-messages="{
+          required: 'El correo eléctronico es requerido.',
+          email: 'Correo electrónico invalido.',
+        }" :classes="{
   outer: 'mb-3',
   inner: 'bg-[#292E36]/30 rounded-xl mb-1',
   input: 'w-full h-[34px] px-3 border-none text-base-100 text-white placeholder-text-gray-200',
   validation: 'text-blue-300'
 }" />
-          <FormKit type="password" name="password" validation="required|length:6|matches:/[^a-zA-Z]/"
-            :validation-messages="{
-              matches: 'Por favor, incluya al menos un símbolo',
-              required: 'La contraseña es requerida',
-              length: 'La contraseña debe tener mínimo 6 carácteres.'
-            }" placeholder="Contraseña" :classes="{
+      <FormKit type="password" name="password" validation="required|length:6|matches:/[^a-zA-Z]/" :validation-messages="{
+        matches: 'Por favor, incluya al menos un símbolo',
+        required: 'La contraseña es requerida',
+        length: 'La contraseña debe tener mínimo 6 carácteres.'
+      }" placeholder="Contraseña" :classes="{
   outer: 'mb-3',
   inner: 'bg-[#292E36]/30 rounded-xl mb-1',
   input: 'w-full h-[34px] px-3 border-none text-base-100 text-white placeholder-text-gray-200',
   validation: 'text-blue-300'
 }" />
-          <FormKit type="password" name="password_confirm" placeholder="Confirme contraseña"
-            validation="required|confirm" :validation-messages="{
-              required: 'La contraseña es requerida',
-              confirm: 'Las contraseñas deben coincidir.'
-            }" :classes="{
+      <FormKit type="password" name="password_confirm" placeholder="Confirme contraseña" validation="required|confirm"
+        :validation-messages="{
+          required: 'La contraseña es requerida',
+          confirm: 'Las contraseñas deben coincidir.'
+        }" :classes="{
   outer: 'mb-3',
   inner: 'bg-[#292E36]/30 rounded-xl mb-1',
   input: 'w-full h-[34px] px-3 border-none text-base-100 text-white placeholder-text-gray-200',
   validation: 'text-blue-300'
 }" />
-          <div class="form-control mb-3">
-            <label class="label cursor-pointer">
-              <input type="checkbox" checked="checked" class="checkbox checkbox-primary mr-4" />
-              <span class="text-base-100 text-md">Estoy de acuerdo con los <a
-                  class="text-success hover:text-success hover:underline" href="#">terminos y
-                  condiciones.</a></span>
-            </label>
-          </div>
-          <!-- todo: Disable button when sending request (create new user) -->
-          <PrimaryButton label="Crear cuenta" />
-          <span class="flex justify-center text-base-100 text-xs py-2">¿Ya tienes una cuenta?&nbsp;<a
-              class="text-success hover:text-success hover:underline" href="/login">Iniciar sesión</a></span>
-        </FormKit>
-        <div v-if="submitted">
-          <h2>Submission successful!</h2>
-        </div>
+      <div class="form-control mb-3">
+        <label class="label cursor-pointer">
+          <input type="checkbox" checked="checked" class="checkbox checkbox-primary mr-4" />
+          <span class="text-base-100 text-md">Estoy de acuerdo con los <a
+              class="text-success hover:text-success hover:underline" href="#">terminos y
+              condiciones.</a></span>
+        </label>
       </div>
+      <!-- todo: Disable button when sending request (create new user) -->
+      <PrimaryButton label="Crear cuenta" />
+      <span class="flex justify-center text-base-100 text-xs py-2">¿Ya tienes una cuenta?&nbsp;<a
+          class="text-success hover:text-success hover:underline" href="/login">Iniciar sesión</a></span>
+    </FormKit>
+    <div v-if="submitted">
+      <h2>Submission successful!</h2>
     </div>
   </div>
 </template>
