@@ -18,10 +18,16 @@
   </div> -->
 
   <!-- Put this part before </body> tag -->
-  <input type="checkbox" id="my-modal-3" class="modal-toggle" />
-  <label for="my-modal-3" class="transition-all duration-300 modal cursor-pointer bg-white/95">
+
+  <label id="registration-modal" class="transition-all duration-300 modal cursor-pointer bg-[#090617]/95">
     <label class="md:modal-box md:shadow-none md:bg-transparent relative" for="">
       <Register />
+    </label>
+  </label>
+
+  <label id="login-modal" class="transition-all duration-300 modal cursor-pointer bg-[#090617]/95">
+    <label class="md:modal-box md:shadow-none md:bg-transparent relative" for="">
+      <Login />
     </label>
   </label>
 
@@ -55,14 +61,17 @@
               <div class="flex btn-ghost">
                 <!-- <img class="w-10 mask mask-squircle object-contain p-0"
                   src="https://api.lorem.space/image/shoes?w=160&h=160" /> -->
-                <div class="block">
-                  <!-- <router-link to="/register" class="text-success font-bold normal-case text-sm -mb-2 py-0 w-full">Crear
-                    cuenta</router-link> -->
+                <!-- <div class="block">
                   <label for="my-modal-3"
                     class="text-success font-bold normal-case text-sm -mb-2 py-0 w-full cursor-pointer">Crear
                     cuenta</label>
-
-                  <!-- <span an class="text-base-100/20 normal-case my-0 text-xs w-full">@jwalvez</span> -->
+                </div> -->
+                <div class="block">
+                  <!-- <router-link to="/register" class="text-success font-bold normal-case text-sm -mb-2 py-0 w-full">Crear
+                    cuenta</router-link> -->
+                  <label @click="openLoginModal"
+                    class="text-success font-bold normal-case text-sm -mb-2 py-0 w-full cursor-pointer">Iniciar
+                    sesión</label>
                 </div>
               </div>
             </li>
@@ -150,11 +159,13 @@ import HelloWorld from "./components/HelloWorld.vue";
 import Nav from "./components/Nav.vue";
 import Drawer from "./components/Drawer.vue";
 import Register from './components/Register.vue';
+import Login from './components/Login.vue';
 export default {
   components: {
     Nav,
     Drawer,
-    Register
+    Register,
+    Login
   },
   computed: {
     showNav() {
@@ -224,6 +235,12 @@ export default {
   methods: {
     togleMenu: function () {
       this.checked = !this.checked;
+    },
+    openLoginModal: function () {
+      document.getElementById("login-modal").classList.add("modal-open");
+    },
+    openRegistrationModal: function () {
+      document.getElementById("registration-modal").classList.add("modal-open");
     },
   }
 }

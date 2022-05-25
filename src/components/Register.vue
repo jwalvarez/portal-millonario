@@ -62,6 +62,15 @@ const submitHandler = async () => {
 
 }
 
+const closeRegistrationModal = () => {
+  document.getElementById("registration-modal").classList.remove("modal-open");
+}
+
+const openLoginModal = () => {
+  closeRegistrationModal()
+  document.getElementById("login-modal").classList.add("modal-open");
+}
+
 </script>
 
 <template>
@@ -104,9 +113,9 @@ const submitHandler = async () => {
   <!-- <pre class="text-white" wrap>{{ formData }}</pre> -->
 
   <div
-    class="h-screen md:h-full md:my-auto md:px-16 px-6 py-8 content-center bg-gradient-to-tr from-black/95 via-accent to-[#090617] md:rounded-xl border border-base-100/20 text-base-100 shadow-xl">
+    class="h-screen md:h-full md:my-auto md:px-16 px-6 py-8 content-center bg-gradient-to-tr from-black/95 to-[#090617] md:rounded-xl md:border md:border-base-100/20 text-base-100 shadow-xl">
     <div class="flex justify-start pb-6 cursor-pointer">
-      <label for="my-modal-3">
+      <label @click="closeRegistrationModal">
         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
           class="bi bi-x-lg w-6 h-6 text-base-100 hover:text-success" viewBox="0 0 16 16">
           <path fill-rule="evenodd"
@@ -165,8 +174,8 @@ const submitHandler = async () => {
       </div>
       <!-- todo: Disable button when sending request (create new user) -->
       <PrimaryButton label="Crear cuenta" />
-      <span class="flex justify-center text-base-100 text-xs py-2">¿Ya tienes una cuenta?&nbsp;<a
-          class="text-success hover:text-success hover:underline" href="/login">Iniciar sesión</a></span>
+      <span class="flex justify-center text-base-100 text-sm py-2">¿Ya tienes una cuenta?&nbsp;
+        <a @click="openLoginModal" class="text-success hover:text-success hover:underline">Iniciar sesión</a></span>
     </FormKit>
     <div v-if="submitted">
       <h2>Submission successful!</h2>
