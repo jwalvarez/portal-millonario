@@ -79,7 +79,7 @@
         </div>
         <div class="flex-none">
           <!-- for="my-drawer-4" -->
-          <label @click="togleMenu" class="btn btn-square btn-ghost text-base-100">
+          <label @click="toggleMenu" class="btn btn-square btn-ghost text-base-100">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 26 26"
               class="inline-block w-8 h-8 stroke-current my-auto">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -91,12 +91,12 @@
     </div>
     <div class="drawer-side">
       <!-- for="my-drawer-4" -->
-      <label @click="togleMenu" class="drawer-overlay"></label>
+      <label @click="toggleMenu" class="drawer-overlay"></label>
       <div class="menu overflow-y-auto md:w-4/12 w-full bg-[#090617] px-6">
 
         <!-- Sidebar content here -->
         <div class="flex justify-start py-6 cursor-pointer">
-          <span @click="togleMenu">
+          <span @click="toggleMenu">
             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
               class="bi bi-x-lg w-6 h-6 text-base-100 hover:text-success" viewBox="0 0 16 16">
               <path fill-rule="evenodd"
@@ -110,7 +110,8 @@
               src="https://api.lorem.space/image/shoes?w=160&h=160" />
             <div class="block my-auto ml-4">
               <span class="text-base-100 text-md w-full">Hola 👋</span><br>
-              <router-link to="/login" class="text-base-100 font-bold text-xl w-full">Jhon Álvarez</router-link>
+              <router-link to="/perfil" @click="toggleMenu" class="text-base-100 font-bold text-xl w-full">Jhon Álvarez
+              </router-link>
               <!-- <span an class="text-base-100/20 normal-case my-0 text-xs w-full">@jwalvez</span> -->
             </div>
           </div>
@@ -128,7 +129,7 @@
         </div>
         <!-- todo: fix heigh of card -->
         <nav class="carousel carousel-center my-4 space-x-4 rounded-box">
-          <router-link v-for="(item, index) in courses" :to="{ path: item.url }" :key="index" @click="togleMenu" s
+          <router-link v-for="(item, index) in courses" :to="{ path: item.url }" :key="index" @click="toggleMenu" s
             class="carousel-item h-full items-center py-2 bg-base-100/10 rounded-3xl">
             <div class="w-52 p-4">
               <img class="h-full w-full object-cover rounded-xl mb-2" :src="item.img" alt="">
@@ -143,7 +144,7 @@
         </nav>
         <h2 class="text-3xl text-base-100 font-bold mt-4">Menú</h2>
         <nav class="grid grid-cols-3 my-4">
-          <router-link v-for="(item, index) in menu" :to="{ path: item.url }" :key="index" @click="togleMenu" s
+          <router-link v-for="(item, index) in menu" :to="{ path: item.url }" :key="index" @click="toggleMenu" s
             class="flex justify-center items-center mr-2 hover:-translate-y-2 duration-200 bg-success rounded-lg h-10">
             <h2 class="text-lg font-bold text-accent">{{ item.title }}</h2>
           </router-link>
@@ -233,7 +234,7 @@ export default {
     }
   },
   methods: {
-    togleMenu: function () {
+    toggleMenu: function () {
       this.checked = !this.checked;
     },
     openLoginModal: function () {

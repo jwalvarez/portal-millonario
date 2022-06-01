@@ -1,23 +1,23 @@
 <template>
-    <div class="w-[70%] mx-auto">
+    <div class="md:w-[70%] w-[90%] mx-auto">
         <div class="text-center relative mt-20">
-            <div class="absolute z-20 -top-20 left-[40%]">
+            <div class="absolute z-20 -top-20 md:left-[40%] left-[30%]">
                 <div class="avatar my-6">
-                    <div class="w-64 rounded-full shadow-2xl">
+                    <div class="md:w-64 w-32 rounded-full shadow-2xl">
                         <img src="https://api.lorem.space/image/face?hash=47449" />
                     </div>
                 </div>
-                <h2 class="md:text-3xl text-2xl text-base-100 font-black px-[4%]">Jhon Álvarez</h2>
+                <h2 class="md:text-3xl text-xl text-base-100 font-black">Jhon Álvarez</h2>
                 <p class="text-sm text-base-100 font-medium my-auto">@jwalvarez</p>
             </div>
             <div class="flex justify-center">
-                <div class="bg-black/80 z-10 absolute rounded-3xl w-full h-[300px]"></div>
-                <img src="https://picsum.photos/1000/300" class="relative rounded-3xl h-[300px]" />
+                <div class="bg-black/60 z-10 absolute rounded-3xl w-full md:h-[300px] h-[200px]"></div>
+                <img src="https://picsum.photos/1000/300" class="relative rounded-3xl md:h-[300px] h-[200px]" />
             </div>
         </div>
 
-        <div class="flex justify-between mx-auto my-10">
-            <div class="block text-left w-1/2">
+        <div class="md:flex justify-between mx-auto my-10">
+            <div class="block text-left md:w-1/2 mb-6">
                 <h2
                     class=" my-2 text-base-100 text-xl font-black overflow-hidden whitespace-nowrap text-ellipsis w-auto">
                     Biografía
@@ -54,37 +54,37 @@
             </h2>
         </div>
 
-        <div class="stats shadow bg-base-100/5 border border-black/20 flex mb-20">
-            <div class="stat w-1/3">
-                <div class="stat-title text-base-100">Cursos iniciados</div>
-                <div class="stat-value text-primary">12</div>
-                <div class="text-sm text-base-100/60">Los cursos te ayudan a educarte y conocer más sobre aspectos
-                    especificos.
+        <div class="block md:flex stats shadow bg-base-100/5 border border-black/20 mb-20">
+            <div class="stat md:w-1/3 w-full hover:bg-base-100/10 transition-all cursor-default">
+                <div class="stat-title font-bold text-success">Cursos iniciados</div>
+                <div class="md:text-5xl text-4xl text-success font-black">12</div>
+                <div class="text-sm text-base-100/60">Descubre y aprende temas y conceptos especificos.
                 </div>
             </div>
 
-            <div class="stat w-1/3">
-                <div class="stat-title text-base-100">Cursos completados</div>
-                <div class="stat-value text-primary">87%</div>
+            <div class="stat md:w-1/3 w-full hover:bg-base-100/10 transition-all cursor-default">
+                <div class="stat-title font-bold text-success">Cursos completados</div>
+                <div class="md:text-5xl text-4xl text-success font-black">86%</div>
+                <!-- <progress class="progress progress-success bg-accent mb-2" value="86" max="100"></progress> -->
                 <div class="text-sm text-base-100/60">Porcentaje de de finalización de tus cursos.</div>
             </div>
 
-            <div class="stat w-2/4">
-                <div class="stat-figure text-primary">
+            <div class="stat md:w-1/3 w-full hover:bg-base-100/10 transition-all cursor-default">
+                <!-- <div class="stat-figure text-primary">
                     <div class="avatar online">
                         <div class="w-16 rounded-full">
                             <img src="https://api.lorem.space/image/face?w=128&h=128" />
                         </div>
                     </div>
-                </div>
-                <div class="stat-title text-base-100">Referidos</div>
-                <div class="stat-value text-success">8</div>
+                </div> -->
+                <div class="stat-title font-bold text-success">Referidos</div>
+                <div class="md:text-5xl text-4xl text-success font-black">4</div>
                 <div class="text-sm text-base-100/60">Los referidos son los usuarios que han comprado un curso
                     por medio de tu link.</div>
             </div>
         </div>
 
-        <div class="block text-left w-[70%]">
+        <div id="my-courses" class="block text-left w-[70%]">
             <h2 class="my-2 text-base-100 text-xl font-black overflow-hidden whitespace-nowrap text-ellipsis w-auto">
                 Mis cursos
             </h2>
