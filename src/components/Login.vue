@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from 'vue'
-import PrimaryButton from '../base/PrimaryButton.vue';
+import BasePrimaryButton from './base/BasePrimaryButton.vue';
 import Icon from './Icon.vue';
-import TextButton from '../base/TextButton.vue'
+import BaseTextButton from './base/BaseTextButton.vue'
 
 import axios from 'axios'
 
@@ -117,7 +117,7 @@ const openRegistrationModal = () => {
         </label>
       </div>
       <!-- todo: Disable button when sending request (create new user) -->
-      <PrimaryButton label="Iniciar sesión" />
+      <BasePrimaryButton label="Iniciar sesión" />
       <span class="flex justify-center text-base-100 text-sm py-2">¿No tienes una cuenta?&nbsp;
         <a @click="openRegistrationModal" class="text-success hover:text-success hover:underline">Crear
           cuenta</a></span>

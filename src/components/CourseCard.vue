@@ -39,12 +39,12 @@
       <p class="text-base-100/40 text-md mb-4 course-description">
         {{ description }}
       </p>
-      <CourseButton label="Ver Curso" />
+      <BaseCourseButton label="Ver Curso" />
     </div>
   </a>
 </template>
 <script>
-import CourseButton from '../base/CourseButton.vue';
+import BaseCourseButton from './base/BaseCourseButton.vue';
 export default {
   props: {
     title: String,
@@ -53,7 +53,7 @@ export default {
     description: String,
     tags: Array,
   },
-  components: { CourseButton }
+  components: { BaseCourseButton }
 }
 </script>
 <style lang="">

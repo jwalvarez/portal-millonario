@@ -100,7 +100,7 @@
     </div>
 </template>
 <script>
-import CourseCard from './CourseCard.vue'
+import CourseCard from '../components/CourseCard.vue'
 export default {
     data() {
         return {

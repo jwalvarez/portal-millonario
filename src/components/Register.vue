@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from 'vue'
-import PrimaryButton from '../base/PrimaryButton.vue';
+import BasePrimaryButton from './base/BasePrimaryButton.vue';
 import Icon from './Icon.vue';
-import TextButton from '../base/TextButton.vue'
+import BaseTextButton from './base/BaseTextButton.vue'
 
 import axios from 'axios'
 
@@ -107,7 +107,7 @@ const openLoginModal = () => {
             Lorem ipsum dolor sit amet, consectetur adipiscing elit
           </span>
         </div>
-        <TextButton link="/" label="Conocer a los fundadores" />
+        <BaseTextButton link="/" label="Conocer a los fundadores" />
 
       </div> -->
   <!-- <pre class="text-white" wrap>{{ formData }}</pre> -->
@@ -173,7 +173,7 @@ const openLoginModal = () => {
         </label>
       </div>
       <!-- todo: Disable button when sending request (create new user) -->
-      <PrimaryButton label="Crear cuenta" />
+      <BasePrimaryButton label="Crear cuenta" />
       <span class="flex justify-center text-base-100 text-sm py-2">¿Ya tienes una cuenta?&nbsp;
         <a @click="openLoginModal" class="text-success hover:text-success hover:underline">Iniciar sesión</a></span>
     </FormKit>

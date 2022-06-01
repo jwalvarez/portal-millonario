@@ -10,8 +10,8 @@
             <h1 class="md:text-5xl text-3xl text-base-100 font-medium text-center mb-4">Encuentra cursos, genera dinero
               con
               ellos</h1>
-            <PrimaryButton label="Crear una cuenta"></PrimaryButton>
-            <CourseButton label="Ya tengo una cuenta"></CourseButton>
+            <BasePrimaryButton label="Crear una cuenta"></BasePrimaryButton>
+            <BaseCourseButton label="Ya tengo una cuenta"></BaseCourseButton>
             <!-- <div class="flex mt-6">
               <Icon />
               <Icon />
@@ -52,15 +52,15 @@
 <script>
 import Icon from './Icon.vue';
 import Tape from './Tape.vue'
-import PrimaryButton from '../base/PrimaryButton.vue';
-import CourseButton from '../base/CourseButton.vue';
+import BasePrimaryButton from './base/BasePrimaryButton.vue';
+import BaseCourseButton from './base/BaseCourseButton.vue';
 
 export default {
   components: {
     Icon,
     Tape,
-    PrimaryButton,
-    CourseButton
+    BasePrimaryButton,
+    BaseCourseButton
   }
 }
 </script>

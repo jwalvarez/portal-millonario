@@ -1,6 +1,6 @@
 <script setup>
-import Banner from "./Banner.vue";
-import CourseCard from "./CourseCard.vue";
+import Banner from "../components/Banner.vue";
+import CourseCard from "../components/CourseCard.vue";
 </script>
 
 <template>

@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "./components/Home.vue";
-import Goarbit from "./components/Goarbit.vue";
+import Home from "./views/Home.vue";
+import Goarbit from "./views/Goarbit.vue";
 import Login from "./components/Login.vue";
 import Register from "./components/Register.vue";
-import Perfil from "./components/Perfil.vue";
+import Perfil from "./views/Perfil.vue";
 
 const routes = [
   { path: "/", component: Home },
