@@ -134,6 +134,7 @@
         </div>
       </div>
       <router-view />
+      <Footer />
     </div>
     <div class="drawer-side">
       <!-- for="my-drawer-4" -->
@@ -249,12 +250,14 @@ import Nav from "./components/Nav.vue";
 import Drawer from "./components/Drawer.vue";
 import Register from "./components/Register.vue";
 import Login from "./components/Login.vue";
+import Footer from "./components/Footer.vue";
 export default {
   components: {
     Nav,
     Drawer,
     Register,
     Login,
+    Footer,
   },
   computed: {
     showNav() {
