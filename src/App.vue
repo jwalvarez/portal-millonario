@@ -19,41 +19,73 @@
 
   <!-- Put this part before </body> tag -->
 
-  <label id="registration-modal" class="transition-all duration-300 modal cursor-pointer bg-[#090617]/95">
-    <label class="md:modal-box md:shadow-none md:bg-transparent relative" for="">
+  <label
+    id="registration-modal"
+    class="transition-all duration-300 modal cursor-pointer bg-[#090617]/95"
+  >
+    <label
+      class="md:modal-box md:shadow-none md:bg-transparent relative"
+      for=""
+    >
       <Register />
     </label>
   </label>
 
-  <label id="login-modal" class="transition-all duration-300 modal cursor-pointer bg-[#090617]/95">
-    <label class="md:modal-box md:shadow-none md:bg-transparent relative" for="">
+  <label
+    id="login-modal"
+    class="transition-all duration-300 modal cursor-pointer bg-[#090617]/95"
+  >
+    <label
+      class="md:modal-box md:shadow-none md:bg-transparent relative"
+      for=""
+    >
       <Login />
     </label>
   </label>
 
   <div class="drawer drawer-end">
-    <input id="my-drawer-4" type="checkbox" class="drawer-toggle" :checked="checked" />
+    <input
+      id="my-drawer-4"
+      type="checkbox"
+      class="drawer-toggle"
+      :checked="checked"
+    />
     <div class="drawer-content">
       <!-- Page content here -->
       <!-- TODO: Convert this as a separated component  -->
-      <div v-if="showNav" class="sticky -top-1 z-50 navbar bg-[#090617]/90 backdrop-blur-xl md:px-48 px-0 py-1">
+      <div
+        v-if="showNav"
+        class="sticky -top-1 z-50 navbar bg-[#090617]/90 backdrop-blur-xl md:px-48 px-0 py-1"
+      >
         <div class="flex-1 mx-2">
           <div class="avatar placeholder">
             <div class="bg-base-100/10 text-neutral-content rounded-full w-12">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-currency-bitcoin w-8 h-8"
-                viewBox="0 0 16 16">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                class="bi bi-currency-bitcoin w-8 h-8"
+                viewBox="0 0 16 16"
+              >
                 <path
-                  d="M5.5 13v1.25c0 .138.112.25.25.25h1a.25.25 0 0 0 .25-.25V13h.5v1.25c0 .138.112.25.25.25h1a.25.25 0 0 0 .25-.25V13h.084c1.992 0 3.416-1.033 3.416-2.82 0-1.502-1.007-2.323-2.186-2.44v-.088c.97-.242 1.683-.974 1.683-2.19C11.997 3.93 10.847 3 9.092 3H9V1.75a.25.25 0 0 0-.25-.25h-1a.25.25 0 0 0-.25.25V3h-.573V1.75a.25.25 0 0 0-.25-.25H5.75a.25.25 0 0 0-.25.25V3l-1.998.011a.25.25 0 0 0-.25.25v.989c0 .137.11.25.248.25l.755-.005a.75.75 0 0 1 .745.75v5.505a.75.75 0 0 1-.75.75l-.748.011a.25.25 0 0 0-.25.25v1c0 .138.112.25.25.25L5.5 13zm1.427-8.513h1.719c.906 0 1.438.498 1.438 1.312 0 .871-.575 1.362-1.877 1.362h-1.28V4.487zm0 4.051h1.84c1.137 0 1.756.58 1.756 1.524 0 .953-.626 1.45-2.158 1.45H6.927V8.539z" />
+                  d="M5.5 13v1.25c0 .138.112.25.25.25h1a.25.25 0 0 0 .25-.25V13h.5v1.25c0 .138.112.25.25.25h1a.25.25 0 0 0 .25-.25V13h.084c1.992 0 3.416-1.033 3.416-2.82 0-1.502-1.007-2.323-2.186-2.44v-.088c.97-.242 1.683-.974 1.683-2.19C11.997 3.93 10.847 3 9.092 3H9V1.75a.25.25 0 0 0-.25-.25h-1a.25.25 0 0 0-.25.25V3h-.573V1.75a.25.25 0 0 0-.25-.25H5.75a.25.25 0 0 0-.25.25V3l-1.998.011a.25.25 0 0 0-.25.25v.989c0 .137.11.25.248.25l.755-.005a.75.75 0 0 1 .745.75v5.505a.75.75 0 0 1-.75.75l-.748.011a.25.25 0 0 0-.25.25v1c0 .138.112.25.25.25L5.5 13zm1.427-8.513h1.719c.906 0 1.438.498 1.438 1.312 0 .871-.575 1.362-1.877 1.362h-1.28V4.487zm0 4.051h1.84c1.137 0 1.756.58 1.756 1.524 0 .953-.626 1.45-2.158 1.45H6.927V8.539z"
+                />
               </svg>
             </div>
           </div>
-          <router-link to="/" class="text-base-100 btn btn-ghost normal-case text-xl">Portal
+          <router-link
+            to="/"
+            class="text-base-100 btn btn-ghost normal-case text-xl"
+            >Portal
           </router-link>
         </div>
         <div class="flex-none">
           <ul class="menu menu-horizontal p-0 text-base-100">
             <li class="md:flex hidden justify-end">
-              <input type="text" placeholder="Buscar curso" class="bg-black/20 input w-full mx-4 my-auto h-10" />
+              <input
+                type="text"
+                placeholder="Buscar curso"
+                class="bg-black/20 input w-full mx-4 my-auto h-10"
+              />
             </li>
             <!-- data-tip="@jwalvarez" class="tooltip tooltip-bottom" -->
 
@@ -69,9 +101,11 @@
                 <div class="block">
                   <!-- <router-link to="/register" class="text-success font-bold normal-case text-sm -mb-2 py-0 w-full">Crear
                     cuenta</router-link> -->
-                  <label @click="openLoginModal"
-                    class="text-success font-bold normal-case text-sm -mb-2 py-0 w-full cursor-pointer">Iniciar
-                    sesión</label>
+                  <label
+                    @click="openLoginModal"
+                    class="text-success font-bold normal-case text-sm -mb-2 py-0 w-full cursor-pointer"
+                    >Iniciar sesión</label
+                  >
                 </div>
               </div>
             </li>
@@ -79,10 +113,22 @@
         </div>
         <div class="flex-none">
           <!-- for="my-drawer-4" -->
-          <label @click="toggleMenu" class="btn btn-square btn-ghost text-base-100">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 26 26"
-              class="inline-block w-8 h-8 stroke-current my-auto">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          <label
+            @click="toggleMenu"
+            class="btn btn-square btn-ghost text-base-100"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 26 26"
+              class="inline-block w-8 h-8 stroke-current my-auto"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
             </svg>
           </label>
         </div>
@@ -93,59 +139,101 @@
       <!-- for="my-drawer-4" -->
       <label @click="toggleMenu" class="drawer-overlay"></label>
       <div class="menu overflow-y-auto md:w-4/12 w-full bg-[#090617] px-6">
-
         <!-- Sidebar content here -->
         <div class="flex justify-start py-6 cursor-pointer">
           <span @click="toggleMenu">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-              class="bi bi-x-lg w-6 h-6 text-base-100 hover:text-success" viewBox="0 0 16 16">
-              <path fill-rule="evenodd"
-                d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              class="bi bi-x-lg w-6 h-6 text-base-100 hover:text-success"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
+              />
             </svg>
           </span>
         </div>
         <div class="flex mb-4 justify-between">
           <div class="flex">
-            <img class="md:w-20 w-16 mask mask-squircle object-contain p-0 "
-              src="https://api.lorem.space/image/shoes?w=160&h=160" />
+            <img
+              class="md:w-20 w-16 mask mask-squircle object-contain p-0"
+              src="https://api.lorem.space/image/shoes?w=160&h=160"
+            />
             <div class="block my-auto ml-4">
-              <span class="text-base-100 text-md w-full">Hola 👋</span><br>
-              <router-link to="/perfil" @click="toggleMenu" class="text-base-100 font-bold text-xl w-full">Jhon Álvarez
+              <span class="text-base-100 text-md w-full">Hola 👋</span><br />
+              <router-link
+                to="/perfil"
+                @click="toggleMenu"
+                class="text-base-100 font-bold text-xl w-full"
+                >Jhon Álvarez
               </router-link>
               <!-- <span an class="text-base-100/20 normal-case my-0 text-xs w-full">@jwalvez</span> -->
             </div>
           </div>
-          <span class="w-8 bg-primary rounded-full my-auto p-[6px] cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-gear-fill text-base-100"
-              viewBox="0 0 16 16">
+          <span
+            class="w-8 bg-primary rounded-full my-auto p-[6px] cursor-pointer"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              class="bi bi-gear-fill text-base-100"
+              viewBox="0 0 16 16"
+            >
               <path
-                d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
+                d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"
+              />
             </svg>
           </span>
         </div>
         <div class="flex justify-between mt-4 items-baseline">
           <h2 class="text-3xl text-base-100 font-bold">Mis cursos</h2>
-          <a class="text-success hover:text-success hover:underline" href="/courses">Ver todos</a>
+          <a
+            class="text-success hover:text-success hover:underline"
+            href="/courses"
+            >Ver todos</a
+          >
         </div>
         <!-- todo: fix heigh of card -->
         <nav class="carousel carousel-center my-4 space-x-4 rounded-box">
-          <router-link v-for="(item, index) in courses" :to="{ path: item.url }" :key="index" @click="toggleMenu" s
-            class="carousel-item h-full items-center py-2 bg-base-100/10 rounded-3xl">
+          <router-link
+            v-for="(item, index) in courses"
+            :to="{ path: item.url }"
+            :key="index"
+            @click="toggleMenu"
+            s
+            class="carousel-item h-full items-center py-2 bg-base-100/10 rounded-3xl"
+          >
             <div class="w-52 p-4">
-              <img class="h-full w-full object-cover rounded-xl mb-2" :src="item.img" alt="">
-              <h2 class="text-sm text-base-100 overflow-hidden whitespace-nowrap text-ellipsis w-auto">{{
-                  item.title
-              }}
+              <img
+                class="h-full w-full object-cover rounded-xl mb-2"
+                :src="item.img"
+                alt=""
+              />
+              <h2
+                class="text-sm text-base-100 overflow-hidden whitespace-nowrap text-ellipsis w-auto"
+              >
+                {{ item.title }}
               </h2>
-              <progress class="mt-6 progress progress-primary w-full bg-black" :value="item.progress"
-                max="100"></progress>
+              <progress
+                class="mt-6 progress progress-primary w-full bg-black"
+                :value="item.progress"
+                max="100"
+              ></progress>
             </div>
           </router-link>
         </nav>
         <h2 class="text-3xl text-base-100 font-bold mt-4">Menú</h2>
         <nav class="grid grid-cols-3 my-4">
-          <router-link v-for="(item, index) in menu" :to="{ path: item.url }" :key="index" @click="toggleMenu" s
-            class="flex justify-center items-center mr-2 hover:-translate-y-2 duration-200 bg-success rounded-lg h-10">
+          <router-link
+            v-for="(item, index) in menu"
+            :to="{ path: item.url }"
+            :key="index"
+            @click="toggleMenu"
+            s
+            class="flex justify-center items-center mr-2 mb-2 hover:-translate-y-2 duration-200 bg-success rounded-lg h-10"
+          >
             <h2 class="text-lg font-bold text-accent">{{ item.title }}</h2>
           </router-link>
         </nav>
@@ -155,24 +243,24 @@
 </template>
 
 <script>
-import { useRouter } from 'vue-router';
+import { useRouter } from "vue-router";
 import HelloWorld from "./components/HelloWorld.vue";
 import Nav from "./components/Nav.vue";
 import Drawer from "./components/Drawer.vue";
-import Register from './components/Register.vue';
-import Login from './components/Login.vue';
+import Register from "./components/Register.vue";
+import Login from "./components/Login.vue";
 export default {
   components: {
     Nav,
     Drawer,
     Register,
-    Login
+    Login,
   },
   computed: {
     showNav() {
-      var route = this.$router.currentRoute.value.fullPath
-      return (route != '/register') ? true : false;
-    }
+      var route = this.$router.currentRoute.value.fullPath;
+      return route != "/register" ? true : false;
+    },
   },
   data() {
     return {
@@ -181,6 +269,10 @@ export default {
         {
           title: "Inicio",
           url: "/",
+        },
+        {
+          title: "Trading",
+          url: "/curso",
         },
         {
           title: "Goarbit",
@@ -196,42 +288,45 @@ export default {
           title: "Introduccion al trading by Andrés",
           url: "/",
           img: "https://www.urbeconomica.com.mx/images/2020/criptos.jpg",
-          progress: 10
+          progress: 10,
         },
         {
           title: "Opciones binarias",
           url: "/goarbit",
           img: "https://www.urbeconomica.com.mx/images/2020/criptos.jpg",
-          progress: 22
+          progress: 22,
         },
         {
           title: "¿Qué es GoArbit?",
           url: "/s",
           img: "https://www.urbeconomica.com.mx/images/2020/criptos.jpg",
-          progress: 5
+          progress: 5,
         },
       ],
       trading_courses: [
         {
           title: "Introduccion al trading by Andrés",
-          description: "Nunc malesuada euismod lectus. Duis condimentum tellus pellentesque turpis consequat ornare. Integer posuere dignissim quam, in vehicula orci maximus quis. Nunc sed arcu a lorem consequat feugiat in a sapien. ",
+          description:
+            "Nunc malesuada euismod lectus. Duis condimentum tellus pellentesque turpis consequat ornare. Integer posuere dignissim quam, in vehicula orci maximus quis. Nunc sed arcu a lorem consequat feugiat in a sapien. ",
           url: "/",
           img: "https://www.urbeconomica.com.mx/images/2020/criptos.jpg",
         },
         {
           title: "Opciones binarias",
-          description: "Nunc malesuada euismod lectus. Duis condimentum tellus pellentesque turpis consequat ornare. Integer posuere dignissim quam, in vehicula orci maximus quis. Nunc sed arcu a lorem consequat feugiat in a sapien. ",
+          description:
+            "Nunc malesuada euismod lectus. Duis condimentum tellus pellentesque turpis consequat ornare. Integer posuere dignissim quam, in vehicula orci maximus quis. Nunc sed arcu a lorem consequat feugiat in a sapien. ",
           url: "/goarbit",
           img: "https://www.urbeconomica.com.mx/images/2020/criptos.jpg",
         },
         {
           title: "¿Qué es GoArbit?",
-          description: "Nunc malesuada euismod lectus. Duis condimentum tellus pellentesque turpis consequat ornare. Integer posuere dignissim quam, in vehicula orci maximus quis. Nunc sed arcu a lorem consequat feugiat in a sapien. ",
+          description:
+            "Nunc malesuada euismod lectus. Duis condimentum tellus pellentesque turpis consequat ornare. Integer posuere dignissim quam, in vehicula orci maximus quis. Nunc sed arcu a lorem consequat feugiat in a sapien. ",
           url: "/s",
           img: "https://www.urbeconomica.com.mx/images/2020/criptos.jpg",
         },
-      ]
-    }
+      ],
+    };
   },
   methods: {
     toggleMenu: function () {
@@ -243,11 +338,8 @@ export default {
     openRegistrationModal: function () {
       document.getElementById("registration-modal").classList.add("modal-open");
     },
-  }
-}
-
+  },
+};
 </script>
 
-
-<style>
-</style>
+<style></style>
