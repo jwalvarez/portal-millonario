@@ -1,16 +1,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-x
+
+@font-face {
+  font-family: Inter-Regular;
+  src: url(./assets/fonts/Inter-Regular.ttf);
+}
+
+@font-face {
+  font-family: Inter-Black;
+  src: url(./assets/fonts/Inter-Black.ttf);
+}
+
+@font-face {
+  font-family: Inter-Bold;
+  src: url(./assets/fonts/Inter-Bold.ttf);
+}
+
+@font-face {
+  font-family: Inter-Regular;
+  src: url(./assets/fonts/Inter-Regular.ttf);
+}
+
 html {
   scroll-behavior: smooth;
+  font-family: 'myFirstFont', Arial, sans-serif;
 }
 
 body{
   @apply bg-[#090617] h-screen;
 }
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 14px;
   height: 10px;
 }
@@ -26,4 +47,4 @@ body{
 
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-primary;
-}
+} */

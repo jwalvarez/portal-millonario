@@ -1,7 +1,16 @@
 <template>
-  <ul class="relative flex bg-gradient-to-tr bg-primary/80 py-6 -top-20" id="example-2">
-    <li class="flex justify-between mx-auto" v-for="(item, index) in topics" :key="index">
-      <span class="text-[#2A303C]/50 md:text-2xl text-xs font-black">{{ item }}</span>
+  <ul
+    class="flex bg-gradient-to-l from-transparent via-primary/20 to-transparent py-8 px-[10%]"
+    id="example-2"
+  >
+    <li
+      class="flex justify-between mx-auto"
+      v-for="(item, index) in topics"
+      :key="index"
+    >
+      <span class="text-base-100/30 md:text-2xl text-xs font-inter-black">{{
+        item
+      }}</span>
     </li>
   </ul>
 </template>
@@ -10,13 +19,11 @@ export default {
   name: "Tape",
   data() {
     return {
-      mensajePadre: 'Padre',
-      topics: ['COINBASE', 'BINANCE', 'GOARBIT', 'BITCOIN']
-    }
-  }
-}
+      mensajePadre: "Padre",
+      topics: ["COINBASE", "BINANCE", "GOARBIT", "BITCOIN"],
+    };
+  },
+};
 </script>
 
-<style lang="">
-  
-</style>
+<style lang=""></style>

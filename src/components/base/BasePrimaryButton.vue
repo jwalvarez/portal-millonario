@@ -1,15 +1,16 @@
 <template lang="">
-  <button class="disbled btn w-full text-neutral normal-case bg-success hover:bg-success/80">{{label}}</button>
+  <button
+    class="btn w-full h-[60px] text-neutral normal-case bg-success hover:bg-success/80"
+  >
+    {{ label }}
+  </button>
 </template>
 <script>
 export default {
   props: {
     label: String,
-    loading: Boolean
-  }
-
-}
+    loading: Boolean,
+  },
+};
 </script>
-<style lang="">
-  
-</style>
+<style lang=""></style>

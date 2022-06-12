@@ -1,7 +1,11 @@
 module.exports = {
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    fontFamily: {
+        inter: ["Inter-Regular", "sans-serif"],
+        "inter-bold": ["Inter-Bold", "cursive"],
+        "inter-black": ["Inter-Black", "cursive"],
+      },
   },
   daisyui: {
     themes: [

@@ -54,6 +54,16 @@
       <!-- Page content here -->
       <!-- TODO: Convert this as a separated component  -->
       <div
+        class="relative z-50 w-full px-4 py-3 text-black/70 text-center bg-gradient-to-r from-primary to-success"
+      >
+        <p class="text-xs font-inter-bold">
+          Encuentra cursos ideales para generar ingresos.
+          <a class="underline hover:text-base-100 text-xs duration-500" href="">
+            Empieza ahora &rarr;
+          </a>
+        </p>
+      </div>
+      <div
         v-if="showNav"
         class="sticky -top-1 z-50 navbar bg-[#090617]/90 backdrop-blur-xl md:px-[10%] px-0 py-4"
       >
