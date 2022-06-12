@@ -73,6 +73,16 @@
       </div>
     </div>
   </footer>
+  <footer class="footer footer-center p-4 bg-black/40 text-base-100/40">
+    <div>
+      <p>
+        Copyright © 2022 - Hecho con amor por
+        <a href="https://www.instagram.com/juan_perez_c/" target="_blank"
+          >PEACEDEV</a
+        >
+      </p>
+    </div>
+  </footer>
 </template>
 <script>
 export default {};
