@@ -1,7 +1,7 @@
 <template>
   <div class="md:w-[80%] w-[90%] mx-auto">
-    <div class="flex">
-      <div class="block w-3/4 mr-10">
+    <div class="md:flex">
+      <div class="block md:w-3/4 md:mr-10">
         <div class="text-center relative mt-14">
           <h2
             class="md:text-3xl text-left text-xl text-base-100 font-black mb-3"
@@ -20,47 +20,51 @@
         </div>
 
         <div class="md:flex justify-between mx-auto mt-6">
-          <div class="block text-left md:w-full mb-6">
+          <div class="block text-left md:w-full">
             <h2
               class="my-2 text-white text-xl font-black overflow-hidden whitespace-nowrap text-ellipsis w-auto"
             >
               Información del curso
             </h2>
-            <p class="text-sm text-base-100 font-normal my-auto">
+            <p class="text-base-100 font-normal my-auto">
               Pellentesque sodales ante et velit convallis, nec aliquet nisl
               eleifend. Nullam cursus eros risus, ut congue nibh accumsan ac.
               Nullam augue massa, tempor id porta quis, congue et tortor. Nulla
               molestie maximus ultricies. Aenean urna ipsum, ultrices ut tortor
               ac, consectetur luctus sapien.
+              <br />
+              Pellentesque sodales ante et velit convallis, nec aliquet nisl
+              eleifend. Nullam cursus eros risus, ut congue nibh accumsan ac.
+              Nullam augue massa, tempor id porta quis, congue et tortor. Nulla
+              molestie maximus ultricies. Aenean urna ipsum, ultrices ut tortor
+              ac, consectetur luctus sapien.Pellentesque sodales ante et velit
+              convallis, nec aliquet nisl eleifend. Nullam cursus eros risus, ut
+              congue nibh accumsan ac. Nullam augue massa, tempor id porta quis,
+              congue et tortor. Nulla molestie maximus ultricies. Aenean urna
+              ipsum, ultrices ut tortor ac, consectetur luctus sapien.
             </p>
             <!-- TODO: Put course schedule here -->
-            <div class="flex my-6">
-              <div class="block">
-                <div
-                  class="px-4 text-white/80 text-sm py-3 my-auto bg-black/10 rounded-lg mr-4 border-[1px] border-base-100/10 uppercase font-bold cursor-default"
-                >
-                  Lunes, 8:30 pm
-                  <div class="badge badge-primary ml-4">2hr</div>
-                </div>
+            <div class="md:flex my-6">
+              <div
+                class="px-4 text-white/80 text-sm py-3 my-auto bg-black/10 rounded-lg md:mr-4 mb-2 border-[1px] border-base-100/10 uppercase font-bold cursor-default"
+              >
+                Lunes, 8:30 pm
+                <div class="badge badge-primary ml-4">2hr</div>
               </div>
-              <div class="block">
-                <div
-                  class="px-4 text-white/80 text-sm py-3 my-auto bg-black/10 rounded-lg mr-4 border-[1px] border-base-100/10 uppercase font-bold cursor-default"
-                >
-                  Lunes, 8:30 pm
-                  <div class="badge badge-primary ml-4">2hr</div>
-                </div>
+              <div
+                class="px-4 text-white/80 text-sm py-3 my-auto bg-black/10 rounded-lg md:mr-4 mb-2 border-[1px] border-base-100/10 uppercase font-bold cursor-default"
+              >
+                Lunes, 8:30 pm
+                <div class="badge badge-primary ml-4">2hr</div>
               </div>
-              <div class="block">
-                <div
-                  class="px-4 text-white/80 text-sm py-3 my-auto bg-black/10 rounded-lg mr-4 border-[1px] border-base-100/10 uppercase font-bold cursor-default"
-                >
-                  Lunes, 8:30 pm
-                  <div class="badge badge-primary ml-4">2hr</div>
-                </div>
+              <div
+                class="px-4 text-white/80 text-sm py-3 my-auto bg-black/10 rounded-lg md:mr-4 mb-2 border-[1px] border-base-100/10 uppercase font-bold cursor-default"
+              >
+                Lunes, 8:30 pm
+                <div class="badge badge-primary ml-4">2hr</div>
               </div>
             </div>
-            <p class="text-sm text-base-100 font-normal| my-auto">
+            <p class="text-base-100 font-normal my-auto">
               Pellentesque sodales ante et velit convallis, nec aliquet nisl
               eleifend. Nullam cursus eros risus, ut congue nibh accumsan ac.
               Nullam augue massa, tempor id porta quis, congue et tortor. Nulla
@@ -73,7 +77,7 @@
           </div>
         </div>
       </div>
-      <div class="block mx-4">
+      <div class="block md:mx-4">
         <div class="md:flex justify-between mx-auto my-24 sticky top-20">
           <div class="block text-left md:w-full mb-6">
             <h2
@@ -108,8 +112,9 @@
                 <p class="text-sm">
                   Aprovecha este descuento por tiempo limitado
                 </p>
-                <button class="btn btn-sm">Comprar</button>
-                <div class="card-actions justify-start mt-4"></div>
+                <div class="card-actions justify-start mt-4">
+                  <button class="btn btn-sm">Comprar</button>
+                </div>
               </div>
             </div>
           </div>
@@ -129,7 +134,7 @@
       <div
         v-for="price_item in price_table"
         key="price_item.id"
-        class="card w-96 bg-accent/50 hover:bg-primary/40 text-primary-content my-6 mr-6 transition-all duration-500"
+        class="card md:w-96 bg-accent/50 hover:bg-primary/40 text-primary-content my-6 md:mr-6 transition-all duration-500"
       >
         <div class="card-body inline-block align-top">
           <h2 class="card-title text-5xl text-base-100">
@@ -166,13 +171,13 @@
       </div>
     </div>
 
-    <div class="block text-left w-[70%] mt-20">
+    <div class="block text-left md:w-[70%] mt-20">
       <h2
         class="my-2 text-white text-xl font-black overflow-hidden whitespace-nowrap text-ellipsis w-auto"
       >
         Quiero invertir en Goarbit
       </h2>
-      <p class="text-sm text-base-100 font-normal my-auto">
+      <p class="text-base-100 font-normal my-auto">
         Pellentesque sodales ante et velit convallis, nec aliquet nisl eleifend.
         Nullam cursus eros risus, ut congue nibh accumsan ac. Nullam augue
         massa, tempor id porta quis, congue et tortor. Nulla molestie maximus
@@ -197,7 +202,7 @@
         maximus ultricies. Aenean urna ipsum, ultrices ut tortor ac, consectetur
         luctus sapien.
       </p>
-      <div class="w-1/2 my-10">
+      <div class="md:w-1/2 my-10">
         <BasePrimaryButton label="¡Empezar a invertir!" />
       </div>
     </div>

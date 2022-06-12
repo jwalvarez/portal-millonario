@@ -127,7 +127,7 @@
     <div class="flex py-4 space-x-6 ml-[0%] rounded-box overflow-x-scroll">
       <div
         v-for="course in trading_courses"
-        class="carousel-item shadow-xl rounded-2xl h-90 w-[300px] m-auto hover:md:-translate-y-2 duration-300"
+        class="carousel-item shadow-xl rounded-2xl h-90 w-[300px] hover:md:-translate-y-2 duration-300"
       >
         <CourseCard
           :img="course.img"

@@ -10,7 +10,7 @@ body{
   @apply bg-[#090617] h-screen;
 }
 
-/* ::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 14px;
   height: 10px;
 }
@@ -26,4 +26,4 @@ body{
 
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-primary;
-} */
+}
