@@ -278,7 +278,7 @@ export default {
       menu: [
         {
           title: "Inicio",
-          url: "/",
+          url: "/#",
         },
         {
           title: "Trading",

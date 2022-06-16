@@ -238,6 +238,7 @@ import CourseCard from "../components/CourseCard.vue";
 import BaseCourseButton from "../components/base/BaseCourseButton.vue";
 import BasePrimaryButton from "../components/base/BasePrimaryButton.vue";
 export default {
+  components: { CourseCard, BaseCourseButton, BasePrimaryButton },
   data() {
     return {
       trading_courses: [
@@ -325,7 +326,7 @@ export default {
       ],
     };
   },
-  components: { CourseCard, BaseCourseButton, BasePrimaryButton },
+  methods: {},
 };
 </script>
 <style lang=""></style>

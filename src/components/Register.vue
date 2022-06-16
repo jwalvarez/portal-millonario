@@ -4,44 +4,35 @@ import BasePrimaryButton from "./base/BasePrimaryButton.vue";
 import Icon from "./Icon.vue";
 import BaseTextButton from "./base/BaseTextButton.vue";
 
+import { createToast } from "mosha-vue-toastify";
+import "mosha-vue-toastify/dist/style.css";
+
 import axios from "axios";
+import router from "../router";
 
 const submitted = ref(false);
-const namm = ref("asldjasljdlaksj");
 const formData = ref({});
-const icons = ref("");
 const submitHandler = async () => {
   // Login User request here
-  await new Promise((r) => setTimeout(r, 1000));
-  console.log(formData["full_name"]);
   submitted.value = true;
 
-  axios.get("https://jsonplaceholder.typicode.com/todos/1").then((result) => {
-    console.log(result.data);
-  });
-
   var data = JSON.stringify({
-    full_name: "Titulo video 1",
-    email: "jwalvarez@gmail.com",
-    password: "trading",
+    password: formData.value["password"],
     contacts: [
       {
-        first_name: "Marcos",
-        last_name: "Castillo",
-        email: "jwalvarez@gmail.com",
+        name: formData.value["name"],
+        email: formData.value["email"],
         phone: {
           indicative: "57",
-          number: "3006003345",
-          extension: "132",
+          number: formData.value["phone"],
         },
       },
     ],
-    referred_users: ["31", "42", "98"],
   });
 
   var config = {
     method: "post",
-    url: "https://portal-millonario.free.beeceptor.com/users",
+    url: "https://portal-millonario.free.beeceptor.com/api/users",
     headers: {
       "Content-Type": "application/json",
     },
@@ -50,10 +41,45 @@ const submitHandler = async () => {
 
   axios(config)
     .then(function (response) {
-      console.log(JSON.stringify(response.data));
+      if (response.status == 200) {
+        createToast(
+          {
+            title: "Usuario Creado Correctamente",
+            description: "¡Ya puedes empezar a descubrir nuestros cursos!",
+          },
+          {
+            showIcon: "true",
+            hideProgressBar: "true",
+            type: "success",
+            transition: "slide",
+            position: "top-right",
+            timeout: 5000,
+            toastBackgroundColor: "#36D399",
+          }
+        );
+        // TODO: Save user data in vue store
+        // Save response info to localstorage
+        localStorage.setItem("user", JSON.stringify(response.data));
+        closeRegistrationModal();
+        // this.$router.push({ path: "/" });
+      }
     })
     .catch(function (error) {
-      console.log(error);
+      createToast(
+        {
+          title: "Error",
+          description: "Hubo un error al momento de crear la cuenta.",
+        },
+        {
+          showIcon: "true",
+          hideProgressBar: "true",
+          type: "error",
+          transition: "slide",
+          position: "top-right",
+          timeout: 5000,
+          toastBackgroundColor: "#F87272",
+        }
+      );
     });
 };
 
@@ -226,6 +252,7 @@ const openLoginModal = () => {
           >Iniciar sesión</a
         ></span
       >
+      {{ formData }}
     </FormKit>
     <div v-if="submitted">
       <h2>Submission successful!</h2>
