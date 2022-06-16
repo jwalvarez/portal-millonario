@@ -36,7 +36,7 @@
     class="transition-all duration-300 modal cursor-pointer bg-[#090617]/95"
   >
     <label
-      class="md:modal-box md:shadow-none md:bg-transparent relative"
+      class="md:modal-box md:shad1ow-none md:bg-transparent relative"
       for=""
     >
       <Login />

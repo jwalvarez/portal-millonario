@@ -45,22 +45,17 @@
           Código referido
         </h2>
         <div class="flex">
-          <p class="text-success text-md font-bold mb-4">
-            xaksjdhuqowiu123laksjdlkxd
-          </p>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            class="bi bi-clipboard text-success mx-4 w-4 h-4"
-            viewBox="0 0 16 16"
+          <button
+            @click="
+              copyReferalCode(
+                'Código copiado',
+                'Ahora puedes compartir el código con tus amigos.'
+              )
+            "
+            class="btn text-success text-md font-bold mb-4"
           >
-            <path
-              d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"
-            />
-            <path
-              d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"
-            />
-          </svg>
+            <span id="referal-code">DDAS-123S-124K-123k-2222</span>
+          </button>
         </div>
       </div>
     </div>
@@ -141,8 +136,33 @@
   </div>
 </template>
 <script>
+import { createToast } from "mosha-vue-toastify";
+import "mosha-vue-toastify/dist/style.css";
+
 import CourseCard from "../components/CourseCard.vue";
 export default {
+  methods: {
+    copyReferalCode: (title, description) => {
+      var text = document.getElementById("referal-code").textContent;
+      navigator.clipboard.writeText(text).then(
+        createToast(
+          {
+            title: title,
+            description: description,
+          },
+          {
+            showIcon: "true",
+            hideProgressBar: "true",
+            type: "success",
+            transition: "slide",
+            position: "top-right",
+            timeout: 5000,
+            toastBackgroundColor: "#36D399",
+          }
+        )
+      );
+    },
+  },
   data() {
     return {
       trading_courses: [
@@ -176,6 +196,7 @@ export default {
       ],
     };
   },
+
   components: { CourseCard },
 };
 </script>

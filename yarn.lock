@@ -613,6 +613,11 @@
   "resolved" "https://registry.npmjs.org/minimist/-/minimist-1.2.6.tgz"
   "version" "1.2.6"
 
+"mosha-vue-toastify@^1.0.23":
+  "integrity" "sha512-K9fij3e3H+E/Lj82ISrgmyKrtM5RNmtZC/KG/KH47+oZGmzAkN/Zuz39kBdT/Mp8OxaHuIWQntEUMP+HdmK1xA=="
+  "resolved" "https://registry.npmjs.org/mosha-vue-toastify/-/mosha-vue-toastify-1.0.23.tgz"
+  "version" "1.0.23"
+
 "nanoid@^3.3.3":
   "integrity" "sha512-MqBkQh/OHTS2egovRtLk45wEyNXwF+cokD+1YPf9u5VfJiRdAiRwB2froX5Co9Rh20xs4siNPm8naNotSD6RBw=="
   "resolved" "https://registry.npmjs.org/nanoid/-/nanoid-3.3.4.tgz"
