@@ -109,9 +109,16 @@
                   <!-- <router-link to="/register" class="text-success font-bold normal-case text-sm -mb-2 py-0 w-full">Crear
                     cuenta</router-link> -->
                   <label
-                    @click="openLoginModal"
+                    v-if="!authStore.isLogged"
+                    @click="openRegistrationModal"
                     class="text-success font-bold normal-case text-sm -mb-2 py-0 w-full cursor-pointer"
-                    >Iniciar sesión</label
+                    >Crear Cuenta</label
+                  >
+                  <router-link
+                    v-else
+                    to="/perfil"
+                    class="text-success font-bold normal-case text-sm -mb-2 py-0 w-full cursor-pointer"
+                    >{{ userStore.name }}</router-link
                   >
                 </div>
               </div>
@@ -163,25 +170,26 @@
             </svg>
           </span>
         </div>
-        <div class="flex mb-4 justify-between">
-          <router-link
-            to="/perfil"
-            @click="toggleMenu"
-            class="text-base-100 font-bold text-xl w-full flex hover:text-primary"
-          >
-            <img
-              class="md:w-16 w-12 mask mask-squircle object-contain p-0"
-              src="https://api.lorem.space/image/shoes?w=160&h=160"
-            />
-            <div class="block my-auto ml-4">
-              <span class="text-base-100 text-sm font-medium w-full"
-                >Hola 👋</span
-              ><br />
-              Jhon Álvarez
-              <!-- <span an class="text-base-100/20 normal-case my-0 text-xs w-full">@jwalvez</span> -->
-            </div>
-          </router-link>
-          <!-- <span
+        <div v-if="authStore.isLogged">
+          <div class="flex mb-4 justify-between">
+            <router-link
+              to="/perfil"
+              @click="toggleMenu"
+              class="text-base-100 font-bold text-xl w-full flex hover:text-primary"
+            >
+              <img
+                class="md:w-16 w-12 mask mask-squircle object-contain p-0"
+                src="https://api.lorem.space/image/shoes?w=160&h=160"
+              />
+              <div class="block my-auto ml-4">
+                <span class="text-base-100 text-sm font-medium w-full"
+                  >Hola 👋</span
+                ><br />
+                {{ userStore.name }}
+                <!-- <span an class="text-base-100/20 normal-case my-0 text-xs w-full">@jwalvez</span> -->
+              </div>
+            </router-link>
+            <!-- <span
             class="w-8 bg-primary rounded-full my-auto p-[6px] cursor-pointer"
           >
             <svg
@@ -195,43 +203,62 @@
               />
             </svg>
           </span> -->
+          </div>
+          <div class="flex justify-between mt-4 items-baseline">
+            <h2 class="text-2xl text-base-100 font-bold">Mis cursos</h2>
+            <a
+              class="text-sm text-success/70 hover:text-success hover:underline"
+              href="/courses"
+              >Ver todos</a
+            >
+          </div>
+          <nav class="carousel carousel-center my-4 space-x-2 rounded-box">
+            <router-link
+              v-for="(item, index) in courses"
+              :to="{ path: item.url }"
+              :key="index"
+              @click="toggleMenu"
+              class="carousel-item h-full items-center bg-black/40 rounded-xl"
+            >
+              <div class="w-40 p-2">
+                <img
+                  class="h-full w-full object-cover rounded-xl mb-2"
+                  :src="item.img"
+                  alt=""
+                />
+                <h2
+                  class="text-sm text-base-100 overflow-hidden whitespace-nowrap text-ellipsis w-auto"
+                >
+                  {{ item.title }}
+                </h2>
+                <progress
+                  class="mt-6 progress progress-primary w-full bg-black"
+                  :value="item.progress"
+                  max="100"
+                ></progress>
+              </div>
+            </router-link>
+          </nav>
         </div>
-        <div class="flex justify-between mt-4 items-baseline">
-          <h2 class="text-2xl text-base-100 font-bold">Mis cursos</h2>
-          <a
-            class="text-sm text-success/70 hover:text-success hover:underline"
-            href="/courses"
-            >Ver todos</a
-          >
-        </div>
-        <!-- todo: fix heigh of card -->
-        <nav class="carousel carousel-center my-4 space-x-2 rounded-box">
-          <router-link
-            v-for="(item, index) in courses"
-            :to="{ path: item.url }"
-            :key="index"
-            @click="toggleMenu"
-            class="carousel-item h-full items-center bg-black/40 rounded-xl"
-          >
-            <div class="w-40 p-2">
-              <img
-                class="h-full w-full object-cover rounded-xl mb-2"
-                :src="item.img"
-                alt=""
+        <div
+          v-else
+          class="card w-full bg-accent/40 text-primary-content my-6 shadow-[6px_6px_0px_rgba(0,212,155,1)]"
+        >
+          <div class="card-body">
+            <h2 class="card-title text-lg">
+              ¿Qué esperas para empezar a generar ingresos?
+            </h2>
+            <p class="text-sm">
+              Crea una cuenta y aprende cómo puedes generar ingresos
+            </p>
+            <div class="card-actions justify-start mt-4">
+              <BasePrimaryButton
+                @click="openRegistrationModal"
+                label="Crear Cuenta"
               />
-              <h2
-                class="text-sm text-base-100 overflow-hidden whitespace-nowrap text-ellipsis w-auto"
-              >
-                {{ item.title }}
-              </h2>
-              <progress
-                class="mt-6 progress progress-primary w-full bg-black"
-                :value="item.progress"
-                max="100"
-              ></progress>
             </div>
-          </router-link>
-        </nav>
+          </div>
+        </div>
         <h2 class="text-2xl text-base-100 font-bold mt-4">Menú</h2>
         <nav class="grid grid-cols-3 my-4">
           <router-link
@@ -252,19 +279,33 @@
 
 <script>
 import { useRouter } from "vue-router";
-import HelloWorld from "./components/HelloWorld.vue";
+
+import { useUserStore } from "./stores/user";
+import { useAuthStore } from "./stores/auth";
+
 import Nav from "./components/Nav.vue";
 import Drawer from "./components/Drawer.vue";
 import Register from "./components/Register.vue";
 import Login from "./components/Login.vue";
 import Footer from "./components/Footer.vue";
+import BasePrimaryButton from "./components/base/BasePrimaryButton.vue";
+
 export default {
+  setup() {
+    const userStore = useUserStore();
+    const authStore = useAuthStore();
+    return {
+      authStore,
+      userStore,
+    };
+  },
   components: {
     Nav,
     Drawer,
     Register,
     Login,
     Footer,
+    BasePrimaryButton,
   },
   computed: {
     showNav() {
@@ -308,7 +349,7 @@ export default {
         },
         {
           title: "¿Qué es GoArbit?",
-          url: "/s",
+          url: "/",
           img: "https://www.urbeconomica.com.mx/images/2020/criptos.jpg",
           progress: 5,
         },
@@ -332,7 +373,7 @@ export default {
           title: "¿Qué es GoArbit?",
           description:
             "Nunc malesuada euismod lectus. Duis condimentum tellus pellentesque turpis consequat ornare. Integer posuere dignissim quam, in vehicula orci maximus quis. Nunc sed arcu a lorem consequat feugiat in a sapien. ",
-          url: "/s",
+          url: "/",
           img: "https://www.urbeconomica.com.mx/images/2020/criptos.jpg",
         },
       ],

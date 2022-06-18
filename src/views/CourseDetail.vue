@@ -329,7 +329,7 @@ export default {
           title: "¿Qué es GoArbit?",
           description:
             "Nunc malesuada euismod lectus. Integer posuere dignissim quam, in vehicula orci maximus quis. Nunc sed arcu a lorem consequat feugiat in a sapien. ",
-          url: "/s",
+          url: "/perfil",
           img: "https://picsum.photos/600/500",
           startDate: "Junio 17, 2022",
           tags: ["#trading", "#exchange"],
