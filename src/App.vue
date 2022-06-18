@@ -54,7 +54,7 @@
       <!-- Page content here -->
       <!-- TODO: Convert this as a separated component  -->
       <div
-        class="relative z-50 w-full px-4 py-3 text-black/70 text-center bg-gradient-to-r from-primary to-success"
+        class="relative z-50 w-full px-4 py-3 text-white/70 text-center bg-gradient-to-r from-primary to-success"
       >
         <p class="text-xs font-inter-bold">
           Encuentra cursos ideales para generar ingresos.

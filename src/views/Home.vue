@@ -98,8 +98,8 @@ import CourseCard from "../components/CourseCard.vue";
           :img="course.img"
           :title="course.title"
           :description="course.description"
-          :startDate="course.startDate"
-          :tags="course.tags"
+          :startDate="course.start_date"
+          :tags="course.tags.replace(/[\[\]&quot;\s]/gi, '').split(',')"
         />
       </div>
     </div>
@@ -125,8 +125,8 @@ import CourseCard from "../components/CourseCard.vue";
           :img="course.img"
           :title="course.title"
           :description="course.description"
-          :startDate="course.startDate"
-          :tags="course.tags"
+          :startDate="course.start_date"
+          :tags="course.tags.replace(/[\[\]&quot;\s]/gi, '').split(',')"
         />
       </div>
     </div>
@@ -137,6 +137,7 @@ import CourseCard from "../components/CourseCard.vue";
 
 <script>
 import BasePrimaryButton from "../components/base/BasePrimaryButton.vue";
+import axios from "axios";
 
 export default {
   name: "Home",
@@ -162,62 +163,17 @@ export default {
             "Tenetur rem magni corporis. Consectetur iure omnis similique veritatis dolorem vitae illo aliquam minima sed iste ratione suscipit sequi, perferendis quasi ipsam.",
         },
       ],
-      trading_courses: [
-        {
-          title: "Introduccion a Vue",
-          description: "Aprendiendo vue con Joel, Jaisir, Angie y Jhon.",
-          url: "/",
-          img: "https://picsum.photos/700/400",
-          startDate: "Octubre 8, 2022",
-          tags: ["#trading", "#binance", "prigramming"],
-        },
-        {
-          title: "Introduccion al trading by Andrés",
-          description:
-            "Nunc malesuada euismod lectus. Duis condimentum tellus pellentesque turpis consequat ornare. Integer posuere dignissim quam, in vehicula orci maximus quis. Nunc sed arcu a lorem consequat feugiat in a sapien. ",
-          url: "/",
-          img: "https://picsum.photos/700/400",
-          startDate: "Junio 12, 2022",
-          tags: ["#trading", "#binance"],
-        },
-        {
-          title: "Opciones binarias",
-          description:
-            "Duis condimentum tellus pellentesque turpis consequat ornare. Integer posuere dignissim quam, in vehicula orci maximus quis. Nunc sed arcu a lorem consequat feugiat in a sapien. ",
-          url: "/goarbit",
-          img: "https://www.urbeconomica.com.mx/images/2020/criptos.jpg",
-          startDate: "Agosto 3, 2022",
-          tags: ["#trading", "#bitcoin"],
-        },
-        {
-          title: "¿Qué es GoArbit?",
-          description:
-            "Nunc malesuada euismod lectus. Integer posuere dignissim quam, in vehicula orci maximus quis. Nunc sed arcu a lorem consequat feugiat in a sapien. ",
-          url: "/s",
-          img: "https://picsum.photos/600/500",
-          startDate: "Junio 17, 2022",
-          tags: ["#trading", "#exchange"],
-        },
-        {
-          title: "¿Qué es GoArbit? 22",
-          description:
-            "Nunc malesuada euismod lectus. Duis condimentum tellus pellentesque turpis consequat ornare. Integer posuere dignissim quam, in vehicula orci maximus quis. ",
-          url: "/s",
-          img: "https://picsum.photos/700/600",
-          startDate: "Septiembre 19, 2022",
-          tags: ["#trading", "#binance"],
-        },
-        {
-          title: "¿Qué es GoArbit? 33",
-          description:
-            "Nunc malesuada euismod lectus. Duis condimentum tellus pellentesque turpis consequat ornare. Integer posuere dignissim quam, in vehicula orci maximus quis. Nunc sed arcu a lorem consequat feugiat in a sapien. ",
-          url: "/s",
-          img: "https://picsum.photos/800/900",
-          startDate: "Enero 24, 2023",
-          tags: ["#trading", "#binance"],
-        },
-      ],
+      trading_courses: [],
     };
+  },
+  mounted() {
+    console.log("Home mounted");
+    console.log(this.trading_courses);
+    axios
+      .get(
+        "https://api.steinhq.com/v1/storages/62aaa957bca21f053e9de79b/courses"
+      )
+      .then((response) => (this.trading_courses = response.data));
   },
 };
 </script>

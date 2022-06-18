@@ -67,7 +67,7 @@ const submitHandler = async () => {
     .catch(function (error) {
       createToast(
         {
-          title: "Error",
+          title: "Estamos teniendo problemas",
           description: "Hubo un error al momento de crear la cuenta.",
         },
         {
@@ -77,7 +77,7 @@ const submitHandler = async () => {
           transition: "slide",
           position: "top-right",
           timeout: 5000,
-          toastBackgroundColor: "#F87272",
+          toastBackgroundColor: "#FF5252",
         }
       );
     });

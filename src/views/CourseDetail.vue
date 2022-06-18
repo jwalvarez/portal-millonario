@@ -131,14 +131,61 @@
     </div>
 
     <div class="block md:flex shadow mb-20">
-      <div
+      <!-- TODO: Get user information from store or show registration form -->
+      <form
+        action="https://checkout.wompi.co/p/"
+        @submit="
+          () => {
+            onSubmit(event, price_item.id);
+            return false;
+          }
+        "
+        method="GET"
+        :id="price_item.id"
         v-for="price_item in price_table"
         key="price_item.id"
         class="card md:w-96 bg-accent/50 hover:bg-primary/40 text-primary-content my-6 md:mr-6 transition-all duration-500"
       >
+        <!-- OBLIGATORIOS -->
+        <input
+          type="hidden"
+          name="public-key"
+          value="pub_test_RWFLLbYWjGgj93WoapghZy36ABIkikr6"
+        />
+        <input type="hidden" name="currency" value="COP" />
+        <input
+          type="hidden"
+          name="amount-in-cents"
+          :value="price_item.price + '00'"
+        />
+        <input type="hidden" name="reference" :value="makeReference()" />
+        <!-- OPCIONALES -->
+        <input
+          type="hidden"
+          name="redirect-url"
+          value="http://localhost:3000/perfil"
+        />
+        <input
+          type="hidden"
+          name="customer-data:email"
+          value="jwalvarez.98@gmail.com"
+        />
+        <input
+          type="hidden"
+          name="customer-data:full-name"
+          value="Jhon Álvarez Test"
+        />
+        <input
+          type="hidden"
+          name="customer-data:phone-number"
+          value="3015351652"
+        />
+        <input type="hidden" name="customer-data:legal-id" value="1007823097" />
+        <input type="hidden" name="customer-data:legal-id-type" value="CC" />
+
         <div class="card-body inline-block align-top">
           <h2 class="card-title text-5xl text-base-100">
-            {{ price_item.price }} USD
+            {{ price_item.price }} COP
           </h2>
           <p class="text-base-100 my-4">
             {{ price_item.description }}
@@ -168,7 +215,7 @@
           </ul>
           <BaseCourseButton label="Comprar" />
         </div>
-      </div>
+      </form>
     </div>
 
     <div class="block text-left md:w-[70%] mt-20">
@@ -291,7 +338,7 @@ export default {
       price_table: [
         {
           id: 1,
-          price: 50,
+          price: 240900,
           description:
             "Un usuario, acceso durante 6 meses al material del curso.",
           feacture: [
@@ -303,7 +350,7 @@ export default {
         },
         {
           id: 2,
-          price: 100,
+          price: 126900,
           description:
             "Un usuario, acceso durante 6 meses al material del curso.",
           feacture: [
@@ -314,7 +361,7 @@ export default {
         },
         {
           id: 3,
-          price: 150,
+          price: 150900,
           description:
             "Un usuario, acceso durante 6 meses al material del curso.",
           feacture: [
@@ -326,7 +373,23 @@ export default {
       ],
     };
   },
-  methods: {},
+  methods: {
+    makeReference: () => {
+      const time = new Date().getTime();
+      return "PRTLM-" + time;
+    },
+    onSubmit(event, formID) {
+      event.preventDefault();
+
+      console.log(formID);
+      // TODO: Verify is user is logged (store)
+      console.log(
+        formID,
+        "submit------------------------------------------------"
+      );
+      // document.getElementById(formID).submit();
+    },
+  },
 };
 </script>
 <style lang=""></style>
