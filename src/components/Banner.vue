@@ -19,12 +19,9 @@
               Encuentra cursos,
               <span class="text-primary">genera dinero con ellos.</span>
             </h1>
-            <div class="w-2/3">
-              <BasePrimaryButton
-                @click="openRegistrationModal"
-                label="Crear una cuenta"
-              />
-            </div>
+            <a class="w-2/3" href="#courses">
+              <BasePrimaryButton label="Descubrir Cursos" />
+            </a>
           </div>
         </div>
       </div>

@@ -1,23 +1,21 @@
 <script setup>
-import { ref } from "vue";
-import BasePrimaryButton from "./base/BasePrimaryButton.vue";
+import axios from "axios";
 import { createToast } from "mosha-vue-toastify";
 import "mosha-vue-toastify/dist/style.css";
-import axios from "axios";
+import { ref } from "vue";
 
-import { useUserStore } from "../stores/user";
+import BasePrimaryButton from "./base/BasePrimaryButton.vue";
+
 import { useAuthStore } from "../stores/auth";
+import { useUserStore } from "../stores/user";
 
 const userStore = useUserStore();
 const authStore = useAuthStore();
 
-const submitted = ref(false);
 const loading = ref(false);
 const formData = ref({});
 const submitHandler = async () => {
   // Login User request here
-  submitted.value = true;
-
   var data = JSON.stringify({
     username: formData.value["username"],
     password: formData.value["password"],
@@ -25,63 +23,61 @@ const submitHandler = async () => {
 
   var config = {
     method: "post",
-    url: "https://portal-millonario.free.beeceptor.com/auth/login/",
-    // url: "https://38f5-186-82-85-217.ngrok.io/auth/login/",
+    url: "/auth/login/",
     headers: {
       "content-type": "application/json",
     },
     data: data,
   };
 
-  axios(config)
-    .then(function (response) {
-      loading.value = false;
-      createToast(
-        {
-          title: "Ha iniciado sesión correctamente",
-          description: "¡Ya puedes empezar a descubrir nuestros cursos!",
-        },
-        {
-          showIcon: "true",
-          hideProgressBar: "true",
-          type: "success",
-          transition: "slide",
-          position: "top-right",
-          timeout: 5000,
-          toastBackgroundColor: "#36D399",
-        }
-      );
-      userStore.$patch({
-        user: response.data,
-      });
-      authStore.$patch({
-        isAuthenticated: true,
-        token: response.data.token,
-      });
-      localStorage.setItem("user", JSON.stringify(response.data));
-      localStorage.setItem("isAuthenticated", true);
-      localStorage.setItem("token", response.data.token);
-      closeLoginModal();
-      this.$router.push({ path: "/perfil" });
-    })
-    .catch(function (error) {
-      loading.value = false;
-      createToast(
-        {
-          title: "Estamos teniendo problemas",
-          description: "Hubo un error al momento de ingresar a la cuenta.",
-        },
-        {
-          showIcon: "true",
-          hideProgressBar: "true",
-          type: "error",
-          transition: "slide",
-          position: "top-right",
-          timeout: 5000,
-          toastBackgroundColor: "#FF5252",
-        }
-      );
+  axios(config).then((response) => {
+    loading.value = false;
+    createToast(
+      {
+        title: "Ha iniciado sesión correctamente",
+        description: "¡Ya puedes empezar a descubrir nuestros cursos!",
+      },
+      {
+        showIcon: "true",
+        hideProgressBar: "true",
+        type: "success",
+        transition: "slide",
+        position: "top-right",
+        timeout: 3000,
+        toastBackgroundColor: "#36D399",
+      }
+    );
+    userStore.$patch({
+      user: response.data,
     });
+    authStore.$patch({
+      isAuthenticated: true,
+      token: response.data.key,
+    });
+    // todo: get user information when login
+    localStorage.setItem("user", JSON.stringify(response.data));
+    localStorage.setItem("isAuthenticated", true);
+    localStorage.setItem("token", response.data.key);
+    closeLoginModal();
+  });
+  // .catch( (error) =>{
+  //   loading.value = false;
+  //   createToast(
+  //     {
+  //       title: "Estamos teniendo problemas",
+  //       description: "Hubo un error al momento de ingresar a la cuenta.",
+  //     },
+  //     {
+  //       showIcon: "true",
+  //       hideProgressBar: "true",
+  //       type: "error",
+  //       transition: "slide",
+  //       position: "top-right",
+  //       timeout: 5000,
+  //       toastBackgroundColor: "#FF5252",
+  //     }
+  //   );
+  // });
 };
 
 const closeLoginModal = () => {
@@ -117,7 +113,6 @@ const openRegistrationModal = () => {
       :actions="false"
       type="form"
       v-model="formData"
-      :form-class="submitted ? 'hide' : 'show'"
       @submit="submitHandler"
     >
       <h1 class="mb-6 text-base-100 text-2xl font-black">Iniciar sesión</h1>
@@ -167,7 +162,6 @@ const openRegistrationModal = () => {
           >
         </label>
       </div>
-      {{ loading }}
       <BasePrimaryButton
         @click="loading = !loading"
         :loading="loading"
@@ -183,8 +177,5 @@ const openRegistrationModal = () => {
         ></span
       >
     </FormKit>
-    <div v-if="submitted">
-      <h2>Submission successful!</h2>
-    </div>
   </div>
 </template>

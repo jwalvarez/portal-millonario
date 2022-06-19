@@ -29,7 +29,7 @@ const submitHandler = async () => {
   var config = {
     method: "post",
     // url: "https://portal-millonario.free.beeceptor.com/api/v1/user/register/student/",
-    url: "https://38f5-186-82-85-217.ngrok.io/api/v1/user/register/student/",
+    url: "/api/v1/user/register/student/",
     headers: {
       "content-type": "application/json",
     },
@@ -59,10 +59,10 @@ const submitHandler = async () => {
       authStore.$patch({
         isAuthenticated: true,
       });
+      // TODO: Get user token and save it in state and local storage (ask to @joel)
       localStorage.setItem("user", JSON.stringify(response.data));
       localStorage.setItem("isAuthenticated", true);
       closeRegistrationModal();
-      this.$router.push({ path: "/perfil" });
     })
     .catch(function (error) {
       createToast(

@@ -78,7 +78,16 @@ import CourseCard from "../components/CourseCard.vue";
       </div>
     </div>
 
-    <div id="my-courses" class="flex text-left">
+    <div id="courses" class="flex text-left pt-20">
+      <div class="w-1/2">
+        <h2
+          class="my-2 text-base-100 text-4xl font-black overflow-hidden whitespace-nowrap text-ellipsis w-auto"
+        >
+          Nuestros Cursos
+        </h2>
+      </div>
+    </div>
+    <div class="flex text-left">
       <div class="w-1/2">
         <h2
           class="my-2 text-base-100 text-xl font-black overflow-hidden whitespace-nowrap text-ellipsis w-auto"

@@ -8,17 +8,25 @@ export const useAuthStore = defineStore({
     token: "",
   }),
   actions: {
-    login(email, password) {
-      const response = axios.post("https://portal-millonario.free.beeceptor.com/api/users", {email, password})
-      // todo: set user info with response.data
-      this.setState({
-        user_id: response.data.id,
-        name: response.data.name,
-        username: response.data.username,
-        email: response.data.email,
-        phone: response.data.phone.number,
-        isAuthenticated: true,
+    // todo: fix login here, problem with async/await
+    async login(data){
+
+      var config = {
+        method: "post",
+        url: "/auth/login/",
+        headers: {
+          "content-type": "application/json",
+        },
+        data: data,
+      };
+
+      axios(config).then((response) => {
+        this.isAuthenticated = true;
+        this.token = response.data.key;
+        localStorage.setItem("isAuthenticated", true);
+        localStorage.setItem("token", response.data.key);
       })
+      
     },
     logout(){
       // We can set state with $patch method?
