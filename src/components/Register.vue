@@ -1,68 +1,68 @@
 <script setup>
 import { ref } from "vue";
-import BasePrimaryButton from "./base/BasePrimaryButton.vue";
-import Icon from "./Icon.vue";
-import BaseTextButton from "./base/BaseTextButton.vue";
-
+import axios from "axios";
 import { createToast } from "mosha-vue-toastify";
 import "mosha-vue-toastify/dist/style.css";
 
-import axios from "axios";
-import router from "../router";
+import BasePrimaryButton from "./base/BasePrimaryButton.vue";
+
+import { useUserStore } from "../stores/user";
+import { useAuthStore } from "../stores/auth";
+
+const userStore = useUserStore();
+const authStore = useAuthStore();
 
 const submitted = ref(false);
+const acceptedTermsAndConditions = ref(true);
 const formData = ref({});
 const submitHandler = async () => {
   // Login User request here
   submitted.value = true;
 
   var data = JSON.stringify({
+    first_name: formData.value["name"],
+    last_name: formData.value["lastname"],
+    username: formData.value["username"],
     password: formData.value["password"],
-    contacts: [
-      {
-        name: formData.value["name"],
-        email: formData.value["email"],
-        phone: {
-          indicative: "57",
-          number: formData.value["phone"],
-        },
-      },
-    ],
   });
 
   var config = {
     method: "post",
-    url: "https://portal-millonario.free.beeceptor.com/api/users",
+    // url: "https://portal-millonario.free.beeceptor.com/api/v1/user/register/student/",
+    url: "https://38f5-186-82-85-217.ngrok.io/api/v1/user/register/student/",
     headers: {
-      "Content-Type": "application/json",
+      "content-type": "application/json",
     },
     data: data,
   };
 
   axios(config)
     .then(function (response) {
-      if (response.status == 200) {
-        createToast(
-          {
-            title: "Usuario Creado Correctamente",
-            description: "¡Ya puedes empezar a descubrir nuestros cursos!",
-          },
-          {
-            showIcon: "true",
-            hideProgressBar: "true",
-            type: "success",
-            transition: "slide",
-            position: "top-right",
-            timeout: 5000,
-            toastBackgroundColor: "#36D399",
-          }
-        );
-        // TODO: Save user data in vue store
-        // Save response info to localstorage
-        localStorage.setItem("user", JSON.stringify(response.data));
-        closeRegistrationModal();
-        // this.$router.push({ path: "/" });
-      }
+      createToast(
+        {
+          title: "Usuario Creado Correctamente",
+          description: "¡Ya puedes empezar a descubrir nuestros cursos!",
+        },
+        {
+          showIcon: "true",
+          hideProgressBar: "true",
+          type: "success",
+          transition: "slide",
+          position: "top-right",
+          timeout: 5000,
+          toastBackgroundColor: "#36D399",
+        }
+      );
+      userStore.$patch({
+        user: response.data,
+      });
+      authStore.$patch({
+        isAuthenticated: true,
+      });
+      localStorage.setItem("user", JSON.stringify(response.data));
+      localStorage.setItem("isAuthenticated", true);
+      closeRegistrationModal();
+      this.$router.push({ path: "/perfil" });
     })
     .catch(function (error) {
       createToast(
@@ -94,45 +94,8 @@ const openLoginModal = () => {
 </script>
 
 <template>
-  <!-- <img class="absolute h-screen top-0 right-0" src="../assets/bg_hero.png"> -->
-
-  <!-- <div class="my-auto pr-20 w-9/12">
-        <h1 class="md:text-5xl text-2xl text-success font-black">Lorem ipsum dolor sit amet, consectetur adipiscing elit
-        </h1>
-        <div class="flex my-8">
-          <div class="avatar-group -space-x-6">
-            <div class="avatar">
-              <div class="md:w-12 w-6">
-                <img src="https://api.lorem.space/image/face?hash=4818" />
-              </div>
-            </div>
-            <div class="avatar">
-              <div class="md:w-12 w-6">
-                <img src="https://api.lorem.space/image/face?hash=40311" />
-              </div>
-            </div>
-            <div class="avatar">
-              <div class="md:w-12 w-6">
-                <img src="https://api.lorem.space/image/face?hash=84348" />
-              </div>
-            </div>
-            <div class="avatar placeholder">
-              <div class="md:w-12 w-6 bg-neutral-focus text-neutral-content">
-                <span>+99</span>
-              </div>
-            </div>
-          </div>
-          <span class="text-base-100 text-md mx-4">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit
-          </span>
-        </div>
-        <BaseTextButton link="/" label="Conocer a los fundadores" />
-
-      </div> -->
-  <!-- <pre class="text-white" wrap>{{ formData }}</pre> -->
-
   <div
-    class="h-screen md:h-full md:my-auto md:px-16 px-6 py-8 content-center bg-gradient-to-tr from-black/95 to-[#090617] md:rounded-xl md:border md:border-base-100/20 text-base-100 shadow-xl"
+    class="h-screen md:h-full md:my-auto md:px-12 px-6 py-8 content-center bg-gradient-to-tr from-black/95 to-[#090617] md:rounded-xl md:border md:border-base-100/20 text-base-100 shadow-xl"
   >
     <div class="flex justify-start pb-6 cursor-pointer">
       <label @click="closeRegistrationModal">
@@ -159,13 +122,48 @@ const openLoginModal = () => {
       <h1 class="mb-6 text-base-100 text-2xl font-black">
         Crear una nueva cuenta
       </h1>
+      <div class="flex">
+        <FormKit
+          type="text"
+          name="name"
+          placeholder="Nombre"
+          validation="required"
+          :validation-messages="{
+            required: 'El nombre es requerido.',
+          }"
+          :classes="{
+            outer: 'mb-3',
+            inner: 'bg-[#292E36]/30 rounded-xl mb-1',
+            input:
+              'w-full h-[34px] px-3 border-none text-base-100 text-white placeholder-text-gray-200',
+            validation: 'text-blue-300',
+          }"
+        />
+        <div class="w-[4%]"></div>
+        <FormKit
+          type="text"
+          name="lastname"
+          placeholder="Apellido"
+          validation="required"
+          :validation-messages="{
+            required: 'El apellido es requerido.',
+          }"
+          :classes="{
+            outer: 'mb-3',
+            inner: 'bg-[#292E36]/30 rounded-xl mb-1',
+            input:
+              'w-full h-[34px] px-3 border-none text-base-100 text-white placeholder-text-gray-200',
+            validation: 'text-blue-300',
+          }"
+        />
+      </div>
       <FormKit
         type="text"
-        name="name"
-        placeholder="Nombre completo"
+        name="username"
+        placeholder="Nombre de Usuario"
         validation="required"
         :validation-messages="{
-          required: 'El nombre es requerido.',
+          required: 'El nombre de usuario es requerido.',
         }"
         :classes="{
           outer: 'mb-3',
@@ -175,7 +173,7 @@ const openLoginModal = () => {
           validation: 'text-blue-300',
         }"
       />
-      <FormKit
+      <!-- <FormKit
         type="text"
         name="email"
         placeholder="Correo electrónico"
@@ -191,7 +189,7 @@ const openLoginModal = () => {
             'w-full h-[34px] px-3 border-none text-base-100 text-white placeholder-text-gray-200',
           validation: 'text-blue-300',
         }"
-      />
+      /> -->
       <FormKit
         type="password"
         name="password"
@@ -210,7 +208,7 @@ const openLoginModal = () => {
           validation: 'text-blue-300',
         }"
       />
-      <FormKit
+      <!-- <FormKit
         type="password"
         name="password_confirm"
         placeholder="Confirme contraseña"
@@ -226,12 +224,12 @@ const openLoginModal = () => {
             'w-full h-[34px] px-3 border-none text-base-100 text-white placeholder-text-gray-200',
           validation: 'text-blue-300',
         }"
-      />
+      /> -->
       <div class="form-control mb-3">
         <label class="label cursor-pointer">
           <input
             type="checkbox"
-            checked="checked"
+            v-model="acceptedTermsAndConditions"
             class="checkbox checkbox-primary mr-4"
           />
           <span class="text-base-100 text-md"
@@ -243,7 +241,11 @@ const openLoginModal = () => {
         </label>
       </div>
       <!-- todo: Disable button when sending request (create new user) -->
-      <BasePrimaryButton label="Crear cuenta" />
+      <BasePrimaryButton
+        :disabled="!acceptedTermsAndConditions"
+        label="Crear cuenta"
+      />
+
       <span class="flex justify-center text-base-100 text-sm py-2"
         >¿Ya tienes una cuenta?&nbsp;
         <a
@@ -252,7 +254,6 @@ const openLoginModal = () => {
           >Iniciar sesión</a
         ></span
       >
-      {{ formData }}
     </FormKit>
     <div v-if="submitted">
       <h2>Submission successful!</h2>

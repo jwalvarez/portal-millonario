@@ -1,59 +1,86 @@
 <script setup>
 import { ref } from "vue";
 import BasePrimaryButton from "./base/BasePrimaryButton.vue";
-import Icon from "./Icon.vue";
-import BaseTextButton from "./base/BaseTextButton.vue";
-
+import { createToast } from "mosha-vue-toastify";
+import "mosha-vue-toastify/dist/style.css";
 import axios from "axios";
 
+import { useUserStore } from "../stores/user";
+import { useAuthStore } from "../stores/auth";
+
+const userStore = useUserStore();
+const authStore = useAuthStore();
+
 const submitted = ref(false);
-const namm = ref("asldjasljdlaksj");
+const loading = ref(false);
 const formData = ref({});
-const icons = ref("");
 const submitHandler = async () => {
   // Login User request here
-  await new Promise((r) => setTimeout(r, 1000));
-  console.log(formData["full_name"]);
   submitted.value = true;
 
-  axios.get("https://jsonplaceholder.typicode.com/todos/1").then((result) => {
-    console.log(result.data);
-  });
-
   var data = JSON.stringify({
-    full_name: "Titulo video 1",
-    email: "jwalvarez@gmail.com",
-    password: "trading",
-    contacts: [
-      {
-        first_name: "Marcos",
-        last_name: "Castillo",
-        email: "jwalvarez@gmail.com",
-        phone: {
-          indicative: "57",
-          number: "3006003345",
-          extension: "132",
-        },
-      },
-    ],
-    referred_users: ["31", "42", "98"],
+    username: formData.value["username"],
+    password: formData.value["password"],
   });
 
   var config = {
     method: "post",
-    url: "https://portal-millonario.free.beeceptor.com/users",
+    url: "https://portal-millonario.free.beeceptor.com/auth/login/",
+    // url: "https://38f5-186-82-85-217.ngrok.io/auth/login/",
     headers: {
-      "Content-Type": "application/json",
+      "content-type": "application/json",
     },
     data: data,
   };
 
   axios(config)
     .then(function (response) {
-      console.log(JSON.stringify(response.data));
+      loading.value = false;
+      createToast(
+        {
+          title: "Ha iniciado sesión correctamente",
+          description: "¡Ya puedes empezar a descubrir nuestros cursos!",
+        },
+        {
+          showIcon: "true",
+          hideProgressBar: "true",
+          type: "success",
+          transition: "slide",
+          position: "top-right",
+          timeout: 5000,
+          toastBackgroundColor: "#36D399",
+        }
+      );
+      userStore.$patch({
+        user: response.data,
+      });
+      authStore.$patch({
+        isAuthenticated: true,
+        token: response.data.token,
+      });
+      localStorage.setItem("user", JSON.stringify(response.data));
+      localStorage.setItem("isAuthenticated", true);
+      localStorage.setItem("token", response.data.token);
+      closeLoginModal();
+      this.$router.push({ path: "/perfil" });
     })
     .catch(function (error) {
-      console.log(error);
+      loading.value = false;
+      createToast(
+        {
+          title: "Estamos teniendo problemas",
+          description: "Hubo un error al momento de ingresar a la cuenta.",
+        },
+        {
+          showIcon: "true",
+          hideProgressBar: "true",
+          type: "error",
+          transition: "slide",
+          position: "top-right",
+          timeout: 5000,
+          toastBackgroundColor: "#FF5252",
+        }
+      );
     });
 };
 
@@ -97,12 +124,11 @@ const openRegistrationModal = () => {
 
       <FormKit
         type="text"
-        name="email"
-        placeholder="Correo electrónico"
-        validation="required|email"
+        name="username"
+        placeholder="Nombre de Usuario"
+        validation="required"
         :validation-messages="{
-          required: 'El correo eléctronico es requerido.',
-          email: 'Correo electrónico invalido.',
+          required: 'El nombre de usuario es requerido.',
         }"
         :classes="{
           outer: 'mb-3',
@@ -141,8 +167,13 @@ const openRegistrationModal = () => {
           >
         </label>
       </div>
+      {{ loading }}
+      <BasePrimaryButton
+        @click="loading = !loading"
+        :loading="loading"
+        label="Iniciar sesión"
+      />
       <!-- todo: Disable button when sending request (create new user) -->
-      <BasePrimaryButton label="Iniciar sesión" />
       <span class="flex justify-center text-base-100 text-sm py-2"
         >¿No tienes una cuenta?&nbsp;
         <a

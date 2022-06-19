@@ -21,12 +21,9 @@
 
   <label
     id="registration-modal"
-    class="transition-all duration-300 modal cursor-pointer bg-[#090617]/95"
+    class="transition-all duration-300 modal cursor-pointer bg-[#090617]/95 h-screen"
   >
-    <label
-      class="md:modal-box md:shadow-none md:bg-transparent relative"
-      for=""
-    >
+    <label class="md:shadow-none md:bg-transparent relative" for="">
       <Register />
     </label>
   </label>
@@ -35,10 +32,7 @@
     id="login-modal"
     class="transition-all duration-300 modal cursor-pointer bg-[#090617]/95"
   >
-    <label
-      class="md:modal-box md:shad1ow-none md:bg-transparent relative"
-      for=""
-    >
+    <label class="md:shad1ow-none md:bg-transparent relative" for="">
       <Login />
     </label>
   </label>
@@ -109,7 +103,7 @@
                   <!-- <router-link to="/register" class="text-success font-bold normal-case text-sm -mb-2 py-0 w-full">Crear
                     cuenta</router-link> -->
                   <label
-                    v-if="!authStore.isLogged"
+                    v-if="!authStore.isAuthenticated"
                     @click="openRegistrationModal"
                     class="text-success font-bold normal-case text-sm -mb-2 py-0 w-full cursor-pointer"
                     >Crear Cuenta</label
@@ -118,7 +112,7 @@
                     v-else
                     to="/perfil"
                     class="text-success font-bold normal-case text-sm -mb-2 py-0 w-full cursor-pointer"
-                    >{{ userStore.name }}</router-link
+                    >{{ userStore.user.first_name }}</router-link
                   >
                 </div>
               </div>
@@ -170,7 +164,7 @@
             </svg>
           </span>
         </div>
-        <div v-if="authStore.isLogged">
+        <div v-if="authStore.isAuthenticated">
           <div class="flex mb-4 justify-between">
             <router-link
               to="/perfil"
@@ -185,7 +179,7 @@
                 <span class="text-base-100 text-sm font-medium w-full"
                   >Hola 👋</span
                 ><br />
-                {{ userStore.name }}
+                {{ userStore.user.first_name }}
                 <!-- <span an class="text-base-100/20 normal-case my-0 text-xs w-full">@jwalvez</span> -->
               </div>
             </router-link>
@@ -256,6 +250,10 @@
                 @click="openRegistrationModal"
                 label="Crear Cuenta"
               />
+              <BaseCourseButton
+                @click="openLoginModal"
+                label="Ya tengo una cuenta"
+              />
             </div>
           </div>
         </div>
@@ -289,6 +287,8 @@ import Register from "./components/Register.vue";
 import Login from "./components/Login.vue";
 import Footer from "./components/Footer.vue";
 import BasePrimaryButton from "./components/base/BasePrimaryButton.vue";
+import BaseTextButton from "./components/base/BaseTextButton.vue";
+import BaseCourseButton from "./components/base/BaseCourseButton.vue";
 
 export default {
   setup() {
@@ -306,6 +306,8 @@ export default {
     Login,
     Footer,
     BasePrimaryButton,
+    BaseTextButton,
+    BaseCourseButton,
   },
   computed: {
     showNav() {

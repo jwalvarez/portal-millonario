@@ -4,7 +4,7 @@ import axios from "axios";
 export const useAuthStore = defineStore({
   id: "auth",
   state: () => ({
-    isLogged: true,
+    isAuthenticated: false,
     token: "",
   }),
   actions: {
@@ -17,7 +17,7 @@ export const useAuthStore = defineStore({
         username: response.data.username,
         email: response.data.email,
         phone: response.data.phone.number,
-        isLoggedin: true,
+        isAuthenticated: true,
       })
     },
     logout(){
@@ -25,7 +25,7 @@ export const useAuthStore = defineStore({
       this.setState({
         username: "",
         name: "",
-        isLoggedin: false,
+        isAuthenticated: false,
       })
     }
   }

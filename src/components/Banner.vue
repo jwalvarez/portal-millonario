@@ -8,7 +8,7 @@
       <div class="md:px-[10%] block mb-20">
         <div class="hero-content flex-col lg:flex-row">
           <img
-            src="../assets/hero-img (1).png"
+            src="../assets/hero-img-2.png"
             class="md:max-w-[50%] max-w-full rounded-lg shadow-2xl"
           />
 
