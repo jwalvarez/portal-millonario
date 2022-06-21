@@ -10,6 +10,8 @@ import "./index.css";
 
 // TODO: Add base url config (axios)
 axios.defaults.baseURL = "http://localhost:3002/";
+// axios.defaults.baseURL = "https://4539-186-82-85-217.ngrok.io/";
+
 // axios.defaults.baseURL = "https://portal-millonario.free.beeceptor.com/";
 // Vue.config.productionTip = false;
 // Vue.prototype.$axios = axios;

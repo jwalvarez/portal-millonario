@@ -1,20 +1,20 @@
 <template>
   <div class="md:w-[80%] w-[90%] mx-auto">
     <div class="md:flex">
-      <div class="block md:w-3/4 md:mr-10">
+      <div class="block md:w-9/12 md:mr-10">
         <div class="text-center relative mt-14">
           <h2
             class="md:text-3xl text-left text-xl text-base-100 font-black mb-3"
           >
-            🚀 Video introductorio Goarbit
+            🚀 {{ course.name }}
           </h2>
           <div class="flex justify-center">
             <div
-              class="bg-black/60 z-10 absolute rounded-3xl w-full md:h-[400px] h-[300px]"
+              class="bg-black/60 z-10 absolute rounded-xl w-full md:h-[400px] h-[300px]"
             ></div>
             <img
               src="https://picsum.photos/1000/400"
-              class="relative rounded-3xl md:h-[400px] h-[300px] object-cover"
+              class="relative rounded-xl md:h-[400px] h-[300px] object-cover"
             />
           </div>
         </div>
@@ -27,195 +27,82 @@
               Información del curso
             </h2>
             <p class="text-base-100 font-normal my-auto">
-              Pellentesque sodales ante et velit convallis, nec aliquet nisl
-              eleifend. Nullam cursus eros risus, ut congue nibh accumsan ac.
-              Nullam augue massa, tempor id porta quis, congue et tortor. Nulla
-              molestie maximus ultricies. Aenean urna ipsum, ultrices ut tortor
-              ac, consectetur luctus sapien.
-              <br />
-              Pellentesque sodales ante et velit convallis, nec aliquet nisl
-              eleifend. Nullam cursus eros risus, ut congue nibh accumsan ac.
-              Nullam augue massa, tempor id porta quis, congue et tortor. Nulla
-              molestie maximus ultricies. Aenean urna ipsum, ultrices ut tortor
-              ac, consectetur luctus sapien.Pellentesque sodales ante et velit
-              convallis, nec aliquet nisl eleifend. Nullam cursus eros risus, ut
-              congue nibh accumsan ac. Nullam augue massa, tempor id porta quis,
-              congue et tortor. Nulla molestie maximus ultricies. Aenean urna
-              ipsum, ultrices ut tortor ac, consectetur luctus sapien.
+              {{ course.description }}
             </p>
             <!-- TODO: Put course schedule here -->
-            <div class="md:flex my-6">
-              <div
-                class="px-4 text-white/80 text-sm py-3 my-auto bg-black/10 rounded-lg md:mr-4 mb-2 border-[1px] border-base-100/10 uppercase font-bold cursor-default"
-              >
-                Lunes, 8:30 pm
-                <div class="badge badge-primary ml-4">2hr</div>
-              </div>
-              <div
-                class="px-4 text-white/80 text-sm py-3 my-auto bg-black/10 rounded-lg md:mr-4 mb-2 border-[1px] border-base-100/10 uppercase font-bold cursor-default"
-              >
-                Lunes, 8:30 pm
-                <div class="badge badge-primary ml-4">2hr</div>
-              </div>
-              <div
-                class="px-4 text-white/80 text-sm py-3 my-auto bg-black/10 rounded-lg md:mr-4 mb-2 border-[1px] border-base-100/10 uppercase font-bold cursor-default"
-              >
-                Lunes, 8:30 pm
-                <div class="badge badge-primary ml-4">2hr</div>
-              </div>
-            </div>
-            <p class="text-base-100 font-normal my-auto">
-              Pellentesque sodales ante et velit convallis, nec aliquet nisl
-              eleifend. Nullam cursus eros risus, ut congue nibh accumsan ac.
-              Nullam augue massa, tempor id porta quis, congue et tortor. Nulla
-              molestie maximus ultricies. Aenean urna ipsum, ultrices ut tortor
-              ac, consectetur luctus sapien.Pellentesque sodales ante et velit
-              convallis, nec aliquet nisl eleifend. Nullam cursus eros risus, ut
-              congue nibh accumsan ac. Nullam augue massa, tempor id porta quis,
-              congue et tortor222.
-            </p>
           </div>
         </div>
       </div>
-      <div class="block md:mx-4">
-        <div class="md:flex justify-between mx-auto my-24 sticky top-20">
-          <div class="block text-left md:w-full mb-6">
-            <h2
-              class="my-2 text-white text-xl font-black overflow-hidden whitespace-nowrap text-ellipsis w-auto"
-            >
-              Contenido del curso
-            </h2>
-            <div class="block">
-              <ul class="steps steps-vertical text-base-100">
-                <li class="step cursor-default step-neutral">
-                  Principios en Goarbit
-                </li>
-                <li class="step cursor-default step-neutral">
-                  Introducción a Criptomonedas
-                </li>
-                <li class="step cursor-default step-neutral">
-                  Exchange y Binance
-                </li>
-                <li class="step cursor-default step-neutral">
-                  Principios de economía
-                </li>
-                <li data-content="●" class="step cursor-default step-neutral">
-                  Mira todo ingresando al curso
-                </li>
-              </ul>
+
+      <div class="block mt-24">
+        <h2
+          class="my-2 text-white text-xl font-black overflow-hidden whitespace-nowrap text-ellipsis w-auto"
+        >
+          Contenido del curso
+        </h2>
+        <ul class="steps steps-vertical text-base-100">
+          <li
+            v-for="(item, idex) in course.content"
+            class="step cursor-default step-neutral"
+          >
+            {{ item }}
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- TODO: Create Schedule Cards -->
+    <div
+      class="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-10 sm:gap-6 space-y-3"
+    >
+      <!-- TODO: Get user information from store or show registration form -->
+      <div
+        v-for="nrc in course.schedule"
+        class="card w-full bg-accent/40 text-primary-content p-0"
+      >
+        <div class="card-body px-4">
+          <div class="md:flex">
+            <div class="block lg:w-[90%] w-full">
+              <h2 class="card-title text-lg text-left">
+                Curso NRC: {{ nrc.id }}, by
+                {{ nrc.teacher.first_name }}
+              </h2>
+              <div class="rating space-x-2">
+                <input
+                  v-for="i in Math.floor(nrc.teacher.rating)"
+                  type="radio"
+                  name="rating-2"
+                  class="mask mask-star-2 bg-orange-400"
+                />
+              </div>
             </div>
-            <div class="card w-full bg-accent/40 text-primary-content my-6">
-              <div class="card-body">
-                <h2 class="card-title text-lg">
-                  Descuento del 50% en la compra del siguiente curso.
-                </h2>
-                <p class="text-sm">
-                  Aprovecha este descuento por tiempo limitado
-                </p>
-                <div class="card-actions justify-start mt-4">
-                  <button class="btn btn-sm">Comprar</button>
+            <div class="w-auto lg:block hidden">
+              <div class="avatar">
+                <div class="w-16 rounded-full">
+                  <img src="https://api.lorem.space/image/face?hash=92310" />
                 </div>
               </div>
             </div>
           </div>
+          <div class="card-actions justify-start mt-4">
+            <BaseCourseButton label="Inscribirse" />
+          </div>
+          <p class="text-sm">{{ nrc.description }}</p>
+          <div class="flex-grow border-t border-base-100/10 mb-2"></div>
+          <h2 class="card-title text-lg">Horario de clases:</h2>
+
+          <div class="carousel flex justify-start space-x-2">
+            <div
+              v-for="(session, day) in nrc.calendar"
+              class="carousel-item px-2 text-white/80 text-sm py-3 my-auto bg-black/10 rounded-lg mb-2 border-[1px] border-base-100/10 uppercase font-black cursor-default"
+            >
+              {{ day }}
+              <div class="badge badge-md font-bold badge-primary ml-2">
+                {{ session }}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-
-    <div class="block text-left w-[70%] mt-20">
-      <h2
-        class="my-2 text-white text-xl font-black overflow-hidden whitespace-nowrap text-ellipsis w-auto"
-      >
-        Adquiere un paquete de Goarbit
-      </h2>
-    </div>
-
-    <div class="block md:flex shadow mb-20">
-      <!-- TODO: Get user information from store or show registration form -->
-      <form
-        action="https://checkout.wompi.co/p/"
-        @submit="
-          () => {
-            onSubmit(event, price_item.id);
-            return false;
-          }
-        "
-        method="GET"
-        :id="price_item.id"
-        v-for="price_item in price_table"
-        key="price_item.id"
-        class="card md:w-96 bg-accent/50 hover:bg-primary/40 text-primary-content my-6 md:mr-6 transition-all duration-500"
-      >
-        <!-- OBLIGATORIOS -->
-        <input
-          type="hidden"
-          name="public-key"
-          value="pub_test_RWFLLbYWjGgj93WoapghZy36ABIkikr6"
-        />
-        <input type="hidden" name="currency" value="COP" />
-        <input
-          type="hidden"
-          name="amount-in-cents"
-          :value="price_item.price + '00'"
-        />
-        <input type="hidden" name="reference" :value="makeReference()" />
-        <!-- OPCIONALES -->
-        <input
-          type="hidden"
-          name="redirect-url"
-          value="http://localhost:3000/perfil"
-        />
-        <input
-          type="hidden"
-          name="customer-data:email"
-          value="jwalvarez.98@gmail.com"
-        />
-        <input
-          type="hidden"
-          name="customer-data:full-name"
-          value="Jhon Álvarez Test"
-        />
-        <input
-          type="hidden"
-          name="customer-data:phone-number"
-          value="3015351652"
-        />
-        <input type="hidden" name="customer-data:legal-id" value="1007823097" />
-        <input type="hidden" name="customer-data:legal-id-type" value="CC" />
-
-        <div class="card-body inline-block align-top">
-          <h2 class="card-title text-5xl text-base-100">
-            {{ price_item.price }} COP
-          </h2>
-          <p class="text-base-100 my-4">
-            {{ price_item.description }}
-          </p>
-
-          <ul class="list-disc list-inside mt-2 h-52">
-            <div
-              v-for="(feacture, index) in price_item.feacture"
-              key="index"
-              class="flex mb-2"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="w-5 h-5 text-base-100"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-
-              <span class="mx-4 text-base-100">{{ feacture }}</span>
-            </div>
-          </ul>
-          <BaseCourseButton label="Comprar" />
-        </div>
-      </form>
     </div>
 
     <div class="block text-left md:w-[70%] mt-20">
@@ -237,17 +124,6 @@
         massa, tempor id porta quis, congue et tortor. Nulla molestie maximus
         ultricies. Aenean urna ipsum, ultrices ut tortor ac, consectetur luctus
         sapien.
-        <br />
-        <br />
-        Pellentesque sodales ante et velit convallis, nec aliquet nisl eleifend.
-        Nullam cursus eros risus, ut congue nibh accumsan ac. Nullam augue
-        massa, tempor id porta quis, congue et tortor. Nulla molestie maximus
-        ultricies. Aenean urna ipsum, ultrices ut tortor ac, consectetur luctus
-        sapien.Pellentesque sodales ante et velit convallis, nec aliquet nisl
-        eleifend. Nullam cursus eros risus, ut congue nibh accumsan ac. Nullam
-        augue massa, tempor id porta quis, congue et tortor. Nulla molestie
-        maximus ultricies. Aenean urna ipsum, ultrices ut tortor ac, consectetur
-        luctus sapien.
       </p>
       <div class="md:w-1/2 my-10">
         <BasePrimaryButton label="¡Empezar a invertir!" />
@@ -261,78 +137,90 @@
         Puede que te interese
       </h2>
     </div>
-
-    <div
-      class="flex py-4 space-x-6 ml-[0%] rounded-box overflow-x-scroll mb-44"
-    >
-      <div
-        v-for="course in trading_courses"
-        class="carousel-item shadow-xl rounded-2xl h-90 w-[300px] hover:md:-translate-y-2 duration-300"
-      >
-        <CourseCard
-          :img="course.img"
-          :title="course.title"
-          :description="course.description"
-          :startDate="course.startDate"
-          :tags="course.tags"
-        />
-      </div>
-    </div>
+    <!-- TODO: Add course carousel here -->
   </div>
 </template>
 <script>
+import axios from "axios";
+
+import { useCoursesStore } from "../stores/course";
+
 import CourseCard from "../components/CourseCard.vue";
 import BaseCourseButton from "../components/base/BaseCourseButton.vue";
 import BasePrimaryButton from "../components/base/BasePrimaryButton.vue";
+
 export default {
+  setup() {
+    const coursesStore = useCoursesStore();
+    return {
+      coursesStore,
+    };
+  },
   components: { CourseCard, BaseCourseButton, BasePrimaryButton },
   data() {
     return {
-      trading_courses: [
+      nrcs: [
         {
-          title: "Introduccion al trading by Andrés",
-          description:
-            "Nunc malesuada euismod lectus. Duis condimentum tellus pellentesque turpis consequat ornare. Integer posuere dignissim quam, in vehicula orci maximus quis. Nunc sed arcu a lorem consequat feugiat in a sapien. ",
-          url: "/",
-          img: "https://picsum.photos/700/400",
-          startDate: "Junio 12, 2022",
-          tags: ["#trading", "#binance"],
+          id: "172",
+          description: "Curso de programación en Python",
+          schedule: [
+            {
+              day: "Lunes",
+              time: "8:30 pm",
+              duration: "2hr",
+            },
+            { day: "Martes", time: "8:30 pm", duration: "2hr" },
+            { day: "Miércoles", time: "8:30 pm", duration: "2hr" },
+            { day: "Jueves", time: "8:30 pm", duration: "2hr" },
+          ],
         },
         {
-          title: "Introduccion al trading by Andrés",
-          description:
-            "Nunc malesuada euismod lectus. Duis condimentum tellus pellentesque turpis consequat ornare. Integer posuere dignissim quam, in vehicula orci maximus quis. Nunc sed arcu a lorem consequat feugiat in a sapien. ",
-          url: "/",
-          img: "https://picsum.photos/700/400",
-          startDate: "Junio 12, 2022",
-          tags: ["#trading", "#binance"],
+          id: "174",
+          description: "Curso de programación en Python",
+          schedule: [
+            {
+              day: "Lunes",
+              time: "8:30 pm",
+              duration: "2hr",
+            },
+            { day: "Jueves", time: "8:30 pm", duration: "2hr" },
+          ],
         },
         {
-          title: "Introduccion al trading by Andrés",
-          description:
-            "Nunc malesuada euismod lectus. Duis condimentum tellus pellentesque turpis consequat ornare. Integer posuere dignissim quam, in vehicula orci maximus quis. Nunc sed arcu a lorem consequat feugiat in a sapien. ",
-          url: "/",
-          img: "https://picsum.photos/700/400",
-          startDate: "Junio 12, 2022",
-          tags: ["#trading", "#binance"],
+          id: "175",
+          description: "Curso de programación en Python",
+          schedule: [
+            {
+              day: "Lunes",
+              time: "8:30 pm",
+              duration: "2hr",
+            },
+            { day: "Jueves", time: "8:30 pm", duration: "2hr" },
+          ],
         },
         {
-          title: "Opciones binarias",
-          description:
-            "Duis condimentum tellus pellentesque turpis consequat ornare. Integer posuere dignissim quam, in vehicula orci maximus quis. Nunc sed arcu a lorem consequat feugiat in a sapien. ",
-          url: "/goarbit",
-          img: "https://www.urbeconomica.com.mx/images/2020/criptos.jpg",
-          startDate: "Agosto 3, 2022",
-          tags: ["#trading", "#bitcoin"],
+          id: "177",
+          description: "Curso de programación en Python",
+          schedule: [
+            {
+              day: "Lunes",
+              time: "8:30 pm",
+              duration: "2hr",
+            },
+            { day: "Jueves", time: "8:30 pm", duration: "2hr" },
+          ],
         },
         {
-          title: "¿Qué es GoArbit?",
-          description:
-            "Nunc malesuada euismod lectus. Integer posuere dignissim quam, in vehicula orci maximus quis. Nunc sed arcu a lorem consequat feugiat in a sapien. ",
-          url: "/perfil",
-          img: "https://picsum.photos/600/500",
-          startDate: "Junio 17, 2022",
-          tags: ["#trading", "#exchange"],
+          id: "178",
+          description: "Curso de programación en Python",
+          schedule: [
+            {
+              day: "Lunes",
+              time: "8:30 pm",
+              duration: "2hr",
+            },
+            { day: "Jueves", time: "8:30 pm", duration: "2hr" },
+          ],
         },
       ],
       price_table: [
@@ -348,43 +236,52 @@ export default {
             "50% de descuento en el proximo curso.",
           ],
         },
-        {
-          id: 2,
-          price: 126900,
-          description:
-            "Un usuario, acceso durante 6 meses al material del curso.",
-          feacture: [
-            "Precio por un usuario.",
-            "Acceso a los materiales del curso.",
-            "Contacto directo con los asesores.",
-          ],
-        },
-        {
-          id: 3,
-          price: 150900,
-          description:
-            "Un usuario, acceso durante 6 meses al material del curso.",
-          feacture: [
-            "Precio por un usuario.",
-            "Acceso a los materiales del curso.",
-            "Contacto directo con los asesores.",
-          ],
-        },
       ],
     };
   },
+  computed: {
+    course: function () {
+      return this.coursesStore.selectedCourse;
+    },
+  },
+  mounted() {
+    window.scrollTo(0, 0);
+    const selectedCourseLocalStorage = localStorage.getItem("selectedCourse");
+    const selectedCourseStore = this.coursesStore.selectedCourse;
+    console.log("selectedCourse (LOCAL STORAGE): ", selectedCourseLocalStorage);
+    console.log("selectedCourse (STORE): ", selectedCourseStore);
+
+    // if (
+    //   this.coursesStore.selectedCourse &&
+    //   !this.coursesStore.selectedCourse.schedule
+    // ) {
+    //   console.log("Curso en Store pero sin horarios");
+    //   const schedule = this.getSchedule(this.coursesStore.selectedCourse.id);
+    //   this.coursesStore.selectedCourse.schedule = schedule;
+    //   localStorage.setItem(
+    //     "selectedCourse",
+    //     JSON.stringify(this.coursesStore.selectedCourse)
+    //   );
+    // }
+    // if (
+    //   !this.coursesStore.selectedCourse &&
+    //   localStorage.getItem("selectedCourse")
+    // ) {
+    //   console.log("No hay curso en Store, pero hay uno en localStorage");
+    // }
+  },
   methods: {
+    verifyChecked: (index, number) => {
+      Math.floor(number) == index ? "true" : "false";
+    },
     makeReference: () => {
       const time = new Date().getTime();
       return "PRTLM-" + time;
     },
-    onSubmit(event, formID) {
-      event.preventDefault();
-
-      console.log(formID);
-      // TODO: Verify is user is logged (store)
+    onSubmit(form) {
+      // TODO: Verify if user is logged (store)
       console.log(
-        formID,
+        form,
         "submit------------------------------------------------"
       );
       // document.getElementById(formID).submit();

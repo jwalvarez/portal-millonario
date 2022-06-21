@@ -1,6 +1,6 @@
 <template>
   <ul
-    class="flex bg-gradient-to-l from-transparent via-primary/20 to-transparent py-8 px-[10%]"
+    class="flex bg-gradient-to-l from-transparent via-primary/60 to-transparent py-8 px-[10%]"
     id="example-2"
   >
     <li
@@ -8,7 +8,7 @@
       v-for="(item, index) in topics"
       :key="index"
     >
-      <span class="text-base-100/30 md:text-2xl text-xs font-inter-black">{{
+      <span class="text-base-100/40 md:text-2xl text-xs font-inter-black">{{
         item
       }}</span>
     </li>

@@ -28,8 +28,7 @@ const submitHandler = async () => {
 
   var config = {
     method: "post",
-    // url: "https://portal-millonario.free.beeceptor.com/api/v1/user/register/student/",
-    url: "/api/v1/user/register/student/",
+    url: "/api/v1/orchestrator/open/register_student/",
     headers: {
       "content-type": "application/json",
     },
@@ -58,6 +57,7 @@ const submitHandler = async () => {
       });
       authStore.$patch({
         isAuthenticated: true,
+        token: response.data.token,
       });
       // TODO: Get user token and save it in state and local storage (ask to @joel)
       localStorage.setItem("user", JSON.stringify(response.data));

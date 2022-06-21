@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div>CheckOut</div>
 </template>
 <script>
 export default {

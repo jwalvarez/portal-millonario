@@ -4,8 +4,16 @@ import axios from "axios";
 const useWompiStore = defineStore({
   id: "wompi",
   state: () => ({
-    wompi: {},
+    public_key: "",
     reference: "",
+    amount_in_cents:"",
+    redirecte_url: "",
+    user: {},
+    // course information
+    course_id: "",
+    course_name: "",
+    course_description: "",
+    course_price: "",
   }),
   actions: {
     getReference(token) {

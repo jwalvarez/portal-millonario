@@ -23,7 +23,7 @@ const submitHandler = async () => {
 
   var config = {
     method: "post",
-    url: "/auth/login/",
+    url: "/api/v1/orchestrator/open/login/",
     headers: {
       "content-type": "application/json",
     },
@@ -52,7 +52,7 @@ const submitHandler = async () => {
     });
     authStore.$patch({
       isAuthenticated: true,
-      token: response.data.key,
+      token: response.data.token,
     });
     // todo: get user information when login
     localStorage.setItem("user", JSON.stringify(response.data));

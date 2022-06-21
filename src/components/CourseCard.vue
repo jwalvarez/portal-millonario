@@ -1,20 +1,20 @@
 <template>
   <a
     href="#"
-    class="w-full block h-full border bg-base-100/5 border-black/30 rounded-xl"
+    class="w-full block h-full border bg-base-100/5 border-black/30 rounded-lg cursor-default"
   >
     <div class="relative">
       <img
         alt="blog photo"
-        :src="img"
-        class="relative rounded-t-xl max-h-40 w-full object-cover"
+        src="https://img-b.udemycdn.com/course/240x135/1278360_beb4_3.jpg"
+        class="relative rounded-t-lg max-h-40 w-full object-cover"
       />
       <div
         class="absolute top-0 left-0 ml-2 flex flex-wrap justify-starts items-center my-2"
       >
         <div
-          v-for="tag in tags"
-          class="text-sm mr-1 py-1.5 px-4 text-white hover:text-success bg-black/20 rounded-2xl backdrop-blur-md"
+          v-for="tag in course.tags"
+          class="text-sm mr-1 py-1.5 px-4 text-white hover:text-success bg-black/80 rounded-xl backdrop-blur-md"
         >
           {{ tag }}
         </div>
@@ -22,12 +22,12 @@
     </div>
     <div class="w-full p-4">
       <h2
-        class="text-base-100 text-xl font-black overflow-hidden whitespace-nowrap text-ellipsis w-auto"
+        class="text-base-100 text-lg font-black overflow-hidden whitespace-nowrap text-ellipsis w-auto"
       >
-        {{ title }}
+        {{ course.name }}
       </h2>
       <div class="flex-grow border-t border-base-100/10 my-2"></div>
-      <span class="flex justify-between my-2">
+      <!-- <span class="flex justify-between my-2">
         <div class="flex">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -60,25 +60,52 @@
             </div>
           </div>
         </div>
-      </span>
-      <p class="text-base-100/40 text-md mb-4 course-description">
-        {{ description }}
+      </span> -->
+      <p class="text-base-100 text-lg font-black">
+        COP ${{ course.price }}.900
       </p>
-      <BaseCourseButton label="Ver Curso" />
+      <p class="text-base-100/40 text-md mb-4 course-description">
+        {{ course.description }}
+      </p>
+      <BaseCourseButton @click="setSelectedCourse" label="Ver Curso" />
     </div>
   </a>
 </template>
 <script>
+import axios from "axios";
+import { useCoursesStore } from "../stores/course";
 import BaseCourseButton from "./base/BaseCourseButton.vue";
+
 export default {
+  setup() {
+    const coursesStore = useCoursesStore();
+    return {
+      coursesStore,
+    };
+  },
+
   props: {
-    title: String,
-    img: String,
-    startDate: String,
-    description: String,
-    tags: Array,
+    course: Array,
   },
   components: { BaseCourseButton },
+  methods: {
+    setSelectedCourse() {
+      // ? Get Course Schedule, save it and pass it to the store
+      axios
+        .get(`/api/v1/orchestrator/open/${this.course.id}/get_schedules/`)
+        .then((response) => {
+          this.course.schedule = response.data;
+          this.coursesStore.setSelectedCourse(this.course);
+          localStorage.setItem("selectedCourse", JSON.stringify(this.course));
+        });
+
+      this.$router.push("/curso/");
+      this.$router.push({
+        path: "/curso",
+        query: { course: this.course.id, start: "15" },
+      });
+    },
+  },
 };
 </script>
 <style lang=""></style>

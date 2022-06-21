@@ -23,7 +23,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth; */
   font-family: 'myFirstFont', Arial, sans-serif;
 }
 

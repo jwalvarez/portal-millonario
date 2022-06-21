@@ -1,5 +1,5 @@
 <template>
-  <div class="relative top-10 carousel w-full h-full">
+  <div class="relative carousel w-full">
     <img
       class="absolute h-full w-auto object-fit -top-10 left-0"
       src="../assets/bg_hero.png"

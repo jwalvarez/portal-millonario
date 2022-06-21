@@ -31,8 +31,8 @@
         v-if="!authStore.isAuthenticated"
         class="relative z-50 w-full px-4 py-3 text-white/70 text-center bg-gradient-to-r from-primary to-success"
       >
-        <p class="text-xs font-inter-bold">
-          Encuentra cursos ideales para generar ingresos.
+        <p class="text-xs font-inter-bold text-white/80">
+          Encuentra cursos ideales para ti.
           <a class="underline hover:text-base-100 text-xs duration-500" href="">
             Empieza ahora &rarr;
           </a>
@@ -219,7 +219,7 @@
         </div>
         <div
           v-else
-          class="card w-full bg-accent/40 text-primary-content my-6 shadow-[6px_6px_0px_rgba(0,212,155,1)]"
+          class="card w-full bg-accent/40 text-primary-content mb-6 shadow-[6px_6px_0px_rgba(0,212,155,1)]"
         >
           <div class="card-body">
             <h2 class="card-title text-lg">
