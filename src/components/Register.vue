@@ -28,7 +28,7 @@ const submitHandler = async () => {
 
   var config = {
     method: "post",
-    url: "/api/v1/orchestrator/open/register_student/",
+    url: "/api/v1/user/student/register/",
     headers: {
       "content-type": "application/json",
     },

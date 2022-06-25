@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 export const useCoursesStore = defineStore({
   id: "course",
   state: () => ({
-    selectedCourse: null,
+    selectedCourse: {},
     // ? List of all courses by area (trading, marketing, goarbit, etc)
     trading: [],
     marketing: [],
@@ -17,7 +17,6 @@ export const useCoursesStore = defineStore({
     setSelectedCourse(course){
       this.selectedCourse = course;
     }
-    
-  }
+  },
 })
 

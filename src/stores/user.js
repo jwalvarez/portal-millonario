@@ -5,6 +5,7 @@ export const useUserStore = defineStore({
   state: () => ({
     // user_id to get user info when navigate to /perfil/user_id
     user: {}, 
+    myCourses: []
   }),
   action: {
     

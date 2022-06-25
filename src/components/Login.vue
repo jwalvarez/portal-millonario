@@ -23,7 +23,7 @@ const submitHandler = async () => {
 
   var config = {
     method: "post",
-    url: "/api/v1/orchestrator/open/login/",
+    url: "/api/v1/user/student/login/",
     headers: {
       "content-type": "application/json",
     },
@@ -57,7 +57,7 @@ const submitHandler = async () => {
     // todo: get user information when login
     localStorage.setItem("user", JSON.stringify(response.data));
     localStorage.setItem("isAuthenticated", true);
-    localStorage.setItem("token", response.data.key);
+    localStorage.setItem("token", response.data.token);
     closeLoginModal();
   });
   // .catch( (error) =>{
@@ -133,15 +133,15 @@ const openRegistrationModal = () => {
           validation: 'text-blue-300',
         }"
       />
-      <FormKit
-        type="password"
-        name="password"
-        validation="required|length:6|matches:/[^a-zA-Z]/"
-        :validation-messages="{
+      <!-- validation="required|length:6|matches:/[^a-zA-Z]/" -->
+      <!-- :validation-messages="{
           matches: 'Por favor, incluya al menos un símbolo',
           required: 'La contraseña es requerida',
           length: 'La contraseña debe tener mínimo 6 carácteres.',
-        }"
+        }" -->
+      <FormKit
+        type="password"
+        name="password"
         placeholder="Contraseña"
         :classes="{
           outer: 'mb-3',

@@ -1,19 +1,20 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 
-const useWompiStore = defineStore({
+export const useWompiStore = defineStore({
   id: "wompi",
   state: () => ({
-    public_key: "",
-    reference: "",
+    // wompi config
+    public_key: "pub_test_RWFLLbYWjGgj93WoapghZy36ABIkikr6",
     amount_in_cents:"",
     redirecte_url: "",
     user: {},
-    // course information
+    // payment data
+    reference: "",
     course_id: "",
-    course_name: "",
-    course_description: "",
-    course_price: "",
+    nrc_id: "",
+    referral_code: "",
+    transaction_id: "",
   }),
   actions: {
     getReference(token) {

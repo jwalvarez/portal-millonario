@@ -92,7 +92,7 @@ export default {
     setSelectedCourse() {
       // ? Get Course Schedule, save it and pass it to the store
       axios
-        .get(`/api/v1/orchestrator/open/${this.course.id}/get_schedules/`)
+        .get(`/api/v1/course/${this.course.id}/get_schedules/`)
         .then((response) => {
           this.course.schedule = response.data;
           this.coursesStore.setSelectedCourse(this.course);

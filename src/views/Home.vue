@@ -164,22 +164,19 @@ export default {
   methods: {
     getCourse(area = "") {
       axios
-        .get(
-          `/api/v1/orchestrator/open/get_courses/${
-            area != "" ? "?area=" + area : ""
-          }`
-        )
+        .get(`/api/v1/course/${area != "" ? "?area=" + area : ""}`)
         .then((response) => {
-          this.coursesStore[area] = response.data;
+          // this.coursesStore[area] = response.data;
+          this.coursesStore["trading"] = response.data.results;
         });
     },
   },
   mounted() {
     console.log("Home mounted");
     // TODO: Get Request to /api/v1/courses/
-    this.getCourse("trading");
-    this.getCourse("crypto"); //marketing
-    this.getCourse("business"); //goarbit
+    // this.getCourse("crypto"); //marketing
+    // this.getCourse("business"); //goarbit
+    this.getCourse("");
   },
 };
 </script>

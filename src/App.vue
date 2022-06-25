@@ -190,27 +190,28 @@
             >
           </div>
           <nav class="carousel carousel-center my-4 space-x-2 rounded-box">
+            <!-- TODO: Navigate to course depending on course id -->
             <router-link
-              v-for="(item, index) in courses"
-              :to="{ path: item.url }"
-              :key="index"
+              v-for="item in userStore.myCourses"
+              to="/"
+              :key="item.course"
               @click="toggleMenu"
               class="carousel-item h-full items-center bg-black/40 rounded-xl"
             >
               <div class="w-40 p-2">
                 <img
-                  class="h-full w-full object-cover rounded-xl mb-2"
-                  :src="item.img"
+                  class="w-full h-20 object-cover rounded-xl mb-2"
+                  src="https://picsum.photos/200/350"
                   alt=""
                 />
                 <h2
                   class="text-sm text-base-100 overflow-hidden whitespace-nowrap text-ellipsis w-auto"
                 >
-                  {{ item.title }}
+                  {{ item.course }}
                 </h2>
                 <progress
                   class="mt-6 progress progress-primary w-full bg-black"
-                  :value="item.progress"
+                  :value="item.id"
                   max="100"
                 ></progress>
               </div>
@@ -260,6 +261,7 @@
 
 <script>
 import { useRouter } from "vue-router";
+import axios from "axios";
 
 import { useUserStore } from "./stores/user";
 import { useAuthStore } from "./stores/auth";
@@ -304,6 +306,7 @@ export default {
         isAuthenticated: true,
         token: localStorage.getItem("token"),
       });
+    this.getBoughtCourses();
   },
   data() {
     return {
@@ -326,49 +329,26 @@ export default {
           url: "/goarbit",
         },
       ],
-      courses: [
-        {
-          title: "Introduccion al trading by Andrés",
-          url: "/",
-          img: "https://www.urbeconomica.com.mx/images/2020/criptos.jpg",
-          progress: 10,
-        },
-        {
-          title: "Opciones binarias",
-          url: "/goarbit",
-          img: "https://www.urbeconomica.com.mx/images/2020/criptos.jpg",
-          progress: 22,
-        },
-        {
-          title: "¿Qué es GoArbit?",
-          url: "/",
-          img: "https://www.urbeconomica.com.mx/images/2020/criptos.jpg",
-          progress: 5,
-        },
-      ],
-      trading_courses: [
-        {
-          title: "Introduccion al trading by Andrés",
-          description:
-            "Nunc malesuada euismod lectus. Duis condimentum tellus pellentesque turpis consequat ornare. Integer posuere dignissim quam, in vehicula orci maximus quis. Nunc sed arcu a lorem consequat feugiat in a sapien. ",
-          url: "/",
-          img: "https://www.urbeconomica.com.mx/images/2020/criptos.jpg",
-        },
-        {
-          title: "Opciones binarias",
-          description:
-            "Nunc malesuada euismod lectus. Duis condimentum tellus pellentesque turpis consequat ornare. Integer posuere dignissim quam, in vehicula orci maximus quis. Nunc sed arcu a lorem consequat feugiat in a sapien. ",
-          url: "/goarbit",
-          img: "https://www.urbeconomica.com.mx/images/2020/criptos.jpg",
-        },
-        {
-          title: "¿Qué es GoArbit?",
-          description:
-            "Nunc malesuada euismod lectus. Duis condimentum tellus pellentesque turpis consequat ornare. Integer posuere dignissim quam, in vehicula orci maximus quis. Nunc sed arcu a lorem consequat feugiat in a sapien. ",
-          url: "/",
-          img: "https://www.urbeconomica.com.mx/images/2020/criptos.jpg",
-        },
-      ],
+      // courses: [
+      //   {
+      //     title: "Introduccion al trading by Andrés",
+      //     url: "/",
+      //     img: "https://www.urbeconomica.com.mx/images/2020/criptos.jpg",
+      //     progress: 10,
+      //   },
+      //   {
+      //     title: "Opciones binarias",
+      //     url: "/goarbit",
+      //     img: "https://www.urbeconomica.com.mx/images/2020/criptos.jpg",
+      //     progress: 22,
+      //   },
+      //   {
+      //     title: "¿Qué es GoArbit?",
+      //     url: "/",
+      //     img: "https://www.urbeconomica.com.mx/images/2020/criptos.jpg",
+      //     progress: 5,
+      //   },
+      // ],
     };
   },
   methods: {
@@ -381,6 +361,31 @@ export default {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
       // TODO: redirect to bye bye user page
+    },
+    setMyCourses(courses) {
+      this.userStore.$patch({
+        myCourses: courses,
+      });
+    },
+    async getBoughtCourses() {
+      try {
+        await axios
+          .get(
+            // TODO: change this url, default base URL is not working
+            "http://localhost:3002/api/v1/user/student/get_courses_bought/",
+            {
+              headers: {
+                Authorization: "Token " + localStorage.getItem("token"),
+              },
+            }
+          )
+          .then((response) => {
+            this.setMyCourses(response.data);
+          });
+      } catch (error) {
+        // TODO: Show toast error
+        console.log(error);
+      }
     },
     toggleMenu: function () {
       this.checked = !this.checked;

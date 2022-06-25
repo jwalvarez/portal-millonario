@@ -43,10 +43,5 @@ export default {
     BasePrimaryButton,
     BaseCourseButton,
   },
-  methods: {
-    openRegistrationModal: function () {
-      document.getElementById("registration-modal").classList.add("modal-open");
-    },
-  },
 };
 </script>
