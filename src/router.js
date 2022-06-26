@@ -5,6 +5,7 @@ import Login from "./components/Login.vue";
 import Register from "./components/Register.vue";
 import Perfil from "./views/Perfil.vue";
 import Course from "./views/CourseDetail.vue";
+import VerifyTransaction  from "./views/VerifyTransaction.vue";
 
 const routes = [
   { path: "/", component: Home },
@@ -13,6 +14,7 @@ const routes = [
   { path: "/register", component: Register },
   { path: "/login", component: Login },
   { path: "/perfil", component: Perfil },
+  { path: "/verify-transaction/:id", component: VerifyTransaction },
 ];
 
 const history = createWebHistory();

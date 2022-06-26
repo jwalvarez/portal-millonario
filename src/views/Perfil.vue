@@ -1,29 +1,56 @@
+<script setup>
+import { useUserStore } from "../stores/user";
+
+const userStore = useUserStore();
+
+const getInitials = () => {
+  const name = userStore.user.first_name + " " + userStore.user.last_name;
+  const names = name.split(" ");
+  const initials = names.map((name) => name[0]).join("");
+  return initials;
+};
+</script>
+
 <template>
   <div class="md:w-[70%] w-[90%] mx-auto">
     <div class="text-center relative mt-20">
       <div class="absolute z-20 -top-20 md:left-[40%] left-[30%]">
-        <div class="avatar my-6">
-          <div class="md:w-64 w-32 rounded-full shadow-2xl">
-            <img src="https://api.lorem.space/image/face?hash=47449" />
+        <div class="avatar placeholder my-6">
+          <div
+            v-if="userStore.user.profile_pic"
+            class="md:w-64 w-32 rounded-full shadow-2xl"
+          >
+            <img :src="userStore.user.profile_pic" />
+          </div>
+          <div
+            v-else
+            class="bg-neutral-focus text-neutral-content rounded-full w-24"
+          >
+            <span class="text-3xl font-black">{{ getInitials() }}</span>
           </div>
         </div>
         <h2 class="md:text-3xl text-xl text-base-100 font-black">
-          Jhon Álvarez
+          {{ userStore.user.first_name }} {{ userStore.user.last_name }}
         </h2>
-        <p class="text-sm text-base-100 font-medium my-auto">@jwalvarez</p>
+        <p class="text-sm text-base-100 font-medium my-auto">
+          {{ userStore.user.username && "@" + userStore.user.username }}
+        </p>
       </div>
       <div class="flex justify-center">
         <div
-          class="bg-black/60 z-10 absolute rounded-3xl w-full md:h-[300px] h-[200px]"
+          class="bg-black/80 z-10 absolute rounded-3xl w-full md:h-[300px] h-[200px]"
         ></div>
         <img
           src="https://picsum.photos/1000/300"
-          class="relative rounded-3xl md:h-[300px] h-[200px]"
+          class="relative object-cover rounded-3xl md:h-[300px] h-[200px] w-full"
         />
       </div>
     </div>
 
-    <div class="md:flex justify-between mx-auto my-10">
+    <div
+      v-if="userStore.user.biography"
+      class="md:flex justify-between mx-auto my-10"
+    >
       <div class="block text-left md:w-1/2 mb-6">
         <h2
           class="my-2 text-base-100 text-xl font-black overflow-hidden whitespace-nowrap text-ellipsis w-auto"
@@ -118,19 +145,12 @@
         Mis cursos
       </h2>
     </div>
-
     <div class="flex py-4 space-x-6 ml-[0%] rounded-box overflow-x-scroll">
       <div
-        v-for="course in trading_courses"
+        v-for="course in userStore.myCourses"
         class="carousel-item shadow-xl rounded-2xl h-90 w-[300px] hover:md:-translate-y-2 duration-300"
       >
-        <CourseCard
-          :img="course.img"
-          :title="course.title"
-          :description="course.description"
-          :startDate="course.startDate"
-          :tags="course.tags"
-        />
+        <CourseCard :course="course" />
       </div>
     </div>
   </div>

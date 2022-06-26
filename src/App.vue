@@ -38,6 +38,7 @@
           </a>
         </p>
       </div>
+      <!-- TODO: Show/Hide Navbar then scrolling up/down -->
       <div
         v-if="showNav"
         class="sticky -top-1 z-50 navbar bg-[#090617]/90 backdrop-blur-xl md:px-[10%] px-0 py-4"
@@ -69,35 +70,6 @@
                 class="bg-black/20 input w-full mx-4 my-auto h-10"
               />
             </li>
-            <!-- data-tip="@jwalvarez" class="tooltip tooltip-bottom" -->
-
-            <li class="flex justify-end">
-              <div class="flex btn-ghost">
-                <!-- <img class="w-10 mask mask-squircle object-contain p-0"
-                  src="https://api.lorem.space/image/shoes?w=160&h=160" /> -->
-                <!-- <div class="block">
-                  <label for="my-modal-3"
-                    class="text-success font-bold normal-case text-sm -mb-2 py-0 w-full cursor-pointer">Crear
-                    cuenta</label>
-                </div> -->
-                <div class="block">
-                  <!-- <router-link to="/register" class="text-success font-bold normal-case text-sm -mb-2 py-0 w-full">Crear
-                    cuenta</router-link> -->
-                  <label
-                    v-if="!authStore.isAuthenticated"
-                    @click="openRegistrationModal"
-                    class="text-success font-bold normal-case text-sm -mb-2 py-0 w-full cursor-pointer"
-                    >Crear Cuenta</label
-                  >
-                  <router-link
-                    v-else
-                    to="/perfil"
-                    class="text-success font-bold normal-case text-sm -mb-2 py-0 w-full cursor-pointer"
-                    >{{ userStore.user.first_name }}</router-link
-                  >
-                </div>
-              </div>
-            </li>
           </ul>
         </div>
         <div class="flex-none">
@@ -121,6 +93,18 @@
             </svg>
           </label>
         </div>
+      </div>
+      <div
+        v-if="!authStore.isAuthenticated"
+        class="m-4 rounded-xl relative px-4 md:py-6 py-10 text-center bg-primary"
+      >
+        <p class="text-sm font-inter-bold text-white/80">
+          Nuevo curso de programación en python. Descubrelo y empieza a hackear
+          el mundo.
+          <a class="underline text-success text-sm duration-500" href="">
+            Ver curso &rarr;
+          </a>
+        </p>
       </div>
       <router-view />
       <Footer />
@@ -254,6 +238,12 @@
             <h2 class="text-sm text-bold text-success">{{ item.title }}</h2>
           </router-link>
         </nav>
+        <div v-if="authStore.isAuthenticated" class="mt-auto mb-4 space-y-2">
+          <p class="text-sm text-base-100/30 font-normal my-auto text-center">
+            Solicita el retiro y recibe tu dinero cada viernes.
+          </p>
+          <BaseCourseButton class="" label="Hacer retiro 🥳" />
+        </div>
       </div>
     </div>
   </div>
@@ -265,6 +255,7 @@ import axios from "axios";
 
 import { useUserStore } from "./stores/user";
 import { useAuthStore } from "./stores/auth";
+import { useCoursesStore } from "./stores/course";
 
 import Nav from "./components/Nav.vue";
 import Drawer from "./components/Drawer.vue";
@@ -279,9 +270,12 @@ export default {
   setup() {
     const userStore = useUserStore();
     const authStore = useAuthStore();
+    const coursesStore = useCoursesStore();
+
     return {
       authStore,
       userStore,
+      coursesStore,
     };
   },
   components: {
@@ -302,11 +296,18 @@ export default {
   },
   mounted() {
     localStorage.getItem("isAuthenticated") &&
-      this.authStore.$patch({
+      (this.authStore.$patch({
         isAuthenticated: true,
         token: localStorage.getItem("token"),
+      }),
+      this.userStore.$patch({
+        user: JSON.parse(localStorage.getItem("user")),
+      }),
+      this.getBoughtCourses());
+    localStorage.getItem("selectedCourse") &&
+      this.coursesStore.$patch({
+        selectedCourse: JSON.parse(localStorage.getItem("selectedCourse")),
       });
-    this.getBoughtCourses();
   },
   data() {
     return {
@@ -371,6 +372,7 @@ export default {
       try {
         await axios
           .get(
+            // TODO: Fix this endpoint
             // TODO: change this url, default base URL is not working
             "http://localhost:3002/api/v1/user/student/get_courses_bought/",
             {

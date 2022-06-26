@@ -99,10 +99,10 @@ export default {
           localStorage.setItem("selectedCourse", JSON.stringify(this.course));
         });
 
-      this.$router.push("/curso/");
+      // this.$router.push("/curso/");
       this.$router.push({
         path: "/curso",
-        query: { course: this.course.id, start: "15" },
+        // query: { course: this.course.id, start: "15" },
       });
     },
   },

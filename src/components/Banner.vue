@@ -1,7 +1,7 @@
 <template>
   <div class="relative carousel w-full">
     <img
-      class="absolute h-full w-auto object-fit -top-10 left-0"
+      class="absolute h-full w-auto object-fit -top-10 left-0 opacity-10 md:opacity-75"
       src="../assets/bg_hero.png"
     />
     <div id="slide1" class="carousel-item relative w-full block">
@@ -12,9 +12,9 @@
             class="md:max-w-[50%] max-w-full rounded-lg shadow-2xl"
           />
 
-          <div class="ml-10 space-y-2">
+          <div class="md:ml-10 space-y-2">
             <h1
-              class="md:text-5xl text-2xl text-white font-inter-black text-left mb-4"
+              class="md:text-5xl md:text-left text-center text-2xl text-white font-inter-black mb-4"
             >
               Encuentra cursos,
               <span class="text-primary">genera dinero con ellos.</span>

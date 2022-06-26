@@ -2,6 +2,7 @@
 import Banner from "../components/Banner.vue";
 import CourseCard from "../components/CourseCard.vue";
 import { useCoursesStore } from "../stores/course";
+import BaseCourseButton from "../components/base/BaseCourseButton.vue";
 
 const coursesStore = useCoursesStore();
 </script>
@@ -24,10 +25,10 @@ const coursesStore = useCoursesStore();
       </p>
     </div>
 
-    <div class="flex w-full mx-auto bg-black/20 rounded-lg my-10">
+    <div class="md:flex w-full mx-auto bg-black/20 rounded-lg my-10 py-6">
       <div
         v-for="about in abouts"
-        class="py-10 px-10 cursor-default transition-all duration-700"
+        class="md:py-10 py-4 px-10 cursor-default transition-all duration-700"
       >
         <span>
           <svg
@@ -47,13 +48,13 @@ const coursesStore = useCoursesStore();
       </div>
     </div>
 
-    <div class="flex text-left my-24">
-      <div class="w-1/2">
-        <h2
-          class="my-2 text-white text-xl font-black overflow-hidden whitespace-nowrap text-ellipsis w-auto"
-        >
-          Nuestro equipo
-        </h2>
+    <h2
+      class="my-2 text-white text-xl font-black overflow-hidden whitespace-nowrap text-ellipsis w-auto"
+    >
+      Nuestro equipo
+    </h2>
+    <div class="flex md:flex-row flex-col-reverse text-left">
+      <div class="md:w-1/2">
         <p class="text-base-100 font-normal my-auto">
           Pellentesque sodales ante et velit convallis, nec aliquet nisl
           eleifend. Nullam cursus eros risus, ut congue nibh accumsan ac. Nullam
@@ -68,29 +69,35 @@ const coursesStore = useCoursesStore();
           <BasePrimaryButton label="¡Empezar a invertir!" />
         </div>
       </div>
-      <div class="flex justify-end md:max-w-1/2 max-w-full">
+      <div class="flex justify-end md:w-1/2 max-w-full md:py-0 py-6">
         <img
           src="../assets/founders.jpg"
-          class="w-[70%] object-cover shadow-[8px_8px_0px_rgba(0,212,155,1)]"
+          class="md:w-[70%] object-cover shadow-[8px_8px_0px_rgba(0,212,155,1)]"
         />
       </div>
     </div>
 
-    <div id="courses" class="flex text-left pt-20">
-      <div class="w-1/2">
-        <h2
-          class="my-2 text-base-100 text-4xl font-black overflow-hidden whitespace-nowrap text-ellipsis w-auto"
+    <div id="courses" class="text-center pt-32 pb-8 cursor-default">
+      <h2 class="text-base-100 text-3xl md:text-4xl font-bold py-2">
+        Descubre lo que
+        <span
+          class="font-extrabold text-transparent bg-clip-text bg-gradient-to-tl from-indigo-400 to-success"
         >
-          Nuestros Cursos
-        </h2>
-      </div>
+          Portal Millonario</span
+        >
+        tiene para ti
+      </h2>
+      <p class="text-base-100/60 font-normal my-auto text-center">
+        Pellentesque sodales ante et velit convallis, nec aliquet nisl eleifend.
+      </p>
     </div>
+    <br />
     <div class="flex text-left">
-      <div class="w-1/2">
+      <div class="w-full">
         <h2
           class="my-2 text-base-100 text-xl font-black overflow-hidden whitespace-nowrap text-ellipsis w-auto"
         >
-          Cursos de Trading
+          Cursos de Trading 🚀
         </h2>
       </div>
     </div>

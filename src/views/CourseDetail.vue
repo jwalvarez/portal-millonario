@@ -1,6 +1,7 @@
 <script setup>
 import axios from "axios";
 import { ref } from "vue";
+import router from "../router";
 
 import CourseCard from "../components/CourseCard.vue";
 import BaseCourseButton from "../components/base/BaseCourseButton.vue";
@@ -22,10 +23,15 @@ const verifyChecked = (index, number) => {
   Math.floor(number) == index ? "true" : "false";
 };
 
+function goToVerifyTransaction() {
+  const id = wompiStore.django_transaction_id;
+  router.push(`/verify-transaction/${id}`);
+}
+
 async function getReference() {
   try {
     await axios
-      .get("/api/v1/orchestrator/bill/get_reference/", {
+      .get("/api/v1/orchestrator/invoice/get_reference/", {
         headers: {
           Authorization: "Token " + localStorage.getItem("token"),
         },
@@ -37,8 +43,6 @@ async function getReference() {
     // TODO: Show toast error
     console.log(error);
   }
-  // const time = new Date().getTime();
-  // return "PRTLM-" + time;
 }
 
 const openRegistrationModal = () => {
@@ -48,19 +52,16 @@ const openRegistrationModal = () => {
 const saveTransaction = async (transaction) => {
   try {
     await axios
-      .post(
-        "https://portal-millonario.free.beeceptor.com/api/v1/courses_bought/",
-        {
-          headers: {
-            Authorization: "Token " + localStorage.getItem("token"),
-          },
-          data: {
-            transaction: transaction,
-          },
-        }
-      )
+      .post("/api/v1/orchestrator/invoice/", transaction, {
+        headers: {
+          Authorization: "Token " + localStorage.getItem("token"),
+        },
+      })
       .then((response) => {
+        console.log(response);
         // TODO: Navigate to verification page. Inject uri parameters to the url.
+        wompiStore.django_transaction_id = response.data.id;
+        goToVerifyTransaction();
       });
   } catch (error) {
     // TODO: Show toast error
@@ -77,34 +78,24 @@ const payCourse = async (schedule) => {
   });
   if (authStore.isAuthenticated) {
     console.log("Pagar");
-    console.log(userStore.first_name);
     const ref = await getReference();
     var checkout = new WidgetCheckout({
       currency: "COP",
       amountInCents: coursesStore.selectedCourse.price * 100,
       reference: wompiStore.reference,
       publicKey: wompiStore.public_key,
-      redirectUrl: "https://transaction-redirect.wompi.co/check",
-      // customerData: {
-      //   // Opcional
-      //   email: "jwalvarez.98@gmail.com",
-      //   fullName: userStore.first_name + " " + userStore.last_name,
-      //   phoneNumber: "3991111111",
-      //   phoneNumberPrefix: "+57",
-      //   legalId: "1007812345",
-      //   legalIdType: "CC",
-      // },
     });
     checkout.open(function (result) {
       var transaction = result.transaction;
       wompiStore.transaction_id = transaction.id;
       // TODO: Send data to backend to verify payment, and navigate to verification page
       const transationData = {
-        transaction_id: transaction.id,
+        amount_in_cents: transaction.amountInCents,
+        payment_method: transaction.paymentMethodType,
         reference: wompiStore.reference,
-        course_id: coursesStore.selectedCourse.id,
-        nrc_id: schedule.id,
-        referral_code: wompiStore.referral_code,
+        referral: wompiStore.referral_code,
+        schedule_id: schedule.id,
+        wompi_id: wompiStore.transaction_id,
       };
       saveTransaction(transationData);
     });
@@ -169,14 +160,14 @@ const payCourse = async (schedule) => {
     </div>
 
     <div class="card w-full bg-accent/40 text-primary-content mt-6 mb-12">
-      <div class="flex p-10">
-        <div class="w-2/3">
+      <div class="md:flex p-10">
+        <div class="md:w-2/3">
           <h2 class="card-title text-lg">
             Descuento del 50% en la compra del siguiente curso.
           </h2>
           <p class="text-sm">Aprovecha este descuento por tiempo limitado</p>
         </div>
-        <div class="w-auto my-auto flex justify-end">
+        <div class="w-auto my-auto flex md:justify-end pt-4">
           <p class="text-4xl text-success font-black">
             ${{ coursesStore.selectedCourse.price }} COP
           </p>
@@ -211,11 +202,11 @@ const payCourse = async (schedule) => {
             <div class="block lg:w-[90%] w-full">
               <h2 class="card-title text-lg text-left">
                 Curso NRC: {{ nrc.id }}, by
-                {{ nrc.teacher.first_name }}
+                {{ nrc.teacher ? nrc.teacher.name : "Profesor Pendiente" }}
               </h2>
-              <div class="rating space-x-2">
+              <div v-if="nrc.teacher?.rating" class="rating space-x-2">
                 <input
-                  v-for="i in Math.floor(nrc.teacher.rating)"
+                  v-for="i in Math.floor(nrc.teacher?.rating)"
                   type="radio"
                   name="rating-2"
                   class="mask mask-star-2 bg-orange-400"
@@ -292,15 +283,6 @@ const payCourse = async (schedule) => {
         <BasePrimaryButton label="¡Empezar a invertir!" />
       </div>
     </div>
-
-    <div id="recomendation" class="block text-left w-[70%]">
-      <h2
-        class="my-2 text-base-100 text-xl font-black overflow-hidden whitespace-nowrap text-ellipsis w-auto"
-      >
-        Puede que te interese
-      </h2>
-    </div>
-    <!-- TODO: Add course carousel here -->
   </div>
 </template>
 
