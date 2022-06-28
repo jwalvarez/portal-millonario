@@ -157,7 +157,7 @@ const payCourse = async (schedule) => {
           <div class="flex justify-center">
             <VideoPlayer
               src="https://productsimgs.s3.us-east-2.amazonaws.com/Sony+4K+Demo_+Another+World.mp4"
-              poster="https://revistabyte.es/wp-content/uploads/2018/10/back-to-the-future-696x392.jpg.webp"
+              :poster="coursesStore.selectedCourse.thumbnail"
             />
             <!-- <div
               class="bg-black/60 z-10 absolute rounded-xl w-full md:h-[400px] h-[300px]"
@@ -215,7 +215,7 @@ const payCourse = async (schedule) => {
         </h2>
         <ul class="steps steps-vertical text-base-100">
           <li
-            v-for="(item, idex) in coursesStore.selectedCourse.content"
+            v-for="(item, key) in coursesStore.selectedCourse.content" :key="key"
             class="step cursor-default step-neutral"
           >
             <span class="text-left">
@@ -242,7 +242,7 @@ const payCourse = async (schedule) => {
       class="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 md:gap-6 sm:gap-6"
     >
       <div
-        v-for="nrc in coursesStore.selectedCourse.schedule"
+        v-for="(nrc, key_ext) in coursesStore.selectedCourse.schedule" :key="key_ext"
         class="card w-full bg-accent/40 text-primary-content p-0 mb-4"
       >
         <div class="card-body px-4">
@@ -254,7 +254,7 @@ const payCourse = async (schedule) => {
               </h2>
               <div v-if="nrc.teacher?.rating" class="rating space-x-2">
                 <input
-                  v-for="i in Math.floor(nrc.teacher?.rating)"
+                  v-for="(i, key) in Math.floor(nrc.teacher?.rating)" :key="key"
                   type="radio"
                   name="rating-2"
                   class="mask mask-star-2 bg-orange-400"
@@ -294,7 +294,7 @@ const payCourse = async (schedule) => {
 
           <div class="carousel flex justify-start space-x-2">
             <div
-              v-for="(session, day) in nrc.calendar"
+              v-for="(session, day) in nrc.calendar" :key="day"
               class="carousel-item px-2 text-white/80 text-sm py-3 my-auto bg-black/10 rounded-lg mb-2 border-[1px] border-base-100/10 uppercase font-black cursor-default"
             >
               {{ day }}

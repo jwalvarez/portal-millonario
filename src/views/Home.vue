@@ -27,7 +27,7 @@ const coursesStore = useCoursesStore();
 
     <div class="md:flex w-full mx-auto bg-black/20 rounded-lg my-10 py-6">
       <div
-        v-for="about in abouts"
+        v-for="(about, index) in abouts" :key="index"
         class="md:py-10 py-4 px-10 cursor-default transition-all duration-700"
       >
         <span>
@@ -105,7 +105,7 @@ const coursesStore = useCoursesStore();
     <div class="flex py-4 space-x-6 ml-[0%] rounded-box overflow-x-auto">
       <div
         v-for="(course, index) in coursesStore.trading"
-        :id="'course-' + course.id"
+        :id="'course-' + course.id" :key="index"
         class="carousel-item rounded-lg h-90 w-[300px] hover:shadow-[8px_8px_0px_rgba(0,212,155,1)] hover:-translate-y-2 transition-all"
       >
         <CourseCard :course="course" />

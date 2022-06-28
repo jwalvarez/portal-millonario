@@ -6,14 +6,14 @@
     <div class="relative">
       <img
         alt="blog photo"
-        src="https://img-b.udemycdn.com/course/240x135/1278360_beb4_3.jpg"
+        :src="course.thumbnail"
         class="relative rounded-t-lg max-h-40 w-full object-cover"
       />
       <div
         class="absolute top-0 left-0 ml-2 flex flex-wrap justify-starts items-center my-2"
       >
         <div
-          v-for="tag in course.tags"
+          v-for="(tag, index) in course.tags" :key="index"
           class="text-sm mr-1 py-1.5 px-4 text-white hover:text-success bg-black/80 rounded-xl backdrop-blur-md"
         >
           {{ tag }}
@@ -62,7 +62,7 @@
         </div>
       </span> -->
       <p class="text-base-100 text-lg font-black">
-        COP ${{ course.price }}.900
+        COP ${{ course.price }}
       </p>
       <p class="text-base-100/40 text-md mb-4 course-description">
         {{ course.description }}
