@@ -94,7 +94,7 @@
           </label>
         </div>
       </div>
-      <div
+      <!-- <div
         v-if="!authStore.isAuthenticated"
         class="m-4 rounded-xl relative px-4 md:py-6 py-10 text-center bg-primary"
       >
@@ -105,7 +105,7 @@
             Ver curso &rarr;
           </a>
         </p>
-      </div>
+      </div> -->
       <router-view />
       <Footer />
     </div>
@@ -165,19 +165,39 @@
               </svg>
             </span>
           </div>
-          <div class="flex justify-between mt-4 items-baseline">
+          <div class="flex justify-between mt-8 items-baseline">
             <h2 class="text-2xl text-base-100 font-bold">Mis cursos</h2>
-            <a
+            <!-- <a
               class="text-sm text-success/70 hover:text-success hover:underline"
               href="/courses"
               >Ver todos</a
-            >
+            > -->
           </div>
+          <div
+            v-if="userStore.myCourses.length <= 0"
+            class="card w-full bg-gradient-to-bl from-red-500 to-red-400 text-primary-content mt-4"
+          >
+            <div class="block p-6 space-y-4">
+              <div class="w-full text-accent">
+                <h2 class="card-title text-lg">No hay cursos registrados.</h2>
+                <p class="text-sm">
+                  Compre un nuevo curso o pruebe a cargar nuevamente.
+                </p>
+              </div>
+              <button
+                @click="getBoughtCourses()"
+                class="btn btn-sm normal-case text-sm font-normal"
+              >
+                Cargar nuevamente
+              </button>
+            </div>
+          </div>
+          <!-- TODO: Fix, change Course Detail Content when changing url -->
           <nav class="carousel carousel-center my-4 space-x-2 rounded-box">
             <!-- TODO: Navigate to course depending on course id -->
             <router-link
               v-for="item in userStore.myCourses"
-              to="/"
+              :to="'/curso/' + item.course"
               :key="item.course"
               @click="toggleMenu"
               class="carousel-item h-full items-center bg-black/40 rounded-xl"
@@ -206,7 +226,7 @@
           v-else
           class="card w-full bg-accent/40 text-primary-content mb-6 shadow-[6px_6px_0px_rgba(0,212,155,1)]"
         >
-          <div class="card-body">
+          <div class="card-body text-base-100">
             <h2 class="card-title text-lg">
               ¿Qué esperas para empezar a generar ingresos?
             </h2>
@@ -242,7 +262,7 @@
           <p class="text-sm text-base-100/30 font-normal my-auto text-center">
             Solicita el retiro y recibe tu dinero cada viernes.
           </p>
-          <BaseCourseButton class="" label="Hacer retiro 🥳" />
+          <BaseCourseButton class="" label="Solicitar retiro 🥳" />
         </div>
       </div>
     </div>
@@ -323,7 +343,7 @@ export default {
         },
         {
           title: "Goarbit",
-          url: "/curso",
+          url: "/curso/goarbit/3",
         },
         {
           title: "Publicidad",
@@ -354,10 +374,8 @@ export default {
   },
   methods: {
     logout() {
-      this.authStore.$patch({
-        isAuthenticated: false,
-        token: null,
-      });
+      this.authStore.$reset();
+      this.userStore.$reset();
       localStorage.removeItem("isAuthenticated");
       localStorage.removeItem("token");
       localStorage.removeItem("user");

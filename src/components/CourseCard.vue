@@ -83,7 +83,6 @@ export default {
       coursesStore,
     };
   },
-
   props: {
     course: Array,
   },
@@ -101,7 +100,7 @@ export default {
 
       // this.$router.push("/curso/");
       this.$router.push({
-        path: "/curso",
+        path: `/curso/${this.course.id}`,
         // query: { course: this.course.id, start: "15" },
       });
     },

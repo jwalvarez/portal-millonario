@@ -95,7 +95,7 @@ const openLoginModal = () => {
 
 <template>
   <div
-    class="h-screen md:h-full md:my-auto md:px-12 px-6 py-8 content-center bg-gradient-to-tr from-black/95 to-[#090617] md:rounded-xl md:border md:border-base-100/20 text-base-100 shadow-xl"
+    class="max-w-[500px] h-screen md:h-full md:my-auto md:px-12 px-6 py-8 content-center bg-gradient-to-tr from-black/95 to-[#090617] md:rounded-xl md:border md:border-base-100/20 text-base-100 shadow-xl"
   >
     <div class="flex justify-start pb-6 cursor-pointer">
       <label @click="closeRegistrationModal">
@@ -120,7 +120,7 @@ const openLoginModal = () => {
       @submit="submitHandler"
     >
       <h1 class="mb-6 text-base-100 text-2xl font-black">
-        Crear una nueva cuenta
+        Registrate y empieza a disfrutar de nuestros cursos exclusivos.
       </h1>
       <div class="flex">
         <FormKit
@@ -255,8 +255,5 @@ const openLoginModal = () => {
         ></span
       >
     </FormKit>
-    <div v-if="submitted">
-      <h2>Submission successful!</h2>
-    </div>
   </div>
 </template>

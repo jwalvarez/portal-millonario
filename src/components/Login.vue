@@ -29,55 +29,58 @@ const submitHandler = async () => {
     },
     data: data,
   };
-
-  axios(config).then((response) => {
+  try {
+    await axios(config).then((response) => {
+      loading.value = false;
+      createToast(
+        {
+          title: "Ha iniciado sesión correctamente",
+          description: "¡Ya puedes empezar a descubrir nuestros cursos!",
+        },
+        {
+          showIcon: "true",
+          hideProgressBar: "true",
+          type: "success",
+          transition: "slide",
+          position: "top-right",
+          timeout: 3000,
+          toastBackgroundColor: "#36D399",
+        }
+      );
+      userStore.$patch({
+        user: response.data,
+      });
+      authStore.$patch({
+        isAuthenticated: true,
+        token: response.data.token,
+      });
+      // todo: get user information when login
+      localStorage.setItem("user", JSON.stringify(response.data));
+      localStorage.setItem("isAuthenticated", true);
+      localStorage.setItem("token", response.data.token);
+      getBoughtCourses();
+      closeLoginModal();
+    });
+  } catch (error) {
+    console.log("ERROR EN LOGIN");
     loading.value = false;
     createToast(
       {
-        title: "Ha iniciado sesión correctamente",
-        description: "¡Ya puedes empezar a descubrir nuestros cursos!",
+        title: "Error al iniciar sesión",
+        description:
+          "Hubo un error al momento de ingresar a la cuenta. Vuelva a intentarlo.",
       },
       {
         showIcon: "true",
         hideProgressBar: "true",
-        type: "success",
+        type: "error",
         transition: "slide",
         position: "top-right",
-        timeout: 3000,
-        toastBackgroundColor: "#36D399",
+        timeout: 5000,
+        toastBackgroundColor: "#FF5252",
       }
     );
-    userStore.$patch({
-      user: response.data,
-    });
-    authStore.$patch({
-      isAuthenticated: true,
-      token: response.data.token,
-    });
-    // todo: get user information when login
-    localStorage.setItem("user", JSON.stringify(response.data));
-    localStorage.setItem("isAuthenticated", true);
-    localStorage.setItem("token", response.data.token);
-    closeLoginModal();
-  });
-  // .catch( (error) =>{
-  //   loading.value = false;
-  //   createToast(
-  //     {
-  //       title: "Estamos teniendo problemas",
-  //       description: "Hubo un error al momento de ingresar a la cuenta.",
-  //     },
-  //     {
-  //       showIcon: "true",
-  //       hideProgressBar: "true",
-  //       type: "error",
-  //       transition: "slide",
-  //       position: "top-right",
-  //       timeout: 5000,
-  //       toastBackgroundColor: "#FF5252",
-  //     }
-  //   );
-  // });
+  }
 };
 
 const closeLoginModal = () => {
@@ -88,11 +91,34 @@ const openRegistrationModal = () => {
   closeLoginModal();
   document.getElementById("registration-modal").classList.add("modal-open");
 };
+
+const setMyCourses = (courses) => {
+  userStore.$patch({
+    myCourses: courses,
+  });
+};
+
+const getBoughtCourses = async () => {
+  try {
+    await axios
+      .get("/api/v1/user/student/get_courses_bought/", {
+        headers: {
+          Authorization: "Token " + localStorage.getItem("token"),
+        },
+      })
+      .then((response) => {
+        setMyCourses(response.data);
+      });
+  } catch (error) {
+    // TODO: Show toast error
+    console.log(error);
+  }
+};
 </script>
 
 <template>
   <div
-    class="h-screen md:h-full md:my-auto md:px-16 px-6 py-8 content-center bg-gradient-to-tr from-black/95 to-[#090617] md:rounded-xl md:border md:border-base-100/20 text-base-100 shadow-xl"
+    class="max-w-[500px] h-screen md:h-full md:my-auto md:px-16 px-6 py-8 content-center bg-gradient-to-tr from-black/95 to-[#090617] md:rounded-xl md:border md:border-base-100/20 text-base-100 shadow-xl"
   >
     <div class="flex justify-start pb-6 cursor-pointer">
       <label @click="closeLoginModal" for="my-modal-2">
@@ -115,7 +141,9 @@ const openRegistrationModal = () => {
       v-model="formData"
       @submit="submitHandler"
     >
-      <h1 class="mb-6 text-base-100 text-2xl font-black">Iniciar sesión</h1>
+      <h1 class="mb-6 text-base-100 text-2xl font-black">
+        Inicia sesión y sigue disfrutando de nuestro contenido.
+      </h1>
 
       <FormKit
         type="text"

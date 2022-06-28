@@ -1,11 +1,14 @@
 <script setup>
 import axios from "axios";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import router from "../router";
+import { createToast } from "mosha-vue-toastify";
+import "mosha-vue-toastify/dist/style.css";
 
 import CourseCard from "../components/CourseCard.vue";
 import BaseCourseButton from "../components/base/BaseCourseButton.vue";
 import BasePrimaryButton from "../components/base/BasePrimaryButton.vue";
+import VideoPlayer from "./VideoPlayer.vue";
 
 import { useCoursesStore } from "../stores/course";
 import { useWompiStore } from "../stores/wompi";
@@ -19,13 +22,37 @@ const userStore = useUserStore();
 
 const referral_code = ref("");
 
+onMounted(async () => {
+  const url = router.currentRoute.value.fullPath;
+  var parts = url.split("/");
+  var id = parts.pop() || parts.pop();
+  console.log("id", id);
+  console.log(
+    "Local Storage",
+    JSON.parse(localStorage.getItem("selectedCourse"))?.id
+  );
+  if (id != (await JSON.parse(localStorage.getItem("selectedCourse"))?.id)) {
+    console.log("HACER REQUEST DEL CURSO CON ID", id);
+    getCourseById(id);
+  }
+});
+
+const getCourseById = (id) => {
+  axios.get(`/api/v1/course/${id}/`).then((response) => {
+    coursesStore.$patch({
+      selectedCourse: response.data,
+    });
+    localStorage.setItem("selectedCourse", JSON.stringify(response.data));
+  });
+};
+
 const verifyChecked = (index, number) => {
   Math.floor(number) == index ? "true" : "false";
 };
 
 function goToVerifyTransaction() {
   const id = wompiStore.django_transaction_id;
-  router.push(`/verify-transaction/${id}`);
+  router.push(`/verify-transaction/${id}/`);
 }
 
 async function getReference() {
@@ -42,6 +69,22 @@ async function getReference() {
   } catch (error) {
     // TODO: Show toast error
     console.log(error);
+    createToast(
+      {
+        title: "Error al obtener referencia de pago.",
+        description:
+          "Por favor, intenta de nuevo más tarde o contacta con soporte.",
+      },
+      {
+        showIcon: "true",
+        hideProgressBar: "true",
+        type: "error",
+        transition: "slide",
+        position: "top-right",
+        timeout: 5000,
+        toastBackgroundColor: "#FF5252",
+      }
+    );
   }
 }
 
@@ -79,50 +122,56 @@ const payCourse = async (schedule) => {
   if (authStore.isAuthenticated) {
     console.log("Pagar");
     const ref = await getReference();
-    var checkout = new WidgetCheckout({
-      currency: "COP",
-      amountInCents: coursesStore.selectedCourse.price * 100,
-      reference: wompiStore.reference,
-      publicKey: wompiStore.public_key,
-    });
-    checkout.open(function (result) {
-      var transaction = result.transaction;
-      wompiStore.transaction_id = transaction.id;
-      // TODO: Send data to backend to verify payment, and navigate to verification page
-      const transationData = {
-        amount_in_cents: transaction.amountInCents,
-        payment_method: transaction.paymentMethodType,
+    if (ref) {
+      var checkout = new WidgetCheckout({
+        currency: "COP",
+        amountInCents: coursesStore.selectedCourse.price * 100,
         reference: wompiStore.reference,
-        referral: wompiStore.referral_code,
-        schedule_id: schedule.id,
-        wompi_id: wompiStore.transaction_id,
-      };
-      saveTransaction(transationData);
-    });
+        publicKey: wompiStore.public_key,
+      });
+      checkout.open(function (result) {
+        var transaction = result.transaction;
+        wompiStore.transaction_id = transaction.id;
+        // TODO: Send data to backend to verify payment, and navigate to verification page
+        const transationData = {
+          amount_in_cents: transaction.amountInCents,
+          payment_method: transaction.paymentMethodType,
+          reference: wompiStore.reference,
+          referral: wompiStore.referral_code,
+          schedule_id: schedule.id,
+          wompi_id: wompiStore.transaction_id,
+        };
+        saveTransaction(transationData);
+      });
+    }
   } else {
     openRegistrationModal();
   }
 };
 </script>
 <template>
-  <div class="md:w-[80%] w-[90%] mx-auto">
+  <div class="md:w-[80%] w-[90%] mx-auto mt-10">
     <div class="md:flex">
       <div class="block md:w-9/12 md:mr-10">
-        <div class="text-center relative mt-14">
-          <h2
-            class="md:text-3xl text-left text-xl text-base-100 font-black mb-3"
-          >
-            🚀 {{ coursesStore.selectedCourse.name }}
-          </h2>
+        <div class="text-center relative space-y-2">
           <div class="flex justify-center">
-            <div
+            <VideoPlayer
+              src="https://productsimgs.s3.us-east-2.amazonaws.com/Sony+4K+Demo_+Another+World.mp4"
+              poster="https://revistabyte.es/wp-content/uploads/2018/10/back-to-the-future-696x392.jpg.webp"
+            />
+            <!-- <div
               class="bg-black/60 z-10 absolute rounded-xl w-full md:h-[400px] h-[300px]"
             ></div>
             <img
               src="https://picsum.photos/1000/400"
               class="relative rounded-xl md:h-[400px] h-[300px] object-cover"
-            />
+            /> -->
           </div>
+          <h2
+            class="md:text-2xl text-left text-lg text-base-100 font-bold pt-2"
+          >
+            {{ coursesStore.selectedCourse.name }}
+          </h2>
         </div>
 
         <div class="md:flex justify-between mx-auto mt-6">
@@ -135,12 +184,30 @@ const payCourse = async (schedule) => {
             <p class="text-base-100 font-normal">
               {{ coursesStore.selectedCourse.description }}
             </p>
-            <!-- TODO: Put course schedule here -->
+            <div
+              class="card w-full bg-accent/40 text-primary-content mt-6 mb-12"
+            >
+              <div class="md:flex p-10">
+                <div class="md:w-1/3 my-auto flex">
+                  <p class="md:text-3xl text-2xl text-success font-black">
+                    ${{ coursesStore.selectedCourse.price }} COP
+                  </p>
+                </div>
+                <div class="md:w-2/3">
+                  <h2 class="card-title text-lg">
+                    Descuento del 50% en la compra del siguiente curso.
+                  </h2>
+                  <p class="text-sm">
+                    Aprovecha este descuento por tiempo limitado
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="block mt-24">
+      <div class="block">
         <h2
           class="my-2 text-white text-xl font-black overflow-hidden whitespace-nowrap text-ellipsis w-auto"
         >
@@ -159,22 +226,6 @@ const payCourse = async (schedule) => {
       </div>
     </div>
 
-    <div class="card w-full bg-accent/40 text-primary-content mt-6 mb-12">
-      <div class="md:flex p-10">
-        <div class="md:w-2/3">
-          <h2 class="card-title text-lg">
-            Descuento del 50% en la compra del siguiente curso.
-          </h2>
-          <p class="text-sm">Aprovecha este descuento por tiempo limitado</p>
-        </div>
-        <div class="w-auto my-auto flex md:justify-end pt-4">
-          <p class="text-4xl text-success font-black">
-            ${{ coursesStore.selectedCourse.price }} COP
-          </p>
-        </div>
-      </div>
-    </div>
-
     <div class="md:flex justify-between mx-auto mt-6">
       <div class="block text-left md:w-full">
         <h2
@@ -185,17 +236,14 @@ const payCourse = async (schedule) => {
         <p class="text-base-100 font-normal mb-10">
           {{ coursesStore.selectedCourse.description }}
         </p>
-        <!-- TODO: Put course schedule here -->
       </div>
     </div>
-    <!-- TODO: Create Schedule Cards -->
     <div
-      class="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-10 sm:gap-6 space-y-3"
+      class="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 md:gap-6 sm:gap-6"
     >
-      <!-- TODO: Get user information from store or show registration form -->
       <div
         v-for="nrc in coursesStore.selectedCourse.schedule"
-        class="card w-full bg-accent/40 text-primary-content p-0"
+        class="card w-full bg-accent/40 text-primary-content p-0 mb-4"
       >
         <div class="card-body px-4">
           <div class="md:flex">
@@ -213,13 +261,13 @@ const payCourse = async (schedule) => {
                 />
               </div>
             </div>
-            <div class="w-auto lg:block hidden">
+            <!-- <div class="w-auto lg:block hidden">
               <div class="avatar">
                 <div class="w-16 rounded-full">
                   <img src="https://api.lorem.space/image/face?hash=92310" />
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
           <div class="card-actions justify-start mt-4">
             <label class="input-group input-group-vertical">

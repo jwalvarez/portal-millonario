@@ -18,7 +18,7 @@ app.mount("#app");
 
 // TODO: Add base url config (axios)
 axios.defaults.baseURL = "http://localhost:3002/";
-// axios.defaults.baseURL = "https://6fdc-186-82-85-217.ngrok.io/";
+// axios.defaults.baseURL = "https://501d-186-82-85-217.ngrok.io/";
 // Vue.config.productionTip = false;
 // Vue.prototype.$axios = axios;
 

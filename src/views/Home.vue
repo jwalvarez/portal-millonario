@@ -77,7 +77,7 @@ const coursesStore = useCoursesStore();
       </div>
     </div>
 
-    <div id="courses" class="text-center pt-32 pb-8 cursor-default">
+    <div id="courses" class="text-center md:pt-32 pt-20 pb-8 cursor-default">
       <h2 class="text-base-100 text-3xl md:text-4xl font-bold py-2">
         Descubre lo que
         <span
@@ -112,27 +112,53 @@ const coursesStore = useCoursesStore();
       </div>
     </div>
 
-    <div class="flex text-left">
-      <div class="w-1/2">
+    <div class="flex text-left md:mt-20 mt-10">
+      <div class="w-full">
         <h2
           class="my-2 text-base-100 text-xl font-black overflow-hidden whitespace-nowrap text-ellipsis w-auto"
         >
-          Cursos de GoArbit
+          Proximamente
         </h2>
       </div>
     </div>
 
-    <div class="flex text-left">
-      <div class="w-1/2">
-        <h2
-          class="my-2 text-base-100 text-xl font-black overflow-hidden whitespace-nowrap text-ellipsis w-auto"
-        >
-          Cursos de Marketing
-        </h2>
+    <div class="grid md:grid-cols-3 md:space-x-2">
+      <div class="card bg-accent/40 text-primary-content mt-2 mb-4">
+        <div class="md:flex p-10">
+          <div class="w-full">
+            <h2 class="card-title text-lg">Introduccion a Linux 🐧</h2>
+            <p class="text-sm">
+              Descubre lo que Portal Millonario trae con este curso. Escríbenos
+              y enterate de las últimas noticias.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card bg-accent/40 text-primary-content mt-2 mb-4">
+        <div class="md:flex p-10">
+          <div class="w-full">
+            <h2 class="card-title text-lg">Diseño UI con Jhon.</h2>
+            <p class="text-sm">
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card bg-accent/40 text-primary-content mt-2 mb-4">
+        <div class="md:flex p-10">
+          <div class="w-full">
+            <h2 class="card-title text-lg">Programación en java.</h2>
+            <p class="text-sm">
+              Descubre lo que Portal Millonario trae con este curso. Escríbenos
+              y enterate de las últimas noticias.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
-
-    <div class="h-[100px]"></div>
+    <BaseCourseButton label="Preguntar por más cursos 🤓" />
 
     <div class="h-[200px]"></div>
   </div>
