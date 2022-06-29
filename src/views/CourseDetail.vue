@@ -21,6 +21,7 @@ const authStore = useAuthStore();
 const userStore = useUserStore();
 
 const referral_code = ref("");
+const showVideo = ref(true);
 
 onMounted(async () => {
   const url = router.currentRoute.value.fullPath;
@@ -148,6 +149,10 @@ const payCourse = async (schedule) => {
     openRegistrationModal();
   }
 };
+
+const toggleVideoView = () => {
+  showVideo.value = !showVideo.value;
+};
 </script>
 <template>
   <div class="md:w-[80%] w-[90%] mx-auto mt-10">
@@ -155,10 +160,70 @@ const payCourse = async (schedule) => {
       <div class="block md:w-9/12 md:mr-10">
         <div class="text-center relative space-y-2">
           <div class="flex justify-center">
-            <VideoPlayer
-              src="https://productsimgs.s3.us-east-2.amazonaws.com/Sony+4K+Demo_+Another+World.mp4"
-              :poster="coursesStore.selectedCourse.thumbnail"
-            />
+            <div
+              tabindex="0"
+              :class="
+                (showVideo ? 'collapse-open ' : 'collapse-close ') +
+                'collapse bg-accent/40 rounded-xl transition-all'
+              "
+            >
+              <div class="collapse-title text-xl font-medium">
+                <div class="flex justify-between">
+                  <span
+                    @click="toggleVideoView"
+                    class="text-base-100 my-auto bg-accent p-4 rounded-xl cursor-pointer hover:text-success"
+                  >
+                    <svg
+                      v-if="!showVideo"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      class="bi bi-eye"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"
+                      />
+                      <path
+                        d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"
+                      />
+                    </svg>
+                    <svg
+                      v-else
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      class="bi bi-eye-slash"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z"
+                      />
+                      <path
+                        d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z"
+                      />
+                      <path
+                        d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12-.708.708z"
+                      />
+                    </svg>
+                  </span>
+                  <h2
+                    class="ml-6 md:text-xl text-left text-lg text-base-100 font-bold pt-2"
+                  >
+                    {{ coursesStore.selectedCourse.name }}
+                  </h2>
+                </div>
+              </div>
+              <div class="collapse-content">
+                <VideoPlayer
+                  src="https://productsimgs.s3.us-east-2.amazonaws.com/Sony+4K+Demo_+Another+World.mp4"
+                  :poster="coursesStore.selectedCourse.thumbnail"
+                />
+              </div>
+            </div>
+
             <!-- <div
               class="bg-black/60 z-10 absolute rounded-xl w-full md:h-[400px] h-[300px]"
             ></div>
@@ -167,11 +232,6 @@ const payCourse = async (schedule) => {
               class="relative rounded-xl md:h-[400px] h-[300px] object-cover"
             /> -->
           </div>
-          <h2
-            class="md:text-2xl text-left text-lg text-base-100 font-bold pt-2"
-          >
-            {{ coursesStore.selectedCourse.name }}
-          </h2>
         </div>
 
         <div class="md:flex justify-between mx-auto mt-6">
@@ -187,19 +247,46 @@ const payCourse = async (schedule) => {
             <div
               class="card w-full bg-accent/40 text-primary-content mt-6 mb-12"
             >
-              <div class="md:flex p-10">
-                <div class="md:w-1/3 my-auto flex">
+              <div class="md:flex md:p-8 p-4">
+                <div class="md:w-1/2 block">
+                  <p class="md:text-lg text-md text-base-100 font-bold">
+                    Precio normal:
+                    <span class="line-through italic">
+                      ${{ coursesStore.selectedCourse.price }} COP
+                    </span>
+                  </p>
                   <p class="md:text-3xl text-2xl text-success font-black">
-                    ${{ coursesStore.selectedCourse.price }} COP
+                    ${{
+                      coursesStore.selectedCourse.price -
+                      coursesStore.selectedCourse.price * 0.1
+                    }}
+                    COP
                   </p>
                 </div>
-                <div class="md:w-2/3">
+                <div class="divider my-2"></div>
+                <div class="w-full">
                   <h2 class="card-title text-lg">
-                    Descuento del 50% en la compra del siguiente curso.
+                    ¿Tienes un código de referido?
                   </h2>
                   <p class="text-sm">
-                    Aprovecha este descuento por tiempo limitado
+                    Introduce aqui tu código de referido y obten un descuento en
+                    tu compra.
                   </p>
+
+                  <div class="form-control mt-4">
+                    <label class="input-group">
+                      <input
+                        type="text"
+                        v-model="referral_code"
+                        placeholder="XYZA-22BA-9908-KUYO"
+                        class="input bg-accent font-black text-success uppercase placeholder-base-100/20"
+                      />
+                      <span
+                        class="btn bg-neutral hover:bg-primary font-bold cursor-pointer"
+                        >Verificar</span
+                      >
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
@@ -215,7 +302,8 @@ const payCourse = async (schedule) => {
         </h2>
         <ul class="steps steps-vertical text-base-100">
           <li
-            v-for="(item, key) in coursesStore.selectedCourse.content" :key="key"
+            v-for="(item, key) in coursesStore.selectedCourse.content"
+            :key="key"
             class="step cursor-default step-neutral"
           >
             <span class="text-left">
@@ -242,7 +330,8 @@ const payCourse = async (schedule) => {
       class="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 md:gap-6 sm:gap-6"
     >
       <div
-        v-for="(nrc, key_ext) in coursesStore.selectedCourse.schedule" :key="key_ext"
+        v-for="(nrc, key_ext) in coursesStore.selectedCourse.schedule"
+        :key="key_ext"
         class="card w-full bg-accent/40 text-primary-content p-0 mb-4"
       >
         <div class="card-body px-4">
@@ -254,7 +343,8 @@ const payCourse = async (schedule) => {
               </h2>
               <div v-if="nrc.teacher?.rating" class="rating space-x-2">
                 <input
-                  v-for="(i, key) in Math.floor(nrc.teacher?.rating)" :key="key"
+                  v-for="(i, key) in Math.floor(nrc.teacher?.rating)"
+                  :key="key"
                   type="radio"
                   name="rating-2"
                   class="mask mask-star-2 bg-orange-400"
@@ -270,17 +360,6 @@ const payCourse = async (schedule) => {
             </div> -->
           </div>
           <div class="card-actions justify-start mt-4">
-            <label class="input-group input-group-vertical">
-              <span class="bg-accent text-base-100/20 py-2"
-                >Código Referido</span
-              >
-              <input
-                type="text"
-                v-model="referral_code"
-                placeholder="XYZA-22BA-9908-KUYO"
-                class="input input-bordered bg-accent font-black text-success uppercase placeholder-base-100/20"
-              />
-            </label>
             <BaseCourseButton
               @click="payCourse(nrc)"
               :label="
@@ -294,7 +373,8 @@ const payCourse = async (schedule) => {
 
           <div class="carousel flex justify-start space-x-2">
             <div
-              v-for="(session, day) in nrc.calendar" :key="day"
+              v-for="(session, day) in nrc.calendar"
+              :key="day"
               class="carousel-item px-2 text-white/80 text-sm py-3 my-auto bg-black/10 rounded-lg mb-2 border-[1px] border-base-100/10 uppercase font-black cursor-default"
             >
               {{ day }}
