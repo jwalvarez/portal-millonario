@@ -19,7 +19,7 @@ app.mount("#app");
 
 const userStore = useUserStore();
 // axios.defaults.baseURL = "http://localhost:3002/";
-axios.defaults.baseURL = "https://baaf-186-82-85-217.ngrok.io/";
+axios.defaults.baseURL = "https://cb36-186-82-87-25.ngrok.io/";
 
 // TODO Try to implement the code below
 // axios.defaults.headers = {

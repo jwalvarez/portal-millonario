@@ -22,6 +22,7 @@ const userStore = useUserStore();
 
 const referral_code = ref("");
 const showVideo = ref(true);
+const error = ref(false);
 
 onMounted(async () => {
   const url = router.currentRoute.value.fullPath;
@@ -38,13 +39,22 @@ onMounted(async () => {
   }
 });
 
+const reloadPage = () => {
+  window.location.reload();
+};
+
 const getCourseById = (id) => {
-  axios.get(`/api/v1/course/${id}/`).then((response) => {
-    coursesStore.$patch({
-      selectedCourse: response.data,
+  axios
+    .get(`/api/v1/subject/${id}/`)
+    .then((response) => {
+      coursesStore.$patch({
+        selectedCourse: response.data,
+      });
+      localStorage.setItem("selectedCourse", JSON.stringify(response.data));
+    })
+    .catch((error) => {
+      error.value = true;
     });
-    localStorage.setItem("selectedCourse", JSON.stringify(response.data));
-  });
 };
 
 const verifyChecked = (index, number) => {
@@ -155,7 +165,7 @@ const toggleVideoView = () => {
 };
 </script>
 <template>
-  <div class="md:w-[80%] w-[90%] mx-auto mt-10">
+  <div v-if="!error" class="md:w-[80%] w-[90%] mx-auto mt-10">
     <div class="md:flex">
       <div class="block md:w-9/12 md:mr-10">
         <div class="text-center relative space-y-2">
@@ -409,6 +419,21 @@ const toggleVideoView = () => {
       </p>
       <div class="md:w-1/2 my-10">
         <BasePrimaryButton label="¡Empezar a invertir!" />
+      </div>
+    </div>
+  </div>
+  <div v-else class="relative h-screen flex justify-center">
+    <div class="h-auto py-20">
+      <div class="block mx-10">
+        <h2 class="text-error text-2xl font-black text-center">
+          Hubo un error al cargar el contenido del curso
+        </h2>
+        <p class="text-base-100/40 font-normal text-center">
+          Por favor, vuelve a recargar la página.
+        </p>
+        <div class="my-8 space-y-2">
+          <BaseCourseButton @click="reloadPage" label="Recargar página" />
+        </div>
       </div>
     </div>
   </div>

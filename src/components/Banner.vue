@@ -19,7 +19,7 @@
               Descubre cursos ideales para
               <span
                 class="font-extrabold text-transparent bg-clip-text bg-gradient-to-tl from-indigo-400 to-success"
-                >genera dinero con ellos.</span
+                >generar dinero con ellos.</span
               >
             </h1>
             <a class="w-2/3" href="#courses">

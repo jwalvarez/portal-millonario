@@ -1,14 +1,7 @@
 <template>
   <label
     id="registration-modal"
-    class="
-      transition-all
-      duration-300
-      modal
-      cursor-pointer
-      bg-[#090617]/95
-      h-screen
-    "
+    class="transition-all duration-300 modal cursor-pointer bg-[#090617]/95 h-screen"
   >
     <label class="md:shadow-none md:bg-transparent relative" for="">
       <Register />
@@ -36,17 +29,7 @@
       <!-- TODO: Convert this as a separated component  -->
       <div
         v-if="!authStore.isAuthenticated"
-        class="
-          relative
-          z-50
-          w-full
-          px-4
-          py-3
-          text-white/70 text-center
-          bg-gradient-to-r
-          from-primary
-          to-success
-        "
+        class="relative z-50 w-full px-4 py-3 text-white/70 text-center bg-gradient-to-r from-primary to-success"
       >
         <p class="text-xs font-inter-bold text-white/80">
           Encuentra cursos ideales para ti.
@@ -58,17 +41,7 @@
       <!-- TODO: Show/Hide Navbar then scrolling up/down -->
       <div
         v-if="showNav"
-        class="
-          sticky
-          -top-1
-          z-50
-          navbar
-          bg-[#090617]/90
-          backdrop-blur-xl
-          md:px-[10%]
-          px-0
-          py-4
-        "
+        class="sticky -top-1 z-50 navbar bg-[#090617]/90 backdrop-blur-xl md:px-[10%] px-0 py-4"
       >
         <div class="flex-1 mx-2">
           <router-link
@@ -161,14 +134,7 @@
             <router-link
               to="/perfil"
               @click="toggleMenu"
-              class="
-                text-base-100
-                font-bold
-                text-xl
-                w-full
-                flex
-                hover:text-primary
-              "
+              class="text-base-100 font-bold text-xl w-full flex hover:text-primary"
             >
               <img
                 class="md:w-16 w-12 mask mask-squircle object-contain p-0"
@@ -209,15 +175,7 @@
           </div>
           <div
             v-if="userStore.myCourses.length <= 0"
-            class="
-              card
-              w-full
-              bg-gradient-to-bl
-              from-red-500
-              to-red-400
-              text-primary-content
-              mt-4
-            "
+            class="card w-full bg-gradient-to-bl from-red-500 to-red-400 text-primary-content mt-4"
           >
             <div class="block p-6 space-y-4">
               <div class="w-full text-accent">
@@ -251,13 +209,7 @@
                   alt=""
                 />
                 <h2
-                  class="
-                    text-sm text-base-100
-                    overflow-hidden
-                    whitespace-nowrap
-                    text-ellipsis
-                    w-auto
-                  "
+                  class="text-sm text-base-100 overflow-hidden whitespace-nowrap text-ellipsis w-auto"
                 >
                   {{ item.course }}
                 </h2>
@@ -272,14 +224,7 @@
         </div>
         <div
           v-else
-          class="
-            card
-            w-full
-            bg-accent/40
-            text-primary-content
-            mb-6
-            shadow-[6px_6px_0px_rgba(0,212,155,1)]
-          "
+          class="card w-full bg-accent/40 text-primary-content mb-6 shadow-[6px_6px_0px_rgba(0,212,155,1)]"
         >
           <div class="card-body text-base-100">
             <h2 class="card-title text-lg">
@@ -308,17 +253,7 @@
             :key="index"
             @click="toggleMenu"
             s
-            class="
-              flex
-              justify-center
-              items-center
-              mr-2
-              mb-2
-              bg-accent/40
-              hover:bg-accent
-              rounded-lg
-              h-10
-            "
+            class="flex justify-center items-center mr-2 mb-2 bg-accent/40 hover:bg-accent rounded-lg h-10"
           >
             <h2 class="text-sm text-bold text-success">{{ item.title }}</h2>
           </router-link>
@@ -440,20 +375,18 @@ export default {
   methods: {
     async logout() {
       try {
-        await axios
-          .post("/auth/logout/")
-          .then((response) => {
-            if (response.status == 200) {
-              this.authStore.$reset();
-              this.userStore.$reset();
-              localStorage.removeItem("isAuthenticated");
-              localStorage.removeItem("token");
-              localStorage.removeItem("user");
-              // TODO: redirect to bye bye user page
-            } else {
-              console.log(response);
-            }
-          });
+        await axios.post("/auth/logout/").then((response) => {
+          if (response.status == 200) {
+            this.authStore.$reset();
+            this.userStore.$reset();
+            localStorage.removeItem("isAuthenticated");
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            // TODO: redirect to bye bye user page
+          } else {
+            console.log(response);
+          }
+        });
       } catch (error) {
         // TODO: Show toast error
         console.log(error);
@@ -466,14 +399,18 @@ export default {
       });
     },
     async getBoughtCourses() {
+      // TODO: Fix endpoint URL to get bought courses
       try {
         await axios
-          .get("/api/v1/user/student/get_courses_bought/", {
-            headers: {
-              Authorization:
-                "Token " + JSON.parse(localStorage.getItem("user")).token,
-            },
-          })
+          .get(
+            "https://cb36-186-82-87-25.ngrok.io/api/v1/user/student/get_courses_bought/",
+            {
+              headers: {
+                Authorization:
+                  "Token " + JSON.parse(localStorage.getItem("user")).token,
+              },
+            }
+          )
           .then((response) => {
             this.setMyCourses(response.data);
           });
